@@ -34,6 +34,16 @@ class Courseregister extends Component {
     toggle(){    
         this.setState({ collapse: !this.state.collapse });
         }
+
+    handleSubmit = (values) => {
+            this.props.dispatch(saveUser(values)).then(() => {
+                if (!this.props.userSave.isRejected) {
+                    this.toggle()
+                    this.props.dispatch(loadUsers())
+                    {alertify.success('บันทึกข้อมูลเรียบร้อยแล้ว')}
+                }
+            })
+        }  
            
     render() {
         return (
@@ -60,12 +70,11 @@ class Courseregister extends Component {
                    </FormGroup>
                    <FormGroup>
                        <Field name="Course_detail" component={renderField} textarea type="text" label="รายละเอียด" />
-                    </FormGroup>
-                    <FormGroup>
-                        <Field name="Course_Administrator" component={renderField} type="text" label="ผู้ดูแลหลักสูตร" />
-                    </FormGroup>
-                    
-                
+                    </FormGroup> 
+                    <div className="form-actions">
+                    <Button onClick={this.handleSubmit} type="submit" color="primary">Save changes</Button>
+                    <Button color="secondary">Cancel</Button>
+                    </div>
                   </Form>
                   </CardBody>
                   </Collapse>
@@ -75,36 +84,23 @@ class Courseregister extends Component {
             </div>
         );
     }
+
+   
+
 }
 
 function validate(values) {
     const errors = {};
-    // if (!values.first_name) {
-    //     errors.first_name = 'จำเป็นต้องกรอกชื่อ';
-    // }
-    // if(!values.last_name){
-    //     errors.last_name = 'จำเป็นต้องกรอก นามสกุล'
-    // }
-    // if (!values.username) {
-    //     errors.username = 'จำเป็นต้องกรอก Username !';
-    // } else if (values.username.length < 6) {
-    //     errors.username = 'Username ต้องมากกว่า 6 ตัวอักษร !';
-    // }
-    // if(!values.password){
-    //     errors.password ="จำเป็นต้องกรอก password"
-    // }else if(values.password.length < 6){
-    //     errors.password = "Password จำเป็นต้องมีไม่น้อยกว่า 6 ตัวอักษร"
-    // }
-    // if(!values.confirm_password){
-    //     errors.confirm_password = 'จำเป็นต้องยืนยันรหัสผ่าน'
-    // }
-    // else if (values.password != values.confirm_password){
-    //     errors.confirm_password ="การยืนยันรหัสผ่านผิด กรุณาลองอีกครั้ง !"
-    //     errors.password ="การยืนยันรหัสผ่านผิด กรุณาลองอีกครั้ง !"
-    // } 
+    if (!values.Course_name) {
+        errors.first_name = 'จำเป็นต้องกรอกฟิลด์นี้';
+    }
+    if(!values.Course_nameEng){
+        errors.Course_nameEng = 'จำเป็นต้องกรอกฟิลด์นี้'
+    }
 
     return errors;
 }
+
 
 //เรียกใช้ redux-form โดยให้มีการเรียกใช้การ validate ด้วย
 const form = reduxForm({
