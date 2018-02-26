@@ -23,7 +23,9 @@ import {
     InputGroupAddon,
     InputGroupText
   } from 'reactstrap';
+  
   import { Field, reduxForm } from 'redux-form';
+  import { Route, Redirect } from 'react-router'
 class Courseregister extends Component {
     constructor(props) {
         super(props);
@@ -33,14 +35,18 @@ class Courseregister extends Component {
 
     toggle(){    
         this.setState({ collapse: !this.state.collapse });
-        }
 
+        }
+   
     handleSubmit (values) {
             this.props.dispatch(saveCourse(values)).then(() => {
-                if (!this.props.userSave.isRejected) {
-                    this.toggle()
-                    this.props.dispatch(loadCourse())
-                    {alertify.success('บันทึกข้อมูลเรียบร้อยแล้ว')}
+                if (!this.props.courseSave.isRejected) {
+                     this.props.dispatch(loadCourse())   
+                    return(
+                        <Switch>
+                        <Redirect from='/course/register' to='/course'/>
+                        </Switch>
+                    )
                 }
             })
         }  
@@ -48,40 +54,53 @@ class Courseregister extends Component {
     render() {
         return (
             <div className="animated fadeIn">
-        <Row>
-           <Col xs="12">
-             <Card>
-               <CardHeader>
-                 <i className="fa fa-edit"></i>Form Elements
-                 <div className="card-actions">
-                   <a href="#" className="btn-setting"><i className="icon-settings"></i></a>
-                   <Button className="btn btn-minimize" data-target="#collapseExample" onClick={this.toggle}><i className="icon-arrow-up"></i></Button>
-                   <a href="#" className="btn-close"><i className="icon-close"></i></a>
-                 </div>
-                 <i className="fa fa-check float-right"></i>
-               </CardHeader>
-               <Collapse isOpen={this.state.collapse} id="collapseExample">
-                 <CardBody>
-                 <Form className="form-horizontal">
-                   <FormGroup>
-                   <Field name="Course_name" component={renderField}  type="text" label="ชื่อหลักสูตร" autoFocus />
-                   </FormGroup>
-                   <FormGroup>
-                      <Field name="Course_nameEng" component={renderField}  type="text" label="ชื่อภาษาอังกฤษ" />
-                   </FormGroup>
-                   <FormGroup>
-                       <Field name="Course_detail" component={renderField} textarea type="text" label="รายละเอียด" />
-                    </FormGroup> 
-                    <div className="form-actions">
-                    <Button onClick={this.handleSubmit} type="submit" color="primary">Save changes</Button>
-                    <Button color="secondary">Cancel</Button>
-                    </div>
-                  </Form>
-                  </CardBody>
-                  </Collapse>
-                </Card>
-                </Col>
-                </Row>  
+                <Row>
+                <Col xs="12">
+                    <Card>
+                    <CardHeader>
+                        <i className="fa fa-edit"></i> ลงทะเบียนข้อมูลหลักสูตร
+                        <div className="card-actions">
+                        <a href="#" className="btn-setting"><i className="icon-settings"></i></a>
+                        <Button className="btn btn-minimize" data-target="#collapseExample" onClick={this.toggle}><i className="icon-arrow-up"></i></Button>
+                        <a href="#" className="btn-close"><i className="icon-close"></i></a>
+                        </div>
+                    
+                    </CardHeader>
+                    <Collapse isOpen={this.state.collapse} id="collapseExample">
+                        <CardBody>
+                        <Form className="form-horizontal">
+                        <FormGroup>
+                        <Field name="course_name" component={renderField}  type="text" label="ชื่อหลักสูตร" autoFocus />
+                        </FormGroup>
+                        <FormGroup>
+                            <Field name="course_nameEng" component={renderField}  type="text" label="ชื่อภาษาอังกฤษ" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Field name="course_detail" component={renderField} textarea type="text" label="รายละเอียด" />
+                            </FormGroup> 
+                            <FormGroup>
+                            <div  className="field">
+                                <label>สถานะ</label>
+                                <div className="control" >
+                                    <label className="radio">
+                                        <Field name="course_status"  component="input" type="radio" selected value="0"/>{' '}ระงับการใช้งาน
+                                    </label>
+                                    <label className="radio"> 
+                                        <Field name="course_status" component="input" type="radio" value="1"/>{' '}เปิดการใช้งาน 
+                                    </label>
+                                </div>
+                            </div>
+                            </FormGroup>
+                            <div className="form-actions"> 
+                            <Button color="secondary">Back</Button>{ ' '}
+                            <Button onClick={this.handleSubmit}  color="primary">Save changes</Button>     
+                            </div>
+                        </Form>
+                        </CardBody>
+                        </Collapse>
+                        </Card>
+                        </Col>
+                        </Row>  
             </div>
         );
     }
@@ -92,12 +111,13 @@ class Courseregister extends Component {
 
 function validate(values) {
     const errors = {};
-    if (!values.Course_name) {
-        errors.first_name = 'จำเป็นต้องกรอกฟิลด์นี้';
+    if (!values.course_name) {
+        errors.course_name = 'จำเป็นต้องกรอกฟิลด์นี้';
     }
-    if(!values.Course_nameEng){
-        errors.Course_nameEng = 'จำเป็นต้องกรอกฟิลด์นี้'
+    if(!values.course_nameEng){
+        errors.course_nameEng = 'จำเป็นต้องกรอกฟิลด์นี้'
     }
+    
 
     return errors;
 }

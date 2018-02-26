@@ -26,7 +26,7 @@ class Coursemanage extends Component {
                 <i className="icon-note"></i> จัดการ หลักสูตร <i class="icon-plus float-right"></i>
               </CardHeader>
               <CardBody>
-                <Table hover bordered striped responsive size="sm">
+                <Table hover bordered striped responsive size="lg">
                   <thead>
                   <tr>
                     <th>ชื่อหลักสูตร</th>
@@ -36,6 +36,7 @@ class Coursemanage extends Component {
                   </tr>
                   </thead>
                   <tbody>
+                    
                   <tr>
                     <td>Vishnu Serghei</td>
                     <td>2012/01/01</td>
