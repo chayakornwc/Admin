@@ -35,11 +35,11 @@ class Courseregister extends Component {
         this.setState({ collapse: !this.state.collapse });
         }
 
-    handleSubmit = (values) => {
-            this.props.dispatch(saveUser(values)).then(() => {
+    handleSubmit (values) {
+            this.props.dispatch(saveCourse(values)).then(() => {
                 if (!this.props.userSave.isRejected) {
                     this.toggle()
-                    this.props.dispatch(loadUsers())
+                    this.props.dispatch(loadCourse())
                     {alertify.success('บันทึกข้อมูลเรียบร้อยแล้ว')}
                 }
             })
@@ -58,6 +58,7 @@ class Courseregister extends Component {
                    <Button className="btn btn-minimize" data-target="#collapseExample" onClick={this.toggle}><i className="icon-arrow-up"></i></Button>
                    <a href="#" className="btn-close"><i className="icon-close"></i></a>
                  </div>
+                 <i className="fa fa-check float-right"></i>
                </CardHeader>
                <Collapse isOpen={this.state.collapse} id="collapseExample">
                  <CardBody>

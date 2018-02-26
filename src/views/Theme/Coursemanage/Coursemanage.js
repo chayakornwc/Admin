@@ -23,7 +23,7 @@ class Coursemanage extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="icon-note"></i> จัดการ หลักสูตร
+                <i className="icon-note"></i> จัดการ หลักสูตร <i class="icon-plus float-right"></i>
               </CardHeader>
               <CardBody>
                 <Table hover bordered striped responsive size="sm">

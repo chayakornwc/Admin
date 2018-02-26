@@ -20,17 +20,17 @@ export default {
     },
     {
       name: 'จัดการหลักสูตร',
-      url: '/course/manage',
+      url: '/course',
       icon: 'icon-pencil',
     },
     {
-      name: 'Typography',
-      url: '/theme/typography',
-      icon: 'icon-pencil',
+      name: 'จัดการการอบรม',
+      url: '/period/training',
+      icon: 'icon-calendar',
     },
     {
       title: true,
-      name: 'Components',
+      name: 'components',
       wrapper: {
         element: '',
         attributes: {}
@@ -249,19 +249,6 @@ export default {
           icon: 'icon-star'
         }
       ]
-    },
-    {
-      name: 'Download CoreUI',
-      url: 'http://coreui.io/react/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success'
-    },
-    {
-      name: 'Try CoreUI PRO',
-      url: 'http://coreui.io/pro/react/',
-      icon: 'icon-layers',
-      variant: 'danger'
     }
   ]
 };

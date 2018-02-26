@@ -1,5 +1,5 @@
 const routes = {
-  '/': 'Home',
+  '/': 'Conference Manager',
   '/base': 'Base',
   '/base/cards': 'Cards',
   '/base/forms': 'Forms',
@@ -33,7 +33,7 @@ const routes = {
   '/notifications/badges': 'Badges',
   '/notifications/modals': 'Modals',
   '/theme': 'Theme',
-  '/course/manage':'Coursemanage',
+  '/course':'course',
   '/course/register':'Courseregister',
   '/theme/colors': 'Colors',
   '/theme/typography': 'Typography',

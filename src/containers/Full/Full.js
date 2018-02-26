@@ -65,9 +65,9 @@ class Full extends Component {
             <Breadcrumb/>
             <Container fluid>
               <Switch>
-                <Route path="/dashboard" name="Dashboard" component={Dashboard}/>           
-                <Route path="/course/manage" name="Coursemanage" component={Coursemanage} />
-                <Route path="/course/register" name="Courseregister" component={Courseregister} />
+                <Route path="/dashboard" name="Dashboard" component={Dashboard}/> 
+                <Route path="/course/register" name="Courseregister" component={Courseregister} />          
+                <Route path="/course" name="Course" component={Coursemanage} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
                 <Route path="/base/forms" name="Forms" component={Forms}/>
