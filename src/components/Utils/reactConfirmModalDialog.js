@@ -4,19 +4,17 @@ import { render } from 'react-dom';
 
 import { Modal, ModalHeader, Button, ModalBody, ModalFooter } from 'reactstrap';
 
-state = {
-    modal: this.props.show
-}
-
 //รูปแบบการเขียนต่อไปนี้จะเข้าใจยากครับต้องใช้เวลานานเพื่อทำและทดสอบ
 //มันเป็นรูปแบบของการสร้าง Element ขึ้นมาใหม่
 export default class ReactConfirmModalDialog extends Component {
     //เก็บ State เพื่อกำหนดว่าจะให้แสดง Modal หรือไม่
-    
+    state = {
+        modal: this.props.show
+    }
 
     //ใช้งาน PropTypes เป็นการเช็คค่า Props ที่ส่งเข้ามาว่าตรงตามที่เรากำหนดหรือไม่
     //เหมือนการตรวจสอบการทำงานของโปรแกรมเพื่อไม่ให้เกิดข้อผิดพลาด
-     propTypes = {
+    static propTypes = {
         type: PropTypes.string, //รับค่าตัวข้อความ warning, info
         show: PropTypes.bool,   //รับค่า true , false เพื่อกำหนดว่าจะแสดง Modal หรือไม่
         title: PropTypes.string,    //รับค่าข้อความเพื่อแสดงหัวของ Modal
@@ -29,7 +27,7 @@ export default class ReactConfirmModalDialog extends Component {
     };
 
     //กำหนด Default Props
-     defaultProps = {
+    static defaultProps = {
         type: 'warning',
         show: false,
         title: '',
