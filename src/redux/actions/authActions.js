@@ -25,10 +25,10 @@ export const signin = ({ username, password }) => {
                             })
                 }
         }   
-        export const signout = () => {
-            return (dispatch) => {
-                localStorage.removeItem('token')
-                dispatch({ type: 'UNAUTH_USER' })
-                browserHistory.push('/signin')
-                }
+export const signout = () => {
+    return (dispatch) => {
+            localStorage.removeItem('token')
+            dispatch({ type: 'UNAUTH_USER' })
+            browserHistory.push('/signin')
         }
+    }

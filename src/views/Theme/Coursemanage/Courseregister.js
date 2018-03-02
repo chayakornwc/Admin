@@ -1,57 +1,63 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import renderField from '../../../components/Utils/renderFields';
-import {
-    Row,
-    Col,
-    Button,
-    ButtonDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    Card,
-    CardHeader,
-    CardFooter,
-    CardBody,
-    Collapse,
-    Form,
-    FormGroup,
-    FormText,
-    Label,
-    Input,
-    InputGroup,
-    InputGroupAddon,
-    InputGroupText
-  } from 'reactstrap';
+import ReactDOM from 'react-dom';
+import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import { loadCourse, getCourse, saveCourse,deleteCourse } from '../../../redux/actions/courseActions';
   
-  import { Field, reduxForm } from 'redux-form';
-  import { Route, Redirect } from 'react-router'
+import { Field, reduxForm } from 'redux-form';
+import { Route, Redirect } from 'react-router';
+import { connect } from 'react-redux';
+
+const alertify = require('alertify.js');
 class Courseregister extends Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
-        this.state = { collapse: true };
-            } 
+        this.state = { collapse: true, visible:true };
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onDismiss = this.onDismiss.bind(this);
+
+      
+
+        } 
+        
 
     toggle(){    
         this.setState({ collapse: !this.state.collapse });
 
         }
-   
-    handleSubmit (values) {
-            this.props.dispatch(saveCourse(values)).then(() => {
-                if (!this.props.courseSave.isRejected) {
-                     this.props.dispatch(loadCourse())   
-                    return(
-                        <Switch>
-                        <Redirect from='/course/register' to='/course'/>
-                        </Switch>
-                    )
+            
+    componentDidMount() {
+        this.handleInitialize()
+        console.log(this.props.courseSave)
+    }
+    handleInitialize() {
+        let initData = {
+            "course_detail": '',
+            "course_name":'',
+            "course_nameEng": '',
+            "course_status": 0
+        };
+        this.props.initialize(initData);
+    }
+    onSubmit(e){
+        this.props.dispatch(saveCourse(e)).then(()=>{
+                if(!this.props.courseSave.isRejected){
+                    alertify.success('บันทึกข้อมูลเรียบร้อยแล้ว')
+                    this.handleInitialize(); 
+                }else{
+                    this.setState({ visible: true });
                 }
-            })
-        }  
-           
+                
+        })
+    }
+    onDismiss() {
+        this.setState({ visible: false });
+      }
     render() {
+        const  { handleSubmit, courseSave } = this.props;
+      
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -68,7 +74,9 @@ class Courseregister extends Component {
                     </CardHeader>
                     <Collapse isOpen={this.state.collapse} id="collapseExample">
                         <CardBody>
+                            {courseSave.isRejected && <Alert isOpen={this.state.visible} color="danger" toggle={this.onDismiss}>{courseSave.data}</Alert>}
                         <Form className="form-horizontal">
+                       
                         <FormGroup>
                         <Field name="course_name" component={renderField}  type="text" label="ชื่อหลักสูตร" autoFocus />
                         </FormGroup>
@@ -92,8 +100,8 @@ class Courseregister extends Component {
                             </div>
                             </FormGroup>
                             <div className="form-actions"> 
-                            <Button color="secondary">Back</Button>{ ' '}
-                            <Button onClick={this.handleSubmit}  color="primary">Save changes</Button>     
+                            <Button  color="secondary">Back</Button>{ ' '}
+                            <Button  onClick={handleSubmit(this.onSubmit)} color="primary">Save changes</Button>     
                             </div>
                         </Form>
                         </CardBody>
@@ -104,8 +112,6 @@ class Courseregister extends Component {
             </div>
         );
     }
-
-   
 
 }
 
@@ -128,9 +134,14 @@ const form = reduxForm({
     form: 'Courseregister',
     validate
 })
+const mapStateToProps = (state) => ({
+      courses:state.courseReducer.courses,
+      course:state.courseReducer.course,
+      courseDelete:state.courseReducer.courseDelete,
+      courseSave:state.courseReducer.courseSave
+});
 
-//สังเกตุว่าไม่มีการใช้ connect เลยเพราะเราไม่ได้เป็นตัวจัดการ data โดยตรง
-//แต่ส่งสิ่งต่างๆผ่าน props ที่ได้จาก src/pages/User.js
+Courseregister = connect(mapStateToProps)(Courseregister);
 export default form(Courseregister)
 
 

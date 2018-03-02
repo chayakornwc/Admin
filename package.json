@@ -1,10 +1,9 @@
 {
-  "name": "@coreui/react",
+  "name": "@admin/react",
   "version": "1.0.10",
   "description": "Open Source Bootstrap Admin Template",
-  "author": "Łukasz Holeczek",
-  "homepage": "http://coreui.io",
-  "copyright": "Copyright 2018 creativeLabs Łukasz Holeczek",
+  "author": "chayakorn wc",
+  "copyright": "chayakornwc",
   "license": "MIT",
   "private": true,
   "devDependencies": {
@@ -32,6 +31,7 @@
   },
   "dependencies": {
     "alertify": "^0.3.0",
+    "alertify.js": "^1.0.12",
     "alertifyjs": "^1.11.0",
     "axios": "^0.17.1",
     "bootstrap": "4.0.0",
