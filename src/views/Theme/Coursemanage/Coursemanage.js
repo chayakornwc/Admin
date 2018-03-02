@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import {
    Badge,
   Row,
@@ -13,34 +12,32 @@ import {
   PaginationLink
 } from 'reactstrap';
 import {connect} from 'react-redux'
-import { debounce } from 'lodash';
-import { Modal, ModalHeader } from 'reactstrap';
-import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
+
 import { loadCourse, getCourse, saveCourse,deleteCourse } from '../../../redux/actions/courseActions';
+import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
 const moment = require('moment');
 moment.locale('th');
-// const alertify = require('alertify.js')
-// {courses.isLoading && alertify.success('Loding...')}
+
 class Coursemanage extends Component {
   constructor(props){
     super(props);
-   
+
   }
       
     componentDidMount(){
        this.props.dispatch(loadCourse())
-       console.log(this.props.courses.data)
+      
     }
    
     handleEdit(){
       alert('eidt');
     }
-    handleDelete(){
+    handleDelete(id){
       alert('delete');
     }
-    // map this.props.courses.data 
+    
   render() {
-  const state = {data:false}
+   
     const {course, courses, courseDelete, courseSave} = this.props
 
       if(courses.isRejected){
@@ -125,20 +122,7 @@ class Coursemanage extends Component {
 
 }
 
-handleDelete = (id) => {
-  confirmModalDialog({
-      show: true,
-      title: 'ยืนยันการลบ',
-      message: 'คุณต้องการลบข้อมูลผู้ใช้นี้ใช่หรือไม่',
-      confirmLabel: 'ยืนยัน ลบทันที!!',
-      onConfirm: () => this.props.dispatch(deleteUser(id)).then(() => {
-          this.props.dispatch(loadUsers())
-          if(!this.props.userDelete.isRejected){
-              {alertify.success('ลบข้อมูลผู้ใช้เรียบร้อยแล้ว')}
-          }
-      })
-  })
-}
+
   function mapStateToProps(state){
     return{
       courses:state.courseReducer.courses,

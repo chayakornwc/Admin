@@ -17,9 +17,6 @@ class Courseregister extends Component {
         this.state = { collapse: true, visible:true };
         this.onSubmit = this.onSubmit.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
-
-      
-
         } 
         
 

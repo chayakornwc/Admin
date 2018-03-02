@@ -4,37 +4,67 @@ import { render } from 'react-dom';
 
 import { Modal, ModalHeader, Button, ModalBody, ModalFooter } from 'reactstrap';
 
-toggle = () => {
-    this.setState({
-        modal: !this.state.modal
-    })
-
-    const target = document.getElementById('react-widget-dialog');
-    if (target) {
-        target.parentNode.removeChild(target);
-    }
+state = {
+    modal: this.props.show
 }
-onClickConfirm = () => {
-    this.props.onConfirm();
-    this.toggle()
-};
-
-onClickCancel = () => {
-    this.props.onCancel();
-    this.toggle()
-};
 
 //รูปแบบการเขียนต่อไปนี้จะเข้าใจยากครับต้องใช้เวลานานเพื่อทำและทดสอบ
 //มันเป็นรูปแบบของการสร้าง Element ขึ้นมาใหม่
 export default class ReactConfirmModalDialog extends Component {
-   
+    //เก็บ State เพื่อกำหนดว่าจะให้แสดง Modal หรือไม่
     
 
-    
+    //ใช้งาน PropTypes เป็นการเช็คค่า Props ที่ส่งเข้ามาว่าตรงตามที่เรากำหนดหรือไม่
+    //เหมือนการตรวจสอบการทำงานของโปรแกรมเพื่อไม่ให้เกิดข้อผิดพลาด
+     propTypes = {
+        type: PropTypes.string, //รับค่าตัวข้อความ warning, info
+        show: PropTypes.bool,   //รับค่า true , false เพื่อกำหนดว่าจะแสดง Modal หรือไม่
+        title: PropTypes.string,    //รับค่าข้อความเพื่อแสดงหัวของ Modal
+        message: PropTypes.string,  //ข้อความที่ต้องการให้ปรากฏใน Modal
+        confirmLabel: PropTypes.string, //ข้อความปุ่มยืนยัน
+        cancelLabel: PropTypes.string,  //ข้อความปุ่มยกเลือก
+        onConfirm: PropTypes.func,  //เมื่อยืนยันจะให้เรียกใช้ function อะไร
+        onCancel: PropTypes.func,   //เมื่อยกเลือกจะให้เรียกใช้ function อะไร
+        children: PropTypes.node,   //สามารถระบุ element ย่อยได้ ปกติจะไม่ได้ใช้
+    };
+
+    //กำหนด Default Props
+     defaultProps = {
+        type: 'warning',
+        show: false,
+        title: '',
+        message: '',
+        childrenElement: () => null,
+        confirmLabel: '',
+        cancelLabel: 'ปิด',
+
+    };
+
+    //ควบคุมการแสดง Modal
+    toggle = () => {
+        this.setState({
+            modal: !this.state.modal
+        })
+
+        const target = document.getElementById('react-widget-dialog');
+        if (target) {
+            target.parentNode.removeChild(target);
+        }
+    }
+
+    onClickConfirm = () => {
+        this.props.onConfirm();
+        this.toggle()
+    };
+
+    onClickCancel = () => {
+        this.props.onCancel();
+        this.toggle()
+    };
 
     render() {
         const { title, message, confirmLabel, cancelLabel, type } = this.props;
-        
+
         let buttonColor, modalColor;
         switch (type) {
             case 'info':
@@ -76,5 +106,4 @@ function createElementDialog(properties) {
 //สุดท้ายส่งออกเป็นชื่อ confirmModalDialog
 export function confirmModalDialog(properties) {
     createElementDialog(properties);
-    
 }
