@@ -12,10 +12,14 @@ import {
   PaginationItem,
   PaginationLink
 } from 'reactstrap';
-
+import {loadCourse} from '../../../redux/actions/courseActions';
 
 class Coursemanage extends Component {
  
+  ComponentDidMount(){
+    this.props.dispatch(loadCourse());
+  }
+  
   render() {
     return (
       <div className="animated fadeIn"> 
@@ -36,8 +40,8 @@ class Coursemanage extends Component {
                   </tr>
                   </thead>
                   <tbody>
-                    
-                  <tr>
+                   { courses.data && course.data.map() } 
+                  {/* <tr>
                     <td>Vishnu Serghei</td>
                     <td>2012/01/01</td>
                     <td>Member</td>
@@ -76,7 +80,7 @@ class Coursemanage extends Component {
                     <td>
                       <Badge color="success">Active</Badge>
                     </td>
-                  </tr>
+                  </tr> */}
                   </tbody>
                 </Table>
                 <nav>
