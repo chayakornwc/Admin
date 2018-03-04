@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Button, ModalBody, ModalFooter } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form';
-import renderField from '../../../components/Utils/renderFields';
+import renderField from '../Utils/renderFields';
 class CourseForm extends Component {
     render() {
-        const { handleSubmit, CourseSave } = this.props
+        const { handleSubmit, courseSave } = this.props
         return (
             <div>
                  <ModalBody>
                     {/* ตรวจสอบว่ามี err หรือไม่ */}
-                    {CourseSave.isRejected && <div className="alert alert-danger">{CourseSave.data}</div>}
+                    {courseSave.isRejected && <div className="alert alert-danger">{courseSave.data}</div>}
 
                     {/* รูปแบบการแสดงผลจัดตาม Bootstrap 4 */}
                     <div className="form-group row">
@@ -38,6 +38,12 @@ class CourseForm extends Component {
                 </ModalFooter>
             </div>
         );
+    }
+    toggle = () => {
+        this.props.onToggle()
+    }
+    onSubmit = (values) => {
+        this.props.onSubmit(values);
     }
 }
 

@@ -6,13 +6,15 @@ import { loadCourse, getCourse, saveCourse,deleteCourse, resetStatus } from '../
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
 import CourseTable from '../../../components/course/CourseTable';
 import CourseForm from '../../../components/course/CourseForm';
-import { Modal } from 'reactstrap';
+import { Modal, ModalHeader } from 'reactstrap';
 const alertify = require('alertify.js')
 class Coursemanage extends Component {
   constructor(props){
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
-
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.ModalHeader = this.modalToggle.bind(this);
   }
     state = {
       modal:false,
@@ -24,7 +26,7 @@ class Coursemanage extends Component {
       
     }
    
-    handleEdit(){
+    handleEdit(id){
       this.props.dispatch(resetStatus())
       this.setState({modalTitle:'แก้ไข'})
       this.props.dispatch(getCourse(id)).then(()=>{
@@ -32,7 +34,7 @@ class Coursemanage extends Component {
       })
     }
     handleSubmit(){
-      
+
     }
     modalToggle(){
       this.setState({
@@ -42,7 +44,7 @@ class Coursemanage extends Component {
    
   render() {
    
-    const {course, courses, courseDelete, courseSave, Target} = this.props
+    const {course, courses, courseDelete, courseSave} = this.props
 
       if(courses.isRejected){
         return<div>{courses.data}</div>
@@ -53,10 +55,10 @@ class Coursemanage extends Component {
       <div className="animated fadeIn"> 
         <CourseTable data={courses.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-primary" autoFocus={false}  style={ModalStyle}>
-                   
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-primary" autoFocus={false}  >
+          <ModalHeader toggle={this.toggle}>แก้ไขหลักสูตร</ModalHeader>
                     {/* เรียกใช้งาน Component UserForm และส่ง props ไปด้วย 4 ตัว */}
-                    <CourseForm  header="แก้ไขหลักสูตร"   data={course.data} courseSave={courseSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
+                    <CourseForm  data={course.data} courseSave={courseSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
           </Modal>
       </div>
     )

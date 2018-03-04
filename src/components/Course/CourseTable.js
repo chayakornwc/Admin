@@ -57,7 +57,7 @@ class CourseTable extends Component {
                         <td>{moment(e.time_stamp).format('lll')}</td>
                         <td>ไม่ระบุ</td>
                         <td><Badge color={statusColor(e.course_status)}>{statusName(e.course_status)}</Badge></td>
-                        <td className="text-center"><i onClick={buttonEdit} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(e.course_id)} className="fa fa-times"></i></td>
+                        <td className="text-center"><i onClick={()=>buttonEdit(e.course_id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(e.course_id)} className="fa fa-times"></i></td>
                       </tr>
                     )
                   })}                
