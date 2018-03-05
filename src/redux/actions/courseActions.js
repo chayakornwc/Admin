@@ -73,7 +73,7 @@ export const saveCourse = (values)=>{
 }
 export const deleteCourse = (id)=>{
     return(dispatch)=>{
-        return axios.delete(`${BASE_URL}/courses/${id}`,{
+        return axios.delete(`${BASE_URL}/course/${id}`,{
             header:{authorization:'emptystring'}
         }).then(results =>{
             dispatch({

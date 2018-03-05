@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import {
    Badge,
   Row,
@@ -21,32 +22,63 @@ class Coursemanage extends Component {
   }
   
 =======
+=======
+
+>>>>>>> 6f32e7558e88a54df0e34a6125e1869cb776dad0
 import {connect} from 'react-redux'
 
-import { loadCourse, getCourse, saveCourse,deleteCourse } from '../../../redux/actions/courseActions';
+import { loadCourse, getCourse, saveCourse,deleteCourse, resetStatus } from '../../../redux/actions/courseActions';
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
-const moment = require('moment');
-moment.locale('th');
-
+import CourseTable from '../../../components/course/CourseTable';
+import CourseForm from '../../../components/course/CourseForm';
+import { Modal, ModalHeader } from 'reactstrap';
+const alertify = require('alertify.js')
 class Coursemanage extends Component {
+  state = {
+    modal:false,
+    modalTitle:''
+    }
+    
   constructor(props){
     super(props);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.modalToggle = this.modalToggle.bind(this);
 
   }
-      
+ 
     componentDidMount(){
        this.props.dispatch(loadCourse())
       
     }
    
-    handleEdit(){
-      alert('eidt');
+    handleEdit(id){
+      this.props.dispatch(resetStatus())
+      this.setState({modalTitle:'แก้ไข'})
+      this.props.dispatch(getCourse(id)).then(()=>{
+      this.modalToggle()
+      })
     }
-    handleDelete(id){
-      alert('delete');
+    handleSubmit(){
+      this.props.dispatch(saveCourse(values)).then(() => {
+        if (!this.props.courseSave.isRejected) {
+            this.toggle()
+            this.props.dispatch(loadCourse())
+        }
+    })
     }
+<<<<<<< HEAD
     
 >>>>>>> 3f0cd9eaf826fd82eb126031e36e1e3a51bea086
+=======
+    modalToggle(){
+      this.setState({
+        modal:!this.state.modal
+      })
+    }
+   
+>>>>>>> 6f32e7558e88a54df0e34a6125e1869cb776dad0
   render() {
    
     const {course, courses, courseDelete, courseSave} = this.props
@@ -54,31 +86,11 @@ class Coursemanage extends Component {
       if(courses.isRejected){
         return<div>{courses.data}</div>
       }
-     const statusColor = (data)=>{
-      switch(data){
-        case 1:
-        return 'success';
-        break;
-        default:
-        return'danger';
-        break;
-     }
-    }
-    const statusName = (data) =>{
-      switch(data){
-        case 0 :
-        return 'ระงับการใช้งาน';
-        case 1:
-        return 'เปิดใช้งาน';
-        break;
-        default:
-        return 'รอการตรวจสอบ';
-        break;
-      }
-    }
+      
     
     return (
       <div className="animated fadeIn"> 
+<<<<<<< HEAD
         <Row>
           <Col>
             <Card>
@@ -171,12 +183,36 @@ class Coursemanage extends Component {
             </Card>
           </Col>
         </Row> 
+=======
+        <CourseTable data={courses.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
+
+        <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary" autoFocus={false}  >
+          <ModalHeader toggle={this.modalToggle}>แก้ไขหลักสูตร</ModalHeader>
+                    {/* เรียกใช้งาน Component UserForm และส่ง props ไปด้วย 4 ตัว */}
+                    <CourseForm  data={course.data}  courseSave={courseSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
+          </Modal>
+>>>>>>> 6f32e7558e88a54df0e34a6125e1869cb776dad0
       </div>
     )
   }
 
-}
+  handleDelete=(id)=>{
+    confirmModalDialog({
+      show:true,
+      title:'ยืนยันการลบ',
+      confirmLabel:'ยืนยัน ลบทันที',
+      message:'คุณต้องการลบใช่หรือไม่',
+      onConfirm: () => this.props.dispatch(deleteCourse(id)).then(() => {
+        this.props.dispatch(loadCourse())
+        if(!this.props.courseDelete.isRejected){
+            { alertify.alert('ลบข้อมูลหลักสูตรเรียบร้อยแล้ว').set('basic', true)}
+        }
+        })
+      })
+  }
 
+}
+  
 
   function mapStateToProps(state){
     return{
