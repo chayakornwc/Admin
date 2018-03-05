@@ -3,7 +3,33 @@ import { Button, ModalBody, ModalFooter } from 'reactstrap';
 import { Field, reduxForm } from 'redux-form';
 import renderField from '../Utils/renderFields';
 class CourseForm extends Component {
+    constructor(props){
+        super(props)
+        
+    }
+    componentDidMount(){
+        this.handleInitialize();
+    }
+    handleInitialize(){ 
+        let initData = {
+            course_id:'',
+            course_status:null,
+            course_name:'',
+            course_nameEng:'',
+            course_detail:''
+        }
+            if(this.props.data.course_id){
+                initData = this.props.data
+                //status ที่รับมาเป็น init แต่value ต้องแปลงเป็น string ก่อน
+                initData.course_status = this.props.data.course_status.toString()
+            }
+            // method of redux-form
+           
+            this.props.initialize(initData);
+    }
+    
     render() {
+        // handleSubmit  properties of redux form
         const { data, courseSave, onSubmit, handleSubmit } = this.props
         return (
             <div>
@@ -50,11 +76,13 @@ class CourseForm extends Component {
 function validate(values) {
     const errors = {};
     if (!values.course_name) {
-        errors.name = 'จำเป็นต้องกรอก ฟิลด์นี้!';
+        errors.course_name = 'จำเป็นต้องกรอก ฟิลด์นี้!';
     }
-
+    if (!values.course_status){
+        errors.course_status = 'จำเป็นต้องเลือก';    
+    }
     if (!values.course_nameEng) {
-        errors.username = 'จำเป็นต้องกรอก ฟิลด์นี้!';
+        errors.course_nameEng = 'จำเป็นต้องกรอก ฟิลด์นี้!';
     }
 
     return errors;

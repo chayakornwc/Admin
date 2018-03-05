@@ -22,12 +22,10 @@ export const getCourse = (id)=>{
         dispatch({
             type:'LAOD_COURSE_PENDING'
         })
-        return axios.get(`${BASE_URL}/course?term?=${id}`,{
+        return axios.get(`${BASE_URL}/course/${id}`,{
             
         }).then(results=>{
-            dispatch({
-                type:'LOAD_COURSE_SUCCESS', payload:results.data
-                })
+            dispatch({type:'LOAD_COURSE_SUCCESS', payload:results.data})
         }).catch(err=>{
             dispatch({
                 type:'LOAD_COURSE_REJECTED',payload:err.message
@@ -41,8 +39,8 @@ export const saveCourse = (values)=>{
     let _id ='';
     let _method ='post';
 
-        if(values.id){
-            _id = values.id
+        if(values.course_id){
+            _id = values.course_id
             _method ='put'
         }
 
