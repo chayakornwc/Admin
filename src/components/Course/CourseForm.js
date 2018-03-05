@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import renderField from '../Utils/renderFields';
 class CourseForm extends Component {
     render() {
-        const { handleSubmit, courseSave } = this.props
+        const { data, courseSave, onSubmit, handleSubmit } = this.props
         return (
             <div>
                  <ModalBody>
@@ -40,7 +40,7 @@ class CourseForm extends Component {
         );
     }
     toggle = () => {
-        this.props.onToggle()
+        this.props.onToggle();
     }
     onSubmit = (values) => {
         this.props.onSubmit(values);
@@ -49,14 +49,12 @@ class CourseForm extends Component {
 
 function validate(values) {
     const errors = {};
-    if (!values.name) {
-        errors.name = 'จำเป็นต้องกรอกชื่อ-สกุล';
+    if (!values.course_name) {
+        errors.name = 'จำเป็นต้องกรอก ฟิลด์นี้!';
     }
 
-    if (!values.username) {
-        errors.username = 'จำเป็นต้องกรอก Username !';
-    } else if (values.username.length < 3) {
-        errors.username = 'Username ต้องมากกว่า 3 ตัวอักษร !';
+    if (!values.course_nameEng) {
+        errors.username = 'จำเป็นต้องกรอก ฟิลด์นี้!';
     }
 
     return errors;

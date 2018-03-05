@@ -9,18 +9,20 @@ import CourseForm from '../../../components/course/CourseForm';
 import { Modal, ModalHeader } from 'reactstrap';
 const alertify = require('alertify.js')
 class Coursemanage extends Component {
+  state = {
+    modal:false,
+    modalTitle:''
+    }
+    
   constructor(props){
     super(props);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.ModalHeader = this.modalToggle.bind(this);
+    this.modalToggle = this.modalToggle.bind(this);
+
   }
-    state = {
-      modal:false,
-      modalTitle:''
-      }
-      
+ 
     componentDidMount(){
        this.props.dispatch(loadCourse())
       
@@ -34,7 +36,12 @@ class Coursemanage extends Component {
       })
     }
     handleSubmit(){
-
+      this.props.dispatch(saveCourse(values)).then(() => {
+        if (!this.props.courseSave.isRejected) {
+            this.toggle()
+            this.props.dispatch(loadCourse())
+        }
+    })
     }
     modalToggle(){
       this.setState({
@@ -49,16 +56,16 @@ class Coursemanage extends Component {
       if(courses.isRejected){
         return<div>{courses.data}</div>
       }
-  
+      
     
     return (
       <div className="animated fadeIn"> 
         <CourseTable data={courses.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-primary" autoFocus={false}  >
-          <ModalHeader toggle={this.toggle}>แก้ไขหลักสูตร</ModalHeader>
+        <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary" autoFocus={false}  >
+          <ModalHeader toggle={this.modalToggle}>แก้ไขหลักสูตร</ModalHeader>
                     {/* เรียกใช้งาน Component UserForm และส่ง props ไปด้วย 4 ตัว */}
-                    <CourseForm  data={course.data} courseSave={courseSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
+                    <CourseForm  data={course.data}  courseSave={courseSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
           </Modal>
       </div>
     )
