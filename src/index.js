@@ -54,6 +54,7 @@ ReactDOM.render((
       <Route exact path="/404" name="Page 404" component={Page404}/>
       <Route exact path="/500" name="Page 500" component={Page500}/>
       <Route path="/" name="Home" component={Full}/>
+      <Route name="Page 404" component={Page404}/>
     </Switch>
   </HashRouter>
   </Provider>

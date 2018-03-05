@@ -3,19 +3,18 @@ import axios from 'axios';
 
 import config from '../../configure';
 //config
+const BASE_URL = config.BASE_URL
+export const loadCourse = (term='') => { //  initial course term  keeping empty string(*)
+    return(dispatch)=>{
 
-export const loadCourse = (term='') =>{ //  initial course term  keeping empty string(*)
-
-    dispatch({type:'LOAD_COURSES_PENDING'})
-
-    return axios.get(`${BASE_URL}/courses?term=${term}`,{
-        header:{}
-    }).then(results =>{
-        dispatch({type:'LOAD_COURSES_SUCCESS', data:payload.results.data})
-    }).catch(err =>{
-        dispatch({type:'LOAD_COURSES_REJECTED',data:payload.err.message})
-    })
-
+        dispatch({type:'LOAD_COURSES_PENDING'})
+        return axios.get(`${BASE_URL}/course?term=${term}`,{
+        }).then(results =>{
+            dispatch({type:'LOAD_COURSES_SUCCESS', payload:results.data})
+        }).catch(err =>{
+            dispatch({type:'LOAD_COURSES_REJECTED',payload: err.message})
+        })
+    }
 }
 
 export const getCourse = (id)=>{
@@ -23,7 +22,7 @@ export const getCourse = (id)=>{
         dispatch({
             type:'LAOD_COURSE_PENDING'
         })
-        return axios.get(`${BASE_URL}/courses?term?=${id}`,{
+        return axios.get(`${BASE_URL}/course?term?=${id}`,{
             
         }).then(results=>{
             dispatch({
@@ -50,7 +49,7 @@ export const saveCourse = (values)=>{
         return(dispatch)=>{
             return axios({
                 method:_method,
-                url:`${BASE_URL}/courses/${_id}`,
+                url:`${BASE_URL}/course/${_id}`,
                 data:values,
                 header:{} //javascript web token on header authencation who am i
                            
