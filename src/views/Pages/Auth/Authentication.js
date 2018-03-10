@@ -10,17 +10,17 @@ export default function(ComposedComponent){
 
         componentWillMount() {
             if (!this.props.authenticated) {
-            this.context.router.push('signin');
+            this.context.router.push('login');
             }
         }
         componentWillUpdate(nextProps) {
             if (!nextProps.authenticated) {
-            this.context.router.push('signin');
+            this.context.router.push('login');
             }
         }
 
         render(){
-            // รูปแบบการทeเป็น HOC เราจะต้องเอา ส่ง ComposedComponent กลับไป
+            // รูปแบบการทำเป็น HOC เราจะต้องเอา ส่ง ComposedComponent กลับไป
             // พร้อม props เดิมของ component นั้นๆ ด้วย
             return <ComposedComponent {...this.props} />
         }

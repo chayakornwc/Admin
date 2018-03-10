@@ -4,10 +4,12 @@ import logo from './white-brand.png';
 
 
 class Whitebrand extends Component {
+   
     render() {
+        const {styles} = this.props;
         return (
             <div>
-            <img src={logo} alt="lpru"  />
+            <img style={styles} src={logo} alt="lpru"  />
             </div>
         );
     }
