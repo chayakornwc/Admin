@@ -14,7 +14,7 @@ class Courseregister extends Component {
     constructor(props) {
         super(props);
         this.toggle = this.toggle.bind(this);
-        this.state = { collapse: true, visible:true };
+        this.state = { collapse: true, visible:true }; // if boolean important to set initial state
         this.onSubmit = this.onSubmit.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
         } 

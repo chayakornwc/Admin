@@ -33,11 +33,14 @@ const routes = {
   '/notifications/badges': 'Badges',
   '/notifications/modals': 'Modals',
   '/theme': 'Theme',
-  '/course':'course',
-  '/course/register':'Courseregister',
+  '/course':'Course',
+  '/course/register':'Course Register',
   '/course/period':'Period',
+  '/course/period/register':'Period Register',
   '/theme/colors': 'Colors',
   '/theme/typography': 'Typography',
   '/widgets': 'Widgets'
 };
 export default routes;
+
+

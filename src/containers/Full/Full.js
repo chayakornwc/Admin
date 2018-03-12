@@ -13,6 +13,7 @@ import Dashboard from '../../views/Dashboard/';
 import Colors from '../../views/Theme/Colors/';
 import Coursemanage from '../../views/Theme/Coursemanage/Coursemanage';
 import Courseregister from '../../views/Theme/Coursemanage/Courseregister';
+import Periodregister from '../../views/Theme/Coursemanage/Periodregister';
 import Period from '../../views/Theme/Coursemanage/Period';
 import Typography from '../../views/Theme/Typography/';
 
@@ -65,9 +66,10 @@ class Full extends Component {
             <Breadcrumb/>
             <Container fluid>
               <Switch>
-                <Route path="/dashboard" name="Dashboard" component={Dashboard}/> 
+                <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
+                <Route path="/course/period/register" name="PeriodRegister" component={Periodregister} />  
                 <Route path="/course/period" name="Period" component={Period} />
-                <Route path="/course/register" name="Courseregister" component={Courseregister} />          
+                <Route path="/course/register" name="CourseRegister" component={Courseregister} />          
                 <Route path="/course" name="Course" component={Coursemanage} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
