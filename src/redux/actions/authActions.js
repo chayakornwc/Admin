@@ -1,10 +1,12 @@
 import axios from 'axios'
+import PropTypes from 'prop-types';
 import config from '../../configure'
-import { hashHistory } from 'react-router'
+import { browserHistory } from 'react-router-dom'
 import jwtDecode from 'jwt-decode';
 const BASE_URL = config.BASE_URL
 
 export const signin = ({ username, password }) => {
+  
     return (dispatch) => {
                 return axios({
                     method: "post",
@@ -12,13 +14,14 @@ export const signin = ({ username, password }) => {
                     data: { username, password }
                     }).then(response => {
                         localStorage.setItem('token', response.data.token)
-                        hashHistory.push('/dashboard')
+                        
                         const token = localStorage.getItem('token')
                             dispatch({
                                 type: 'AUTH_USER',
                                 payload: jwtDecode(token)
                             })
-                    
+                            browserHistory.push('/dasboard');
+                               
                      }).catch(() => {
                              dispatch({ type: 'AUTH_ERROR', payload: "Login failed wrong username or password." })
                             })
@@ -32,3 +35,4 @@ export const signout = () => {
             Router.push('/Login')
         }
     }
+    

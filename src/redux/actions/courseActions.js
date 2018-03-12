@@ -49,8 +49,7 @@ export const saveCourse = (values)=>{
                 method:_method,
                 url:`${BASE_URL}/course/${_id}`,
                 data:values,
-                header:{} //javascript web token on header authencation who am i
-                           
+                header:{authorization:localStorage.getItem('token')} //javascript web token on header authencation who am i  
             }).then(results=>{
                 //err check
                     if(results.data.status){
@@ -72,7 +71,7 @@ export const saveCourse = (values)=>{
 export const deleteCourse = (id)=>{
     return(dispatch)=>{
         return axios.delete(`${BASE_URL}/course/${id}`,{
-            header:{authorization:'emptystring'}
+            header:{authorization:localStorage.getItem('token')}
         }).then(results =>{
             dispatch({
                 type:'DELETE_COURSE_SUCCESS'

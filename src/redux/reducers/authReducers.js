@@ -1,5 +1,12 @@
 //Reducer เก็บ State เกี่ยวกับการ Signin/Signout
-export default (state = {}, action) => {
+const initialState = {
+    authenticated:false,
+    data:null,
+    error:null,
+    message:null
+}
+
+export default (state = initialState, action) => {
     switch (action.type) {
     case 'AUTH_USER':
     return { ...state, authenticated: true, data: action.payload } //break

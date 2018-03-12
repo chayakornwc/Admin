@@ -48,27 +48,29 @@ const token = localStorage.getItem('token');
                 payload: decodeToken
             })
         }  else {
-            //ถ้าไม่มี token ให้ redirect ไปยังหน้า login
-           
+          <Redirect push to={{  pathname: "/login"}}
+          />
+          
+          
         }
       
-const PrivateRoute = ({ component: Component, ...rest }) => (
-          <Route
-            {...rest}
-            render={props =>
-             token ? (
-                <Component {...props} />
-              ) : (
-                <Redirect
-                  to={{
-                    pathname: "/login",
-                    state: { from: props.location }
-                  }}
-                />
-              )
-            }
-          />
-        );
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//           <Route
+//             {...rest}
+//             render={props =>
+//              token ? (
+//                 <Component {...props} />
+//               ) : (
+//                 <Redirect
+//                   to={{
+//                     pathname: "/login",
+//                     state: { from: props.location }
+//                   }}
+//                 />
+//               )
+//             }
+//           />
+//         );
               
 // const routers = [{
 //   path: '/',
@@ -102,7 +104,7 @@ ReactDOM.render((
       <Route exact path="/register" name="Register Page" component={Register}/>
       <Route exact path="/404" name="Page 404" component={Page404}/>
       <Route exact path="/500" name="Page 500" component={Page500}/>
-      <PrivateRoute path="/" name="Home" component={RequireAuth(RequireAuthAdmin(Full))}/>
+      <Route path="/" name="Home" component={RequireAuth(RequireAuthAdmin(Full))}/>
       <Route name="Page 404" component={Page404}/>
     </Switch>
     </HashRouter>

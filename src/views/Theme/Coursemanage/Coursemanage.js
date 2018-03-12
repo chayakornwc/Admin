@@ -9,11 +9,13 @@ import { loadCourse, getCourse, saveCourse,deleteCourse, resetStatus } from '../
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
 import CourseTable from '../../../components/course/CourseTable';
 import CourseForm from '../../../components/course/CourseForm';
+
 const alertify = require('alertify.js');
 
 
 class Coursemanage extends Component {
-  state = {
+  // initatil state 
+  state = {  
     modal:false,
     modalTitle:''
     }
@@ -31,9 +33,7 @@ class Coursemanage extends Component {
        this.props.dispatch(loadCourse())
       
     }
-   
-    
-
+  
     modalToggle(){
       this.setState({
         modal:!this.state.modal
@@ -67,7 +67,7 @@ class Coursemanage extends Component {
       show:true,
       title:'ยืนยันการลบ',
       confirmLabel:'ยืนยัน ลบทันที',
-      message:'คุณต้องการลบใช่หรือไม่',
+      message:'คุณต้องการลบข้อมูลนี้ใช่หรือไม่',
       onConfirm: () => this.props.dispatch(deleteCourse(id)).then(() => {
         this.props.dispatch(loadCourse())
         if(!this.props.courseDelete.isRejected){

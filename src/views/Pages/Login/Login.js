@@ -20,6 +20,9 @@ class Login extends Component {
   componentWillMount(){
    
   }
+  componentDidUpdate(){
+  console.log('didUpdate') 
+  }
   render() {
     const  {signin, handleSubmit} = this.props;
     if(this.props.Auth){

@@ -35,6 +35,7 @@ const routes = {
   '/theme': 'Theme',
   '/course':'course',
   '/course/register':'Courseregister',
+  '/course/period':'Period',
   '/theme/colors': 'Colors',
   '/theme/typography': 'Typography',
   '/widgets': 'Widgets'

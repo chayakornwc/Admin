@@ -25,7 +25,7 @@ export default {
     },
     {
       name: 'จัดการการอบรม',
-      url: '/period/training',
+      url: '/course/period',
       icon: 'icon-calendar',
     },
     {
