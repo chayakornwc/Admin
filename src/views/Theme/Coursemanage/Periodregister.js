@@ -4,10 +4,13 @@ import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, 
 
 import { loadCourse, } from '../../../redux/actions/courseActions';
 import renderField from '../../../components/Utils/renderFields';
+import renderDatepicker from '../../../components/Utils/renderDatepicker';
 import { Field, reduxForm } from 'redux-form';
-import { Redirect } from 'react-router';
+
 import { connect } from 'react-redux';
-import DateRangePickerWrapper from '../../../components/Utils/renderDatepicker'
+
+const moment = require('moment')
+moment.locale('th');
 class Periodregister extends Component {
     constructor(props){
         super(props);
@@ -18,7 +21,7 @@ class Periodregister extends Component {
         this.state = { collapse: true, visible:true };
     }
     handleSubmit(){
-
+        
     }
     handleUpdate(){
 
@@ -31,7 +34,7 @@ class Periodregister extends Component {
     }
 
     render() {
-       
+       const {periodSave, courses} = this.props ;
 
         return (
             <div className="animated fadeIn">
@@ -49,14 +52,14 @@ class Periodregister extends Component {
                     </CardHeader>
                     <Collapse isOpen={this.state.collapse} id="collapseExample">
                         <CardBody>
-                            {/* {courseSave.isRejected && <Alert isOpen={this.state.visible} color="danger" toggle={this.onDismiss}>{courseSave.data}</Alert>} */}
+                            {periodSave.isRejected && <Alert isOpen={this.state.visible} color="danger" toggle={this.onDismiss}>{periodSave.data}</Alert>}
                         <Form className="form-horizontal">
                        
                         <FormGroup>
-                        <DateRangePickerWrapper />
                         </FormGroup>
                         <FormGroup>
-                            <Field name="per_end" component={renderField}  type="text" label="ชื่อภาษาอังกฤษ" />
+                            <Field name="per_start" component={renderDatepicker}  type="text" placeholder="วันที่เริ่มอบรม" />
+                            <Field name="per_end" component={renderDatepicker}  type="text" placeholder="สิ้นสุดการอบรม" />
                         </FormGroup>
                         <FormGroup>
                             <Field name="course_detail" component={renderField} textarea type="text" label="รายละเอียด" />
@@ -91,25 +94,21 @@ class Periodregister extends Component {
 
 
 Periodregister.propTypes = {
-
+  
 };
+const  mapStateToProps = (state)=>({
+ courses: state.courseReducer.courses, 
+ periodSave: state.periodReducers.periodSave
+})
+function validate(values){
 
-function validate(values) {
-    const errors = {};
-    if (!values.course_name) {
-        errors.course_name = 'จำเป็นต้องกรอกฟิลด์นี้';
-    }
-    if(!values.course_nameEng){
-        errors.course_nameEng = 'จำเป็นต้องกรอกฟิลด์นี้'
-    }
-    
-
-    return errors;
 }
-
 const form = reduxForm({
-    form:'Periodregister',
-    validate
+   form: 'Periodregister',
+   validate
 })
 
-export default form(Periodregister);
+
+Periodregister = connect(mapStateToProps)(Periodregister)
+
+export default form(Periodregister)

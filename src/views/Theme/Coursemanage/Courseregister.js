@@ -132,9 +132,7 @@ const form = reduxForm({
     validate
 })
 const mapStateToProps = (state) => ({
-      courses:state.courseReducer.courses,
-      course:state.courseReducer.course,
-      courseDelete:state.courseReducer.courseDelete,
+
       courseSave:state.courseReducer.courseSave
 });
 
