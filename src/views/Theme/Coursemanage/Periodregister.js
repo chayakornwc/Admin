@@ -58,8 +58,8 @@ class Periodregister extends Component {
                         <FormGroup>
                         </FormGroup>
                         <FormGroup>
-                            <Field name="per_start" component={renderDatepicker}  type="text" placeholder="วันที่เริ่มอบรม" />
-                            <Field name="per_end" component={renderDatepicker}  type="text" placeholder="สิ้นสุดการอบรม" />
+                            <Field name="per_start" component={renderDatepicker}  placeholder="วันที่เริ่มอบรม" />
+                            <Field name="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
                         </FormGroup>
                         <FormGroup>
                             <Field name="course_detail" component={renderField} textarea type="text" label="รายละเอียด" />
