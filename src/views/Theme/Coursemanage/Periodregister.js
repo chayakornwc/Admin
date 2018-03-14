@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 
-import { loadCourse, } from '../../../redux/actions/courseActions';
+import { loadCourse,getCourse } from '../../../redux/actions/courseActions';
 import renderField from '../../../components/Utils/renderFields';
 import renderDatepicker from '../../../components/Utils/renderDatepicker';
 import { Field, reduxForm } from 'redux-form';
@@ -11,6 +11,13 @@ import { connect } from 'react-redux';
 
 const moment = require('moment')
 moment.locale('th');
+
+const selectStyle ={
+    marginLeft:'61px',
+    marginBottom:'1rem',
+    borderRadius:'0.2rem'
+}
+
 class Periodregister extends Component {
     constructor(props){
         super(props);
@@ -32,10 +39,13 @@ class Periodregister extends Component {
     onDismiss(){
 
     }
-
+    componentDidMount(){
+        this.props.dispatch(loadCourse());
+        
+    }
     render() {
        const {periodSave, courses} = this.props ;
-
+        console.log(courses.data)
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -57,12 +67,25 @@ class Periodregister extends Component {
                        
                         <FormGroup>
                         </FormGroup>
-                        <FormGroup>
-                            <Field name="per_start" component={renderDatepicker}  placeholder="วันที่เริ่มอบรม" />
+                        <FormGroup row>
+                        <Col md="3">
+                        <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
+                        </Col>
+                        <Col md="4">
+                                <Field name="per_start" component={renderDatepicker}  placeholder="วันที่เริ่มอบรม" /> 
+                         </Col>
+                         <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '}
+                         <Col md="4">   
                             <Field name="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
+                       </Col>
                         </FormGroup>
                         <FormGroup>
-                            <Field name="course_detail" component={renderField} textarea type="text" label="รายละเอียด" />
+                                        <Field  style={selectStyle} name="prefix" className="select" component="select"  label="รายละเอียด" > 
+                                      
+                                        {courses.data && courses.data.map(value =>(
+                                                <option value={value.course_id}>{value.course_name}</option>
+                                        ))}                   
+                                    </Field>
                             </FormGroup> 
                             <FormGroup>
                             <div  className="field">
