@@ -6,7 +6,7 @@ import { loadCourse,getCourse } from '../../../redux/actions/courseActions';
 import renderField from '../../../components/Utils/renderFields';
 import renderDatepicker from '../../../components/Utils/renderDatepicker';
 import { Field, reduxForm } from 'redux-form';
-
+import renderSelect from './Utils/renderSelect';
 import { connect } from 'react-redux';
 
 const moment = require('moment')
@@ -25,7 +25,8 @@ class Periodregister extends Component {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.toggle = this.toggle.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
-        this.state = { collapse: true, visible:true };
+        this.state = { collapse: true, visible:true};
+        this.post = null
     }
     handleSubmit(){
         
@@ -43,9 +44,11 @@ class Periodregister extends Component {
         this.props.dispatch(loadCourse());
         
     }
+   
     render() {
-       const {periodSave, courses} = this.props ;
-        console.log(courses.data)
+        const {periodSave, courses} = this.props;
+
+       
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -79,14 +82,7 @@ class Periodregister extends Component {
                             <Field name="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
                        </Col>
                         </FormGroup>
-                        <FormGroup>
-                                        <Field  style={selectStyle} name="prefix" className="select" component="select"  label="รายละเอียด" > 
-                                      
-                                        {courses.data && courses.data.map(value =>(
-                                                <option value={value.course_id}>{value.course_name}</option>
-                                        ))}                   
-                                    </Field>
-                            </FormGroup> 
+                        <Field name="course_id" data={courses.data} component={renderSelect}  label="หลักสูตร" />
                             <FormGroup>
                             <div  className="field">
                                 <label>สถานะ</label>
