@@ -13,9 +13,10 @@ export const loadRooms = (term='')=>{
                 method:'get',
                 headers: { authorization: localStorage.getItem('token') }
         }).then(results =>{
-            dispatch({type:'LOAD_OPERATIONROOMS_SUCCESS', data:results.data})
+            dispatch({type:'LOAD_OPERATIONROOMS_SUCCESS', payload:results.data})
+           
         }).catch(err=>{
-            dispatch({type:'LOAD_OPERATIONROOMS_REJECTED', data:err.message})
+            dispatch({type:'LOAD_OPERATIONROOMS_REJECTED', payload:err.message})
         })
     }
 }

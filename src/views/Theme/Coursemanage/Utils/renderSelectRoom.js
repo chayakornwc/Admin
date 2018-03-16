@@ -11,13 +11,13 @@ const renderSelectRoom = ({ input, label, type, data, autoFocus, meta: { touched
                     <Label htmlFor={input.name}>{label}</Label>
                     </Col>
                     <Col xs="12" md="4">              
-                    <Input  type="select" id={input.name}>
+                    <input  type="select" id={input.name}>
                     {data && data.map(value =>(
                         <option value={value.id}>{value.name}</option>
                     ))
                     }
                   
-                    </Input> 
+                    </input> 
                      {touched && error && <small className="text-danger">{error}</small>}
                     </Col>        
                     </FormGroup>

@@ -9,6 +9,7 @@ import renderDatepicker from '../../../components/Utils/renderDatepicker';
 import { Field, reduxForm } from 'redux-form';
 import renderSelect from './Utils/renderSelect';
 import renderSelectRoom from './Utils/renderSelectRoom';
+import renderTimepicker from './Utils/renderTimepicker';
 import { connect } from 'react-redux';
 
 const moment = require('moment')
@@ -23,15 +24,15 @@ const selectStyle ={
 class Periodregister extends Component {
     constructor(props){
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.toggle = this.toggle.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
         this.state = { collapse: true, visible:true};
         this.post = null
     }
-    handleSubmit(value){
-        console.log(value)
+    onSubmit(e){
+       console.log(e)
     }
     handleUpdate(){
 
@@ -49,7 +50,7 @@ class Periodregister extends Component {
 
    
     render() {
-        const {periodSave, courses, operation_rooms} = this.props;
+        const {periodSave, courses, operation_rooms, handleSubmit} = this.props;
         
        console.log(operation_rooms);
         return (
@@ -85,21 +86,31 @@ class Periodregister extends Component {
                             <Field name="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
                        </Col>
                         </FormGroup>
+                        <FormGroup row>
+                        <Col md="3">
+                            <Label htmlFor="appendedInputButton">ช่วงเวลาที่อบรม</Label>
+                            </Col>
+                        <Col md="auto">
+                        <Field name="per_time_start" component={renderTimepicker} placeholder=""/>
+                        </Col>
+                        {' '}<i className="fa fa-angle-right fa-lg mt-2"></i>{' '}
+                        <Col md="auto">
+                        <Field name="per_time_end" component={renderTimepicker}/>
+                        </Col>
+                        </FormGroup>
                         <Field name="course_id" data={courses.data} component={renderSelect}  label="หลักสูตร" />
-                            <FormGroup>
-                            
-                            <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
+                        <FormGroup>
+                        <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
                             </FormGroup>
                             <FormGroup>
-                            
                             <Field name="per_quota" component={renderField}  type="number" label="จำนวนที่นั่ง" />
                             </FormGroup>
                             <FormGroup>
-                            {/* <Field name="room_id" data={operation_rooms}  component={renderSelectRoom} label="ห้องปฏิบัติการ" /> */}
+                            <Field name="room_id" data={operation_rooms.data}  component={renderSelectRoom} label="ห้องปฏิบัติการ" />
                             </FormGroup>
                             <div className="form-actions"> 
                            <Button  color="secondary">Back</Button>{ ' '}
-                            <Button color="primary" onclick={this.handleSubmit}>Save changes</Button>     
+                            <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     
                             </div>
                         </Form>
                         </CardBody>
@@ -122,7 +133,32 @@ const  mapStateToProps = (state)=>({
  operation_rooms: state.operationRoomReducers.operation_rooms
 })
 function validate(values){
-
+    const errors ={};
+    if(!values.per_start){
+        errors.per_start = 'กรุณาเลือก'
+    }
+    if(!values.per_end){
+        errors.per_end='กรุณาเลือก'
+    }
+    if(!values.per_time_start){
+        errors.per_time_start ="กรุณาเลือก"
+    }
+    if(!values.per_time_end){
+        errors.per_time_end ="กรุณาเลือก"
+    }
+    if(!values.course_id){
+        errors.course_id ="กรุณาเลือก"
+    }
+    if(!values.per_price){
+        errors.per_price = "ต้องกรอกฟิลด์นี้"
+    }
+    if(!values.per_quota){
+        errors.per_quota = "ต้องกรอกฟิลด์นี้_"
+    }
+    if(!values.room_id){
+        errors.room_Id ="กรุณาเลือก"
+    }
+    return errors;
 }
 const form = reduxForm({
    form: 'Periodregister',
