@@ -17,6 +17,7 @@ export const loadPeriods =(term='')=>{
             })  
     }
 }
+
  // get period by id
 export const getPeriod = (id)=>{
     return(dispatch) =>{

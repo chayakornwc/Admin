@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 
 import { loadCourse,getCourse } from '../../../redux/actions/courseActions';
+import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import renderField from '../../../components/Utils/renderFields';
 import renderDatepicker from '../../../components/Utils/renderDatepicker';
 import { Field, reduxForm } from 'redux-form';
 import renderSelect from './Utils/renderSelect';
+import renderSelectRoom from './Utils/renderSelectRoom';
 import { connect } from 'react-redux';
 
 const moment = require('moment')
@@ -42,13 +44,14 @@ class Periodregister extends Component {
     }
     componentDidMount(){
         this.props.dispatch(loadCourse());
-        
+        this.props.dispatch(loadRooms());
     }
+
    
     render() {
-        const {periodSave, courses} = this.props;
-
-       
+        const {periodSave, courses, operation_rooms} = this.props;
+        
+       console.log(operation_rooms);
         return (
             <div className="animated fadeIn">
                 <Row>
@@ -92,8 +95,7 @@ class Periodregister extends Component {
                             <Field name="per_quota" component={renderField}  type="number" label="จำนวนที่นั่ง" />
                             </FormGroup>
                             <FormGroup>
-                            
-                            <Field name="room_id" component={renderField}  type="number" label="ห้องปฏิบัติการ" />
+                            {/* <Field name="room_id" data={operation_rooms}  component={renderSelectRoom} label="ห้องปฏิบัติการ" /> */}
                             </FormGroup>
                             <div className="form-actions"> 
                            <Button  color="secondary">Back</Button>{ ' '}
@@ -116,7 +118,8 @@ Periodregister.propTypes = {
 };
 const  mapStateToProps = (state)=>({
  courses: state.courseReducer.courses, 
- periodSave: state.periodReducers.periodSave
+ periodSave: state.periodReducers.periodSave,
+ operation_rooms: state.operationRoomReducers.operation_rooms
 })
 function validate(values){
 
