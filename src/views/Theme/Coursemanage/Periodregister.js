@@ -28,8 +28,8 @@ class Periodregister extends Component {
         this.state = { collapse: true, visible:true};
         this.post = null
     }
-    handleSubmit(){
-        
+    handleSubmit(value){
+        console.log(value)
     }
     handleUpdate(){
 
@@ -84,21 +84,20 @@ class Periodregister extends Component {
                         </FormGroup>
                         <Field name="course_id" data={courses.data} component={renderSelect}  label="หลักสูตร" />
                             <FormGroup>
-                            <div  className="field">
-                                <label>สถานะ</label>
-                                <div className="control" >
-                                    <label className="radio">
-                                        <Field name="course_status"  component="input" type="radio" selected value="0"/>{' '}ระงับการใช้งาน
-                                    </label>
-                                    <label className="radio"> 
-                                        <Field name="course_status" component="input" type="radio" value="1"/>{' '}เปิดการใช้งาน 
-                                    </label>
-                                </div>
-                            </div>
+                            
+                            <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
+                            </FormGroup>
+                            <FormGroup>
+                            
+                            <Field name="per_quota" component={renderField}  type="number" label="จำนวนที่นั่ง" />
+                            </FormGroup>
+                            <FormGroup>
+                            
+                            <Field name="room_id" component={renderField}  type="number" label="ห้องปฏิบัติการ" />
                             </FormGroup>
                             <div className="form-actions"> 
                            <Button  color="secondary">Back</Button>{ ' '}
-                            <Button color="primary">Save changes</Button>     
+                            <Button color="primary" onclick={this.handleSubmit}>Save changes</Button>     
                             </div>
                         </Form>
                         </CardBody>
