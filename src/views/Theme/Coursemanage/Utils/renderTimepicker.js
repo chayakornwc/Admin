@@ -27,7 +27,7 @@ const renderDatePicker = ({ input, placeholder,  defaultValue, meta: { touched, 
                                 <i className="fa fa-clock-o"></i>
                             </InputGroupText>
                         </InputGroupAddon>
-                        <TimePicker {...input} showSecond={false} value={input.value ? moment(input.value, 'hh:mm:ss') : null}  defaultValue={moment()} />
+                        <TimePicker className="form-control" {...input} showSecond={false} value={input.value ? moment(input.value, 'hh:mm:ss') : null}  defaultValue={moment()} />
                     </InputGroup>
                     {/* ส่วนนี้จะแสดงข้อความ error ที่ได้จากการ validate */}
                     {touched && error && <small className="text-danger">{error}</small>}

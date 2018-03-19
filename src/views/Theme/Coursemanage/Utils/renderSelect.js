@@ -2,11 +2,11 @@ import React from 'react';
 import { FormGroup, Col, Label, Input } from 'reactstrap';
 //renderField จะรับ props ต่างๆ ของ Field ที่ได้จาก redux-form
  
-const renderSelect = ({ input, label, type, data, autoFocus, meta: { touched, error } }) => {
+const renderSelect = ({ input, label, type, data, autoFocus, meta: { touched, error },  children }) => {
 //สำหรับรูปแบบ Field ที่เป็น TextArea
 
 //สำหรับรูปแบบ Field ที่เป็น TextBox
- const InputType = <input {...input} placeholder={label} type={type} className="form-control" autoFocus={autoFocus} />;
+
     return (
                 <div>
                     <FormGroup row>
@@ -14,9 +14,10 @@ const renderSelect = ({ input, label, type, data, autoFocus, meta: { touched, er
                     <Label htmlFor={input.name}>{label}</Label>
                     </Col>
                     <Col xs="12" md="4">              
-                    <Input  type="select" id={input.name}>
+                    <Input  name={input.name} type="select" id={input.name}>
+                    <option></option>
                     {data && data.map(value =>(
-                        <option value={value.course_id}>{value.course_name} {' ('+value.course_nameEng+')'}</option>
+                        <option key={value.course_id} value={value.course_id}>{value.course_name} {' ('+value.course_nameEng+')'}</option>
                     ))
                     }
                   

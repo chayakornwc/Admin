@@ -98,7 +98,12 @@ class Periodregister extends Component {
                         <Field name="per_time_end" component={renderTimepicker}/>
                         </Col>
                         </FormGroup>
-                        <Field name="course_id" data={courses.data} component={renderSelect}  label="หลักสูตร" />
+                        <Field name="course_id" data={courses.data} component="select"  label="หลักสูตร" >
+                        {courses.data && courses.data.map(value=>(
+                                 <option key={value.course_id} value={value.course_id}>{value.course_name} {' ('+value.course_nameEng+')'}</option>
+                        ))}
+                        
+                        </Field>
                         <FormGroup>
                         <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
                             </FormGroup>
@@ -156,7 +161,7 @@ function validate(values){
         errors.per_quota = "ต้องกรอกฟิลด์นี้_"
     }
     if(!values.room_id){
-        errors.room_Id ="กรุณาเลือก"
+        errors.room_id ="กรุณาเลือก"
     }
     return errors;
 }
