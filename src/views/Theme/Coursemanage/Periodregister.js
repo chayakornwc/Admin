@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 
 import { loadCourse,getCourse } from '../../../redux/actions/courseActions';
+import { savePeriod} from '../../../redux/actions/periodActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import renderField from '../../../components/Utils/renderFields';
 import renderDatepicker from '../../../components/Utils/renderDatepicker';
@@ -32,7 +33,15 @@ class Periodregister extends Component {
         this.post = null
     }
     onSubmit(e){
-       console.log(e)
+        console.log(e);
+     this.props.dispatch(savePeriod(e)).then(()=>{
+        
+         if(!this.props.periodSave.isRejected){
+            alertify.alert('แก้ไขข้อมูลหลักสูตรเรียบร้อยแล้ว').set('basic', true)
+         }
+     }).catch((err)=>{
+        alertify.alert('Network error').set('basic', true)
+     })
     }
     handleUpdate(){
 

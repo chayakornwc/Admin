@@ -44,7 +44,7 @@ export const savePeriod = (values)=>{
             dispatch({type:'SAVE_PERIOD_PENDING'})
             return axios({
                 method:_method,
-                url:`${BASE_URL}/period/${id}`,
+                url:`${BASE_URL}/period/${_id}`,
                 data:values,
                 headers: { authorization: localStorage.getItem('token') }
             }).then(results =>{

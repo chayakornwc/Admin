@@ -6,7 +6,6 @@ import config from '../../configure';
 const BASE_URL = config.BASE_URL
 export const loadCourse = (term='') => { //  initial course term  keeping empty string(*)
     return(dispatch)=>{
-
         dispatch({type:'LOAD_COURSES_PENDING'})
         return axios.get(`${BASE_URL}/course?term=${term}`,{
         }).then(results =>{
@@ -23,7 +22,6 @@ export const getCourse = (id)=>{
             type:'LAOD_COURSE_PENDING'
         })
         return axios.get(`${BASE_URL}/course/${id}`,{
-            
         }).then(results=>{
             dispatch({type:'LOAD_COURSE_SUCCESS', payload:results.data})
         }).catch(err=>{
