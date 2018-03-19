@@ -1,45 +1,30 @@
 import React from 'react';
 import { FormGroup, Col, Label, Input } from 'reactstrap';
-//renderField จะรับ props ต่างๆ ของ Field ที่ได้จาก redux-form
+
  
-const renderSelect = ({ input, label, type, data, autoFocus, meta: { touched, error },  children }) => {
-//สำหรับรูปแบบ Field ที่เป็น TextArea
-
-//สำหรับรูปแบบ Field ที่เป็น TextBox
-
-    return (
-                <div>
-                    <FormGroup row>
+const renderSelect = ({ input, label, type, textarea, autoFocus,data, meta: { touched, error } })  => {
+    return(
+            <div>
+                <FormGroup row>
                     <Col md="3">
-                    <Label htmlFor={input.name}>{label}</Label>
+                        <Label htmlFor={input.name}>{label}</Label>
                     </Col>
                     <Col xs="12" md="4">              
-                    <Input  name={input.name} type="select" id={input.name}>
-                    <option></option>
-                    {data && data.map(value =>(
-                        <option key={value.course_id} value={value.course_id}>{value.course_name} {' ('+value.course_nameEng+')'}</option>
-                    ))
-                    }
-                  
-                    </Input> 
-                     {touched && error && <small className="text-danger">{error}</small>}
+                        <select {...input} className="form-control">
+                            <option >กรุณาเลือก</option> 
+                                {data && data.map((value, key) =>(
+                                <option key={key} value={value.course_id} >{value.course_name} {' ('+value.course_nameEng+')'}</option>
+                                    ))}
+                        </select>
+                        {touched && error && <span className="text-danger">{error}</span>}
                     </Col>        
-                    </FormGroup>
-                    </div>
-                
-                    )
+                </FormGroup>
+            </div>
+    )
     }
  
 
 
 export default renderSelect;
   
-// <FormGroup row>
-// <Col md="3">
-//   <Label htmlFor="text-input">Text Input</Label>
-// </Col>
-// <Col xs="12" md="9">
-//   <Input type="text" id="text-input" name="text-input" placeholder="Text"/>
-//   <FormText color="muted">This is a help text</FormText>
-// </Col>
-// </FormGroup>
+
