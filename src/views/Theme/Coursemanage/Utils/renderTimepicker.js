@@ -9,8 +9,6 @@ const str = showSecond ? 'HH:mm:ss' : 'HH:mm';
 import {InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
 const moment = require('moment');
 moment.locale('th');
-
-
 // let date = moment(dateStr, 'DD/MM/YYYY'); 
 // if (date.isValid()) { 
 //     date.add(543, 'years'); 
@@ -28,7 +26,7 @@ const renderDatePicker = ({ input, placeholder,  defaultValue, meta: { touched, 
                                 <i className="fa fa-clock-o"></i>
                             </InputGroupText>
                         </InputGroupAddon>
-                        <TimePicker className="form-control" {...input} value={input.value ? moment(input.value,'HH:mm:') : null} showSecond={false}  />
+                        <TimePicker className="form-control" {...input} value={input.value ? moment(input.value, 'LT') : null} showSecond={false}  />
                     </InputGroup>
                     {/* ส่วนนี้จะแสดงข้อความ error ที่ได้จากการ validate */}
                     {touched && error && <small className="text-danger">{error}</small>}

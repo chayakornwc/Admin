@@ -11,9 +11,9 @@ export const loadPeriods =(term='')=>{
         dispatch({type:'LOAD_PERIODS_PENDING'})
         return axios.get(`${BASE_URL}/period?term=${term}`,{
             }).then( results =>{
-                dispatch({type:'LOAD_PERIODS_SUCCESS', data:results.data})  
+                dispatch({type:'LOAD_PERIODS_SUCCESS', payload:results.data})  
             }).catch(err=>{
-                dispatch({type:'LOAD_PERIODS_REJECTED',data: err.message})
+                dispatch({type:'LOAD_PERIODS_REJECTED',payload: err.message})
             })  
     }
 }
@@ -25,9 +25,9 @@ export const getPeriod = (id)=>{
         return axios.get(`${BASE_URL}/period/${id}`,{
 
         }).then( results=>{
-            dispatch({type:'LOAD_PERIOD_SUCCESS', data:results.data})
+            dispatch({type:'LOAD_PERIOD_SUCCESS', payload:results.data})
         }).catch(err=>{
-            dispatch({type:'LOAD_PERIOD_REJECTED',data:err.message})
+            dispatch({type:'LOAD_PERIOD_REJECTED',payload:err.message})
         })
     }
 }   
@@ -48,9 +48,9 @@ export const savePeriod = (values)=>{
                 data:values,
                 headers: { authorization: localStorage.getItem('token') }
             }).then(results =>{
-                dispatch({type:'SAVE_PERIOD_SUCCESS', data:results.data})
+                dispatch({type:'SAVE_PERIOD_SUCCESS', payload:results.data})
             }).catch(err =>{
-                dispatch({type:'SAVE_PERIOD_REJECTED', data:err.message})
+                dispatch({type:'SAVE_PERIOD_REJECTED', payload:err.message})
             })
         }
 }
@@ -63,7 +63,7 @@ export const deletePeriod = (id)=>{
     }).then(results =>{
         dispatch({type:'DELETE_PERIOD_SUCCESS'})
     }).catch(err=>{
-        dispatch({type:'DELETE_PERIOD_REJECTED', data:err.message})
+        dispatch({type:'DELETE_PERIOD_REJECTED', payload:err.message})
     })
 }
 // reset error message

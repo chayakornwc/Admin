@@ -9,6 +9,7 @@ class PeriodTable extends Component {
     
     render() {
         const {data, buttonDelete, buttonEdit} = this.props;
+        console.log(data)
         return (
             <div>      
                 <Row>
@@ -33,7 +34,7 @@ class PeriodTable extends Component {
                         </tr>
                         </thead>
                         <tbody>
-                       
+                        
                         </tbody>
                         </Table>
                         <nav>

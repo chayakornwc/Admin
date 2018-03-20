@@ -10,6 +10,7 @@ import { Route, Redirect } from 'react-router';
 import { connect } from 'react-redux';
 
 const alertify = require('alertify.js');
+
 class Courseregister extends Component {
     constructor(props) {
         super(props);
@@ -27,7 +28,6 @@ class Courseregister extends Component {
             
     componentDidMount() {
         this.handleInitialize()
-        console.log(this.props.courseSave)
     }
     handleInitialize() {
         let initData = {

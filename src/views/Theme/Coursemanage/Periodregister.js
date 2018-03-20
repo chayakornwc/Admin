@@ -13,7 +13,9 @@ import renderSelectRoom from './Utils/renderSelectRoom';
 import renderTimepicker from './Utils/renderTimepicker';
 import { connect } from 'react-redux';
 
-const moment = require('moment')
+const alertify = require('alertify.js');
+
+const moment = require('moment');
 moment.locale('th');
 
 const selectStyle ={
@@ -26,7 +28,7 @@ class Periodregister extends Component {
     constructor(props){
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
-        this.handleUpdate = this.handleUpdate.bind(this);
+      
         this.toggle = this.toggle.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
         this.state = { collapse: true, visible:true};
@@ -37,24 +39,38 @@ class Periodregister extends Component {
      this.props.dispatch(savePeriod(e)).then(()=>{
         
          if(!this.props.periodSave.isRejected){
-            alertify.alert('แก้ไขข้อมูลหลักสูตรเรียบร้อยแล้ว').set('basic', true)
+            this.handleInitialize();
+            alertify.alert('เพิ่มการอบรมเรียบรร้อยแล้ว').set('basic', true)
+         }else{
+            this.setState({ visible: true });
          }
      }).catch((err)=>{
-        alertify.alert('Network error').set('basic', true)
+        this.setState({ visible: true });
      })
     }
-    handleUpdate(){
-
+    handleInitialize() {
+        let initData = {
+            "per_start": '',
+            "per_end":'',
+            "per_time_start": '',
+            "per_time_end":'',
+            "course_id":null,
+            "per_price":null,
+            "per_quota":null,
+            "course_status": 0
+        };
+        this.props.initialize(initData);
     }
     toggle(){
 
     }
-    onDismiss(){
-
-    }
+    onDismiss() {
+        this.setState({ visible: false });
+      }
     componentDidMount(){
         this.props.dispatch(loadCourse());
         this.props.dispatch(loadRooms());
+        
     }
 
    
@@ -163,9 +179,9 @@ function validate(values){
     if(!values.per_quota){
         errors.per_quota = "ต้องกรอกฟิลด์นี้_"
     }
-    // if(!values.room_id){
-    //     errors.room_id ="กรุณาเลือก"
-    // }
+    if(!values.room_id){
+        errors.room_id ="กรุณาเลือก"
+    }
     return errors;
 }
 const form = reduxForm({
