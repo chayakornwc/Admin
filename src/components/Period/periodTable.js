@@ -5,10 +5,14 @@ import { Badge,Row,Col,Card,CardHeader,CardBody,Table,Pagination,PaginationItem,
 const moment = require('moment');
 moment.locale('th');
 
+
+
 class PeriodTable extends Component {
-    
-    render() {
-        const {data, buttonDelete, buttonEdit} = this.props;
+    constructor(props){
+        super(props);
+    }
+ render() {
+        const {data, buttonDelete, buttonEdit, renderTable} = this.props;
         console.log(data)
         return (
             <div>      
@@ -28,13 +32,27 @@ class PeriodTable extends Component {
                         <th>เวลา</th>
                         <th>เข้าร่วม</th>
                         <th>รับได้</th>
-                        <th>วิทยากร</th>
+                        <th>ห้องประชุม</th>
                         <th>สถานะ</th>
                         <th className="text-center"><i className="icon-settings "></i></th>
                         </tr>
                         </thead>
                         <tbody>
-                        
+                          {data && data.map(function(value, key){
+                              return(
+                                  <tr>
+                                      <td>{(key+1)}</td>
+                                      <td>{value.course_name}</td>
+                                      <td>{moment(value.per_start).add(543, 'years').format('ll')}{' - '}{moment(value.per_end).add(543, 'years').format('ll')}</td>
+                                      <td>{value.per_time_start}{' - '}{value.per_time_end}</td>
+                                      <td>{0}</td>
+                                      <td>{value.per_quota}</td>
+                                      <td>{value.room_name}</td>
+                                      <td></td>
+                                      <td>Action</td>
+                                  </tr>
+                              )
+                          })}
                         </tbody>
                         </Table>
                         <nav>

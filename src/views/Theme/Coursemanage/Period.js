@@ -19,10 +19,10 @@ class Period extends Component {
     }
 
     render() {
-        
+        const {periods} = this.props;
         return (
             <div className="animated fadeIn">
-                <PeriodTable />
+                <PeriodTable data={periods.data} />
             </div>
         );
     }
