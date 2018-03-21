@@ -5,8 +5,44 @@ import { Badge,Row,Col,Card,CardHeader,CardBody,Table,Pagination,PaginationItem,
 const moment = require('moment');
 moment.locale('th');
 
-
-
+const statusName = (data) =>{
+    switch(data){
+      case 0 :
+      return 'เปิดการอบรม'
+      break;
+      case 1:
+      return 'กำลังดำเนินการ'
+      break;
+      case 2:
+      return 'ระงับการอบรม'
+      break;
+      case 3:
+      return 'การอบรมเสร็จสิ้น';
+      break;
+      default:
+      return 'รอการตรวจสอบ';
+      break;
+    }
+  }
+  const statusColor = (data)=>{
+    switch(data){
+      case 0:
+      return 'info'
+      break;
+      case 1 :
+      return 'warning'
+      break;
+      case 3 :
+      return 'success'
+      break;
+      case 2 :
+      return 'danger'
+      break;
+      default:
+      return'danger'
+      break;
+   }
+  }
 class PeriodTable extends Component {
     constructor(props){
         super(props);
@@ -40,16 +76,16 @@ class PeriodTable extends Component {
                         <tbody>
                           {data && data.map(function(value, key){
                               return(
-                                  <tr>
+                                  <tr key={key}>
                                       <td>{(key+1)}</td>
-                                      <td>{value.course_name}</td>
+                                      <td>{value.course_name}{' '}{value.course_nameEng}</td>
                                       <td>{moment(value.per_start).add(543, 'years').format('ll')}{' - '}{moment(value.per_end).add(543, 'years').format('ll')}</td>
                                       <td>{value.per_time_start}{' - '}{value.per_time_end}</td>
                                       <td>{0}</td>
                                       <td>{value.per_quota}</td>
                                       <td>{value.room_name}</td>
-                                      <td></td>
-                                      <td>Action</td>
+                                      <td><Badge color={statusColor(value.per_status)}>{statusName(value.per_status)}</Badge></td>
+                                      <td className="text-center"><i onClick={()=>buttonEdit(value.per_id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(value.per_id)} className="fa fa-times"></i></td>
                                   </tr>
                               )
                           })}

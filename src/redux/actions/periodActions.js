@@ -56,15 +56,18 @@ export const savePeriod = (values)=>{
 }
 //delete period
 export const deletePeriod = (id)=>{
-    dispatch({type:'DELETE_PERIOD_PENDING'})
-    return axios.delete({
-        url:`${BASE_URL}/period/${id}`,
-        header:{authorization:localStorage.getItem('token') }
-    }).then(results =>{
-        dispatch({type:'DELETE_PERIOD_SUCCESS'})
-    }).catch(err=>{
-        dispatch({type:'DELETE_PERIOD_REJECTED', payload:err.message})
-    })
+    return (dispatch)=>{
+       
+        return axios({
+            method:'delete',
+            url:`${BASE_URL}/period/${id}`,
+            headers:{authorization:localStorage.getItem('token') }
+        }).then(results =>{
+            dispatch({type:'DELETE_PERIOD_SUCCESS'})
+        }).catch(err=>{
+            dispatch({type:'DELETE_PERIOD_REJECTED', payload:err.message})
+        })
+    }
 }
 // reset error message
 export const resetStatus = () =>{
