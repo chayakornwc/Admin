@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ModalBody, ModalFooter, ModalHeader, Modal } from 'reactstrap';
+import { Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label } from 'reactstrap';
+import renderSelect from '../../views/Theme/Coursemanage/Utils/renderSelect';
+import renderSelectRoom from '../../views/Theme/Coursemanage/Utils/renderSelectRoom';
+import renderTimepicker from '../../views/Theme/Coursemanage/Utils/renderTimepicker';
+import renderDatepicker from '../Utils/renderDatepicker';
 import { Field, reduxForm } from 'redux-form';
 import renderField from '../Utils/renderFields';
 class PeriodForm extends Component {
@@ -37,7 +41,8 @@ class PeriodForm extends Component {
     
     render() {
         // handleSubmit  properties of redux form
-        const { data, periodSave, onSubmit, handleSubmit , modalTitle, onToggle} = this.props
+        const { data, periodSave, onSubmit, handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
+        console.log(course)
         return (
             <div>
                 <ModalHeader toggle={onToggle}>{modalTitle}</ModalHeader>
@@ -46,24 +51,44 @@ class PeriodForm extends Component {
                     {periodSave.isRejected && <div className="alert alert-danger">{periodSave.data}</div>}
 
                     {/* รูปแบบการแสดงผลจัดตาม Bootstrap 4 */}
-                    <div className="form-group row">
-                        <label className="col-sm-3 col-form-label">สถานะ</label>
-                        <div className="col-sm-9">
-                            <div className="form-check form-check-inline">
-                                <label className="form-check-label">
-                                    <Field name="course_status"  component="input" type="radio" selected value="0"/>{' '}ระงับการใช้งาน
-                                    </label>
-                            </div>
-                            <div className="form-check form-check-inline">
-                                <label className="form-check-label">
-                                    <Field name="course_status" component="input" type="radio" value="1"/>{' '}เปิดการใช้งาน 
-                                    </label>
-                            </div>
-                        </div>
-                    </div>
-                    <Field name="course_name" component={renderField}  type="text" label="ชื่อหลักสูตร" autoFocus />
-                    <Field name="course_nameEng" component={renderField}  type="text" label="ชื่อภาษาอังกฤษ" />
-                    <Field name="course_detail" component={renderField} textarea type="text" label="รายละเอียด" />
+                    <Form className="form-horizontal">
+                                    <FormGroup row>
+                                        <Col md="3">
+                                            <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
+                                        </Col>
+                                        <Col md="4">
+                                            <Field name="per_start" component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
+                                        </Col>
+                                        <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '}
+                                        <Col md="4">   
+                                            <Field name="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
+                                        </Col>
+                                    </FormGroup>
+                                    <FormGroup row>
+                                        <Col md="3">
+                                            <Label htmlFor="appendedInputButton">ช่วงเวลาที่อบรม</Label>
+                                        </Col>
+                                        <Col md="auto">
+                                            <Field name="per_time_start" component={renderTimepicker} placeholder=""/>
+                                        </Col>
+                                        {' '}<i className="fa fa-angle-right fa-lg mt-2"></i>{' '}
+                                        <Col md="auto">
+                                            <Field name="per_time_end" component={renderTimepicker}/>
+                                        </Col>
+                                    </FormGroup>
+
+                                        <Field name="course_id" data={course.data} label="หลักสูตร"   component={renderSelect} />
+
+                                     <FormGroup>
+                                        <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Field name="per_quota" component={renderField}  type="number" label="จำนวนที่นั่ง" />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Field name="room_id" data={operation_rooms.data}  component={renderSelectRoom} label="ห้องปฏิบัติการ" />
+                                    </FormGroup>
+                        </Form>
                 </ModalBody>
 
                 <ModalFooter>
@@ -76,18 +101,32 @@ class PeriodForm extends Component {
 
 }
 
-function validate(values) {
-    const errors = {};
-    if (!values.course_name) {
-        errors.course_name = 'จำเป็นต้องกรอก ฟิลด์นี้!';
+function validate(values){
+    const errors ={};
+    if(!values.per_start){
+        errors.per_start = 'กรุณาเลือก'
     }
-    if (!values.course_status){
-        errors.course_status = 'จำเป็นต้องเลือก';    
+    if(!values.per_end){
+        errors.per_end='กรุณาเลือก'
     }
-    if (!values.course_nameEng) {
-        errors.course_nameEng = 'จำเป็นต้องกรอก ฟิลด์นี้!';
+    if(!values.per_time_start){
+        errors.per_time_start ="กรุณาเลือก"
     }
-
+    if(!values.per_time_end){
+        errors.per_time_end ="กรุณาเลือก"
+    }
+    if(!values.course_id){
+        errors.course_id ="กรุณาเลือก"
+    }
+    if(!values.per_price){
+        errors.per_price = "ต้องกรอกฟิลด์นี้"
+    }
+    if(!values.per_quota){
+        errors.per_quota = "ต้องกรอกฟิลด์นี้_"
+    }
+    if(!values.room_id){
+        errors.room_id ="กรุณาเลือก"
+    }
     return errors;
 }
 

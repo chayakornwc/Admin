@@ -77,7 +77,7 @@ class Periodregister extends Component {
 render() {
 const {periodSave, courses, operation_rooms, handleSubmit} = this.props;
         
-       console.log(operation_rooms);
+
 return (
          <div className="animated fadeIn">
             <Row>

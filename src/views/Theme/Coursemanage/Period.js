@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
+import { loadCourse } from '../../../redux/actions/courseActions';
+import {loadRooms} from '../../../redux/actions/operationRoomActions';
+
 import {connect} from 'react-redux'
 import PeriodTable from '../../../components/period/periodTable';
 import PeriodForm from '../../../components/period/periodForm';
 import {Modal} from 'reactstrap';
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
 import values from 'redux-form/lib/values';
+
 const alertify = require('alertify.js');
 
 class Period extends Component {
@@ -19,10 +23,15 @@ class Period extends Component {
         this.modalToggle = this.modalToggle.bind(this);
       }
 
-      state = {modal:false}
+      state = {
+        modal:false,
+        backdrop: 'static'
+    }
 
     componentDidMount(){
         this.props.dispatch(loadPeriods());
+        this.props.dispatch(loadCourse());
+        this.props.dispatch(loadRooms());
     }
 
     modalToggle(){
@@ -63,11 +72,11 @@ class Period extends Component {
         })
     }
     render() {
-        const {periods, period, periodSave} = this.props;
+        const {periods, period, periodSave, courses, operation_rooms} = this.props;
         return (
             <div className="animated fadeIn">
-              <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary" autoFocus={false}>
-                <PeriodForm modalTitle={this.state.modalTitle} data={period.data}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
+              <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
+                <PeriodForm modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
             </Modal>
                 <PeriodTable data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>
@@ -85,7 +94,8 @@ function mapStateToProps(state) {
         period:state.periodReducers.period,
         periodSave:state.periodReducers.periodSave,
         periodDelete:state.periodReducers.periodDelete,
-        courses:state.courseReducer.courses
+        courses:state.courseReducer.courses,
+        operation_rooms: state.operationRoomReducers.operation_rooms
     }
 }
 
