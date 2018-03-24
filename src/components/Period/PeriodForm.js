@@ -7,6 +7,9 @@ import renderTimepicker from '../../views/Theme/Coursemanage/Utils/renderTimepic
 import renderDatepicker from '../Utils/renderDatepicker';
 import { Field, reduxForm } from 'redux-form';
 import renderField from '../Utils/renderFields';
+const moment = require('moment');
+moment.locale('th');
+moment().format('LL');
 class PeriodForm extends Component {
     constructor(props){
         super(props);
@@ -15,28 +18,30 @@ class PeriodForm extends Component {
     componentDidMount(){
         this.handleInitialize();
     }
-    handleInitialize(){ 
+    handleInitialize() {
+       console.log(this.props.data)
         let initData = {
-            course_id:'',
-            course_status:null,
-            course_name:'',
-            course_nameEng:'',
-            course_detail:''
-        }
-            if(this.props.data.course_id){
-                initData = this.props.data
-                //status ที่รับมาเป็น init แต่value ต้องแปลงเป็น string ก่อน
-                initData.course_status = this.props.data.course_status.toString()
-            }
-            // method of redux-form
-           
-            this.props.initialize(initData);
+            "per_id":parseInt(this.props.data.per_id),
+            "per_start": this.props.data.per_start ? moment(this.props.data.per_start, ['YYYY-MM-DD', 'DD MMMM YYYY']).add(543, 'years').format('LL') : null,
+            "per_end":this.props.data.per_end ? moment(this.props.data.per_end, ['YYYY-MM-DD', 'DD MMMM YYYY']).add(543,'years').format('LL') : null,
+            "per_time_start":this.props.data.per_time_start ? moment(this.props.data.per_time_start, 'LT').format('LT') : null,
+            "per_time_end":this.props.data.per_time_end ?  moment(this.props.data.per_time_end, 'LT').format('LT') : null,
+            "room_id":this.props.data.room_id,
+            "course_id":this.props.data.course_id,
+            "per_price":this.props.data.per_price,
+            "per_quota":this.props.data.per_quota,
+            "course_status": 0
+        };
+        this.props.initialize(initData);
+        
     }
         toggle = () => {
             this.props.onToggle();
         }
         onSubmit = (values) => {
+            console.log(values)
             this.props.onSubmit(values);
+            
         }
     
     render() {
@@ -57,11 +62,11 @@ class PeriodForm extends Component {
                                             <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
                                         </Col>
                                         <Col md="4">
-                                            <Field name="per_start" component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
+                                            <Field name="per_start" styles={{'flex-wrap':'unset'}} component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
                                         </Col>
                                         <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '}
                                         <Col md="4">   
-                                            <Field name="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
+                                            <Field name="per_end" styles={{'flex-wrap':'unset'}} component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
                                         </Col>
                                     </FormGroup>
                                     <FormGroup row>

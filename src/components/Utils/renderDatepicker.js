@@ -13,19 +13,12 @@ moment().format('LL');
 //     return date.format('DD/MM/YYYY'); 
 //} 
 
-function thaiDate (dateStr){
-    let date = moment(dateStr, 'DD MMMM YYYY');
-    
-    if(date.isValid()){
-        date.add(543, 'years');
-        return date.format('DD MMMM YYYY')
-    }
-}
-const renderDatePicker = ({ input, placeholder,  defaultValue, meta: { touched, error } }) => {
+
+const renderDatePicker = ({ input, placeholder, styles,  defaultValue, meta: { touched, error } }) => {
    
     return (
                 <div>          
-                    <InputGroup >
+                    <InputGroup style={styles}>
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText>
                                 <i className="fa fa-calendar"></i>

@@ -45,6 +45,7 @@ class Period extends Component {
         this.setState({modalTitle:'แก้ไข'})
         this.props.dispatch(getPeriod(id)).then(()=>{
         this.modalToggle();
+        console.log(this.props.period.data);
         })
     }
     handleDelete=(id)=>{
@@ -62,10 +63,11 @@ class Period extends Component {
             })
     }
     handleSubmit = (values)=>{
+  
         this.props.dispatch(savePeriod(values)).then(()=>{
             if(!this.props.periodSave.isRejected){
                 this.modalToggle();
-                this.props.dispatch.loadPeriods();
+                this.props.dispatch(loadPeriods());
                 alertify.alert('แก้ไขข้อมูลเรียบร้อยแล้ว').set('basic', true);
                 
             }
@@ -76,9 +78,9 @@ class Period extends Component {
         return (
             <div className="animated fadeIn">
               <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-                <PeriodForm modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
+                <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
             </Modal>
-                <PeriodTable data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
+                <PeriodTable  data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>
         );
     }
