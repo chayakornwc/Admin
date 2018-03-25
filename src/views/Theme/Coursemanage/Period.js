@@ -10,6 +10,7 @@ import PeriodForm from '../../../components/period/periodForm';
 import {Modal} from 'reactstrap';
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
 import values from 'redux-form/lib/values';
+import PeriodFilter from '../../../components/Period/PeriodFilter';
 
 const alertify = require('alertify.js');
 
@@ -73,6 +74,9 @@ class Period extends Component {
             }
         })
     }
+    handleSearch = (term) => {
+        this.props.dispatch(loadUsers(term))
+    }
     render() {
         const {periods, period, periodSave, courses, operation_rooms} = this.props;
         return (
@@ -80,6 +84,7 @@ class Period extends Component {
               <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
                 <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
             </Modal>
+                <PeriodFilter handleSearch={this.handleSearch} />
                 <PeriodTable  data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>
         );
