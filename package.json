@@ -44,6 +44,7 @@
     "font-awesome": "4.7.0",
     "history": "4.7.2",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.5",
     "prop-types": "^15.6.1",
     "rc-time-picker": "^3.3.1",
     "react": "16.2.0",

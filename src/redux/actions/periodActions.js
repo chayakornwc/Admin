@@ -6,10 +6,10 @@ import actions from 'redux-form/lib/actions';
 const BASE_URL = config.BASE_URL
 
 // loadPeriod for loops
-export const loadPeriods =(term='')=>{
+export const loadPeriods =(term='',startDate='', endDate='')=>{
     return(dispatch) =>{
         dispatch({type:'LOAD_PERIODS_PENDING'})
-        return axios.get(`${BASE_URL}/period?term=${term}`,{
+        return axios.get(`${BASE_URL}/period?term=${term}&stateDate=${startDate}&endDate=${endDate}`,{
             }).then( results =>{
                 dispatch({type:'LOAD_PERIODS_SUCCESS', payload:results.data})  
             }).catch(err=>{

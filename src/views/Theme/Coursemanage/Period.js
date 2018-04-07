@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
-
+import { debounce } from 'lodash';
 import {connect} from 'react-redux'
 import PeriodTable from '../../../components/period/periodTable';
 import PeriodForm from '../../../components/period/periodForm';
@@ -22,13 +22,15 @@ class Period extends Component {
         this.handleEdit = this.handleEdit.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.modalToggle = this.modalToggle.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
+       
       }
 
       state = {
         modal:false,
         backdrop: 'static'
     }
-
+  
     componentDidMount(){
         this.props.dispatch(loadPeriods());
         this.props.dispatch(loadCourse());
@@ -46,7 +48,7 @@ class Period extends Component {
         this.setState({modalTitle:'แก้ไข'})
         this.props.dispatch(getPeriod(id)).then(()=>{
         this.modalToggle();
-        console.log(this.props.period.data);
+            
         })
     }
     handleDelete=(id)=>{
@@ -74,17 +76,25 @@ class Period extends Component {
             }
         })
     }
-    handleSearch = (term) => {
-        this.props.dispatch(loadUsers(term))
+    handleSearch = (term, startDate, endDate) => {
+        term != null ? term : null ;
+        startDate != null ? startDate : null ;  
+        endDate != null ? endDate : null;
+        this.props.dispatch(loadPeriods(term, startDate, endDate))
     }
+
     render() {
         const {periods, period, periodSave, courses, operation_rooms} = this.props;
+        const Filter = debounce((term) => {
+            this.handleSearch(term)
+        },500)
+      
         return (
             <div className="animated fadeIn">
               <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
                 <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
             </Modal>
-                <PeriodFilter handleSearch={this.handleSearch} />
+                <PeriodFilter onSearchTermChange={Filter}/>
                 <PeriodTable  data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>
         );
