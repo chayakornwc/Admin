@@ -76,17 +76,18 @@ class Period extends Component {
             }
         })
     }
-    handleSearch = (term, startDate, endDate) => {
+    handleSearch = (term, startDate, endDate, options) => {
         term != null ? term : null ;
         startDate != null ? startDate : null ;  
         endDate != null ? endDate : null;
-        this.props.dispatch(loadPeriods(term, startDate, endDate))
+        options != null ? options : null;
+        this.props.dispatch(loadPeriods(term, startDate, endDate, options))
     }
 
     render() {
         const {periods, period, periodSave, courses, operation_rooms} = this.props;
-        const Filter = debounce((term) => {
-            this.handleSearch(term)
+        const Filter = debounce((term, startDate, endDate, options) => {
+            this.handleSearch(term, startDate, endDate, options)
         },500)
       
         return (
@@ -94,7 +95,7 @@ class Period extends Component {
               <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
                 <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
             </Modal>
-                <PeriodFilter onSearchTermChange={Filter}/>
+                <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
                 <PeriodTable  data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>
         );

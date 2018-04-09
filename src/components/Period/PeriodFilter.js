@@ -16,13 +16,16 @@ class PeriodFilter extends Component {
           this.state = {
             startDate:null,
             endDate:null,
-            term:''
+            term:'',
+            options:[0,1]
+            
         }
      
        
     }
     static propTypes ={
       onSearchTermChange:propTypes.func.isRequired,
+      onSearchDateChange:propTypes.func.isRequired,
       placeholder:propTypes.string,
     
   }
@@ -30,15 +33,55 @@ class PeriodFilter extends Component {
 
   onInputChange(term) {
     this.setState({ term });
-    this.props.onSearchTermChange(term);
+    var startDate = this.state.startDate? this.state.startDate: '';
+    var endDate = this.state.endDate? this.state.endDate: '';
+    var options =  this.state.options ? this.state.options:'';
+    this.props.onSearchTermChange(term, startDate, endDate, options);
+  
 }   
   
     handleChang = name=> event=>{
       this.setState({
        [name]:moment(event).format('LL')
       })
+      var startDate = this.state.startDate? this.state.startDate: '';
+      var endDate = this.state.endDate? this.state.endDate: '';
+      var term = this.state.term ? this.state.term:'';
+      var options =  this.state.options ? this.state.options:'';
+      if(name == 'startDate'){
+          startDate = moment(event).format('LL');
+        
+      }
+      if(name=='endDate'){
+         endDate = moment(event).format('LL');
+      }
+       this.props.onSearchChange(term,startDate, endDate,options);
+
      
     }
+
+    handleCheck = e =>{
+      const options =this.state.options
+      var startDate = this.state.startDate? this.state.startDate: '';
+      var endDate = this.state.endDate? this.state.endDate: '';
+      var term = this.state.term ? this.state.term:'';
+      let index
+     
+      if (e.target.checked) {
+        // add the numerical value of the checkbox to options array
+        options.push(+e.target.value)
+      } else {
+        // or remove the value from the unchecked checkbox from the array
+        index = options.indexOf(+e.target.value)
+        options.splice(index, 1)
+      }
+     
+      // update the state with the new array of options
+      this.setState({ options: options })
+      
+      this.props.onSearchChange(term,startDate, endDate,options);
+    }
+  
 render() {
     return (
            <div>
@@ -74,8 +117,7 @@ render() {
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                     </InputGroupAddon>
-
-                        <Datepicker   onChange={this.handleChang('startDate')}  className="form-control" selected={this.state.startDate ? moment(this.state.startDate, 'LL'): null}    minDate={moment().add(543, "years")} />
+                        <Datepicker  onChange={this.handleChang('startDate')}  className="form-control" selected={this.state.startDate ? moment(this.state.startDate, 'LL'): null}    minDate={moment().add(543, "years")} />
                     </InputGroup>        
                 </Col>
                 <i className="fa fa-angle-right fa-lg mt-2"></i>
@@ -86,8 +128,7 @@ render() {
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                     </InputGroupAddon>
-
-                        <Datepicker   onChange={this.handleChang('endDate')}  className="form-control" selected={this.state.endDate ? moment(this.state.endDate, 'LL'): null}    minDate={ this.state.startDate ? moment(this.state.startDate, 'LL') : moment().add(543, 'years')} />
+                        <Datepicker onChange={this.handleChang('endDate')}  className="form-control" selected={this.state.endDate ? moment(this.state.endDate, 'LL'): null}    minDate={ this.state.startDate ? moment(this.state.startDate, 'LL') : moment().add(543, 'years')} />
                     </InputGroup>
                 </Col>
                 </Row>
@@ -98,20 +139,20 @@ render() {
                      </Col>
                       <Col md="9">
                       <FormGroup check inline>
-                        <Input className="form-check-input"  type="checkbox" id="per_status0" name="per_status0" value="0"/>
-                        <Label className="form-check-label" check htmlFor="per_status0">เปิดการอบรม</Label>
+                        <Input checked={this.state.options.includes(0)} onChange={this.handleCheck} className="form-check-input"  type="checkbox" id="per_status_0" name="per_status_0" value={0}/>
+                        <Label className="form-check-label" check htmlFor="per_status_0">เปิดการอบรม</Label>
                       </FormGroup>
                       <FormGroup check inline>
-                        <Input className="form-check-input" type="checkbox" id="per_status1" name="iper_status1" value="1"/>
-                        <Label className="form-check-label" check htmlFor="per_status1">กำลังดำเนินการ</Label>
+                        <Input checked={this.state.options.includes(1)} onChange={this.handleCheck}  className="form-check-input" type="checkbox" id="per_status_1" name="per_status_1" value={1}/>
+                        <Label className="form-check-label" check htmlFor="per_status_1">กำลังดำเนินการ</Label>
                       </FormGroup>
                       <FormGroup check inline>
-                        <Input className="form-check-input" type="checkbox" id="per_status2" name="per_status2" value="2"/>
-                        <Label className="form-check-label" check htmlFor="per_status2">ระงับการอบรม</Label>
+                        <Input   checked={this.state.options.includes(2)} onChange={this.handleCheck}  className="form-check-input" type="checkbox" id="per_status_2" name="per_status_2" value={2}/>
+                        <Label className="form-check-label" check htmlFor="per_status_2">ระงับการอบรม</Label>
                       </FormGroup>
                       <FormGroup check inline>
-                        <Input className="form-check-input" type="checkbox" id="per_status3" name="per_status3" value="3"/>
-                        <Label className="form-check-label" check htmlFor="per_status3">การอบรมเสร็จสิ้น</Label>
+                        <Input checked={this.state.options.includes(3)}   onChange={this.handleCheck}   className="form-check-input" type="checkbox" id="per_status_3" name="per_status_3" value={3}/>
+                        <Label className="form-check-label" check htmlFor="per_status_3">การอบรมเสร็จสิ้น</Label>
                       </FormGroup>
                       </Col>
                   </FormGroup>
