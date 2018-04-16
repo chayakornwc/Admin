@@ -28,7 +28,6 @@ class Periodregister extends Component {
     constructor(props){
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
-      
         this.toggle = this.toggle.bind(this);
         this.onDismiss = this.onDismiss.bind(this);
         this.state = { collapse: true, visible:true};

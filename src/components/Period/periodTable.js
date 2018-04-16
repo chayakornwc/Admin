@@ -48,8 +48,7 @@ class PeriodTable extends Component {
         super(props);
     }
  render() {
-        const {data, buttonDelete, buttonEdit, renderTable} = this.props;
-        console.log(data)
+        const {data, buttonDelete, buttonEdit, renderTable, attendee} = this.props;
         return (
             <div>      
                 <Row>
@@ -85,7 +84,7 @@ class PeriodTable extends Component {
                                       <td>{value.per_quota}</td>
                                       <td>{value.room_name}</td>
                                       <td><Badge color={statusColor(value.per_status)}>{statusName(value.per_status)}</Badge></td>
-                                      <td className="text-center"><i onClick={()=>buttonEdit(value.per_id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(value.per_id)} className="fa fa-times"></i></td>
+                                      <td className="text-center"><i onClick={()=>attendee(value.per_id)} className="fa fa-user-plus"></i>{' '}<i onClick={()=>buttonEdit(value.per_id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(value.per_id)} className="fa fa-times"></i></td>
                                   </tr>
                               )
                           })}

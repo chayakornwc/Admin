@@ -9,7 +9,7 @@ const BASE_URL = config.BASE_URL
 export const loadPeriods =(term='',startDate='', endDate='', options=[])=>{
     return(dispatch) =>{
         dispatch({type:'LOAD_PERIODS_PENDING'})
-        return axios.get(`${BASE_URL}/period?term=${term}&stateDate=${startDate}&endDate=${endDate}&options=${options}`,{
+        return axios.get(`${BASE_URL}/period?term=${term}&startDate=${startDate}&endDate=${endDate}&options=${options}`,{
             }).then( results =>{
                 dispatch({type:'LOAD_PERIODS_SUCCESS', payload:results.data})  
             }).catch(err=>{

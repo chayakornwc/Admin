@@ -23,13 +23,13 @@ class Period extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.modalToggle = this.modalToggle.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
-       
+        this.state = {
+            modal:false,
+            backdrop: 'static'
+        }
       }
 
-      state = {
-        modal:false,
-        backdrop: 'static'
-    }
+   
   
     componentDidMount(){
         this.props.dispatch(loadPeriods());
@@ -50,6 +50,9 @@ class Period extends Component {
         this.modalToggle();
             
         })
+    }
+    handleAttention=(id)=>{
+        this.props.dispatch(resetStatus())
     }
     handleDelete=(id)=>{
         confirmModalDialog({
@@ -89,14 +92,19 @@ class Period extends Component {
         const Filter = debounce((term, startDate, endDate, options) => {
             this.handleSearch(term, startDate, endDate, options)
         },500)
-      
+        if (periods.isRejected) {
+            //ถ้ามี error
+            return <h1>{periods.data}</h1>
+        }
+           
+        
         return (
             <div className="animated fadeIn">
               <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
                 <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
             </Modal>
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
-                <PeriodTable  data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
+                <PeriodTable attendee={this.handleAttention} data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>
         );
     }

@@ -14,8 +14,8 @@ class PeriodFilter extends Component {
     constructor(props){
         super(props);
           this.state = {
-            startDate:null,
-            endDate:null,
+            startDate:'',
+            endDate:'',
             term:'',
             options:[0,1]
             
@@ -25,7 +25,6 @@ class PeriodFilter extends Component {
     }
     static propTypes ={
       onSearchTermChange:propTypes.func.isRequired,
-      onSearchDateChange:propTypes.func.isRequired,
       placeholder:propTypes.string,
     
   }
@@ -42,21 +41,20 @@ class PeriodFilter extends Component {
   
     handleChang = name=> event=>{
       this.setState({
-       [name]:moment(event).format('LL')
+       [name]: moment(event).isValid()  ? moment(event).format('LL') : ''
       })
       var startDate = this.state.startDate? this.state.startDate: '';
       var endDate = this.state.endDate? this.state.endDate: '';
       var term = this.state.term ? this.state.term:'';
       var options =  this.state.options ? this.state.options:'';
       if(name == 'startDate'){
-          startDate = moment(event).format('LL');
+          startDate = moment(event).isValid() ? moment(event).format('LL') : '';
         
       }
       if(name=='endDate'){
-         endDate = moment(event).format('LL');
+         endDate = moment(event).isValid() ?  moment(event).format('LL'): '';
       }
        this.props.onSearchChange(term,startDate, endDate,options);
-
      
     }
 
@@ -117,7 +115,7 @@ render() {
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                     </InputGroupAddon>
-                        <Datepicker  onChange={this.handleChang('startDate')}  className="form-control" selected={this.state.startDate ? moment(this.state.startDate, 'LL'): null}    minDate={moment().add(543, "years")} />
+                        <Datepicker  onChange={this.handleChang('startDate')}  className="form-control" dateFormat='LL' selected={moment(this.state.startDate, 'DD MMMM YYYY').isValid() ? moment(this.state.startDate, 'DD MMMM YYYY') : null}    minDate={moment().add(543, "years")} />
                     </InputGroup>        
                 </Col>
                 <i className="fa fa-angle-right fa-lg mt-2"></i>
@@ -128,7 +126,7 @@ render() {
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                     </InputGroupAddon>
-                        <Datepicker onChange={this.handleChang('endDate')}  className="form-control" selected={this.state.endDate ? moment(this.state.endDate, 'LL'): null}    minDate={ this.state.startDate ? moment(this.state.startDate, 'LL') : moment().add(543, 'years')} />
+                        <Datepicker onChange={this.handleChang('endDate')}  className="form-control" dateFormat='LL' selected={moment(this.state.endDate, 'DD MMMM YYYY').isValid() ? moment(this.state.endDate,  'DD MMMM YYYY') : null }    minDate={ this.state.startDate ? moment(this.state.startDate, 'LL') : moment().add(543, 'years')} />
                     </InputGroup>
                 </Col>
                 </Row>

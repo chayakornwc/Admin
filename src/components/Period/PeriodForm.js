@@ -19,7 +19,6 @@ class PeriodForm extends Component {
         this.handleInitialize();
     }
     handleInitialize() {
-       console.log(this.props.data)
         let initData = {
             "per_id":parseInt(this.props.data.per_id),
             "per_start": this.props.data.per_start ? moment(this.props.data.per_start, ['YYYY-MM-DD', 'DD MMMM YYYY']).add(543, 'years').format('LL') : null,
