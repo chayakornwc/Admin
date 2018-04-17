@@ -53,6 +53,10 @@ class Period extends Component {
     }
     handleAttention=(id)=>{
         this.props.dispatch(resetStatus())
+        this.setState({modalTitle:'ผู้เข้าร่วม'})
+        this.props.dispatch((id).then(()=>{
+
+        }))
     }
     handleDelete=(id)=>{
         confirmModalDialog({
