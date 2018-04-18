@@ -16,20 +16,14 @@ class PeriodForm extends Component {
         
     }
     componentDidMount(){
+        console.log(this.props.data);
         this.handleInitialize();
     }
     handleInitialize() {
         let initData = {
+            "order_id":parseInt(this.props.data.order_id),
             "per_id":parseInt(this.props.data.per_id),
-            "per_start": this.props.data.per_start ? moment(this.props.data.per_start, ['YYYY-MM-DD', 'DD MMMM YYYY']).add(543, 'years').format('LL') : null,
-            "per_end":this.props.data.per_end ? moment(this.props.data.per_end, ['YYYY-MM-DD', 'DD MMMM YYYY']).add(543,'years').format('LL') : null,
-            "per_time_start":this.props.data.per_time_start ? moment(this.props.data.per_time_start, 'LT').format('LT') : null,
-            "per_time_end":this.props.data.per_time_end ?  moment(this.props.data.per_time_end, 'LT').format('LT') : null,
-            "room_id":this.props.data.room_id,
-            "course_id":this.props.data.course_id,
-            "per_price":this.props.data.per_price,
-            "per_quota":this.props.data.per_quota,
-            "course_status": 0
+            "username":parseInt(this.props.)
         };
         this.props.initialize(initData);
         

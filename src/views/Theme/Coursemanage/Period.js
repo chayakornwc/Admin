@@ -26,6 +26,7 @@ class Period extends Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.state = {
             modal:false,
+            AttenModal:false,
             backdrop: 'static'
         }
       }
@@ -40,7 +41,11 @@ class Period extends Component {
            modal: !this.state.modal
         })
     }
-    
+    AttenModalToggle(){
+        this.setState({
+            modal:!this.state.AttenModal
+        })
+    }
     handleEdit=(id)=>{
         this.props.dispatch(resetStatus())
         this.setState({modalTitle:'แก้ไข'})
@@ -51,10 +56,10 @@ class Period extends Component {
     }
     handleAttention=(id)=>{
         this.props.dispatch(resetStatus())
-        this.setState({modalTitle:'ผู้เข้าร่วม'})
-        this.props.dispatch(getAttendee(id).then(()=>{
+        this.setState({modalTitle:'รายชื่อผู้เข้าร่วมอบรม'})
+        this.props.dispatch(getPeriod(id)).then(()=>{
             this.modalToggle();
-        }))
+        })
     }
     handleDelete=(id)=>{
         confirmModalDialog({
@@ -103,7 +108,10 @@ class Period extends Component {
             <div className="animated fadeIn">
               <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
                 <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
-            </Modal>
+              </Modal>
+              <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
+              {/* <AttenForm> */}
+              </Modal>
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
                 <PeriodTable attendee={this.handleAttention} data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>
