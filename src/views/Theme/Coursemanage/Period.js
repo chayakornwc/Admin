@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
+import {getAttendee} from '../../../redux/actions/AttendeeActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import { debounce } from 'lodash';
@@ -28,9 +29,6 @@ class Period extends Component {
             backdrop: 'static'
         }
       }
-
-   
-  
     componentDidMount(){
         this.props.dispatch(loadPeriods());
         this.props.dispatch(loadCourse());
@@ -54,8 +52,8 @@ class Period extends Component {
     handleAttention=(id)=>{
         this.props.dispatch(resetStatus())
         this.setState({modalTitle:'ผู้เข้าร่วม'})
-        this.props.dispatch((id).then(()=>{
-
+        this.props.dispatch(getAttendee(id).then(()=>{
+            this.modalToggle();
         }))
     }
     handleDelete=(id)=>{
@@ -73,7 +71,6 @@ class Period extends Component {
             })
     }
     handleSubmit = (values)=>{
-  
         this.props.dispatch(savePeriod(values)).then(()=>{
             if(!this.props.periodSave.isRejected){
                 this.modalToggle();
