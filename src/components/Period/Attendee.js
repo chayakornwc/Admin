@@ -10,7 +10,7 @@ import renderField from '../Utils/renderFields';
 const moment = require('moment');
 moment.locale('th');
 moment().format('LL');
-class PeriodForm extends Component {
+class AttendeeForm extends Component {
     constructor(props){
         super(props);
         
@@ -21,9 +21,19 @@ class PeriodForm extends Component {
     }
     handleInitialize() {
         let initData = {
+            "username":parseInt(this.props.data.username),
+            "prefix":this.props.data.prefix,
+            "first_name":this.props.data.first_name,
+            "last_name":this.props.data.last_name,
+            "gender":this.props.data.gender,
+            "major":this.props.data.major,
+            "affiliation":this.props.data.affiliation,
+            "company":this.props.data.company,
             "order_id":parseInt(this.props.data.order_id),
             "per_id":parseInt(this.props.data.per_id),
-            "username":parseInt(this.props.)
+            "order_id":parseInt(this.props.data.order_id),
+            "per_id":parseInt(this.props.data.per_id),
+            
         };
         this.props.initialize(initData);
         
@@ -49,41 +59,18 @@ class PeriodForm extends Component {
 
                     {/* รูปแบบการแสดงผลจัดตาม Bootstrap 4 */}
                     <Form className="form-horizontal">
-                                    <FormGroup row>
-                                        <Col md="3">
-                                            <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
-                                        </Col>
-                                        <Col md="4">
-                                            <Field name="per_start" styles={{'flex-wrap':'unset'}} component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
-                                        </Col>
-                                        <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '}
-                                        <Col md="4">   
-                                            <Field name="per_end" styles={{'flex-wrap':'unset'}} component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
-                                        </Col>
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Col md="3">
-                                            <Label htmlFor="appendedInputButton">ช่วงเวลาที่อบรม</Label>
-                                        </Col>
-                                        <Col md="auto">
-                                            <Field name="per_time_start" component={renderTimepicker} placeholder=""/>
-                                        </Col>
-                                        {' '}<i className="fa fa-angle-right fa-lg mt-2"></i>{' '}
-                                        <Col md="auto">
-                                            <Field name="per_time_end" component={renderTimepicker}/>
-                                        </Col>
-                                    </FormGroup>
-
-                                        <Field name="course_id" data={course.data} label="หลักสูตร"   component={renderSelect} />
-
-                                     <FormGroup>
-                                        <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Field name="per_quota" component={renderField}  type="number" label="จำนวนที่นั่ง" />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Field name="room_id" data={operation_rooms.data}  component={renderSelectRoom} label="ห้องปฏิบัติการ" />
+                                    <FormGroup row>   
+                                        <Field name="per_price" component={renderField}  type="text" label="ค่าใช้จ่ายต่อหัว" />
+                                        <Col md="12">
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="fa fa-user"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Field name="inputAttn" component={renderField} label="data" type="text" id="inputAttn-group1" name="input1-group1" placeholder="Username"/>
+                      </InputGroup>
+                    </Col>
                                     </FormGroup>
                         </Form>
                 </ModalBody>
@@ -98,45 +85,15 @@ class PeriodForm extends Component {
 
 }
 
-function validate(values){
-    const errors ={};
-    if(!values.per_start){
-        errors.per_start = 'กรุณาเลือก'
-    }
-    if(!values.per_end){
-        errors.per_end='กรุณาเลือก'
-    }
-    if(!values.per_time_start){
-        errors.per_time_start ="กรุณาเลือก"
-    }
-    if(!values.per_time_end){
-        errors.per_time_end ="กรุณาเลือก"
-    }
-    if(!values.course_id){
-        errors.course_id ="กรุณาเลือก"
-    }
-    if(!values.per_price){
-        errors.per_price = "ต้องกรอกฟิลด์นี้"
-    }
-    if(!values.per_quota){
-        errors.per_quota = "ต้องกรอกฟิลด์นี้_"
-    }
-    if(!values.room_id){
-        errors.room_id ="กรุณาเลือก"
-    }
-    return errors;
-}
 
 
 
-PeriodForm.propTypes = {
 
-};
+
 
 
 const form = reduxForm({
-    form: 'PeriodForm',
-    validate
+    form: 'AttendeeForm'
 })
-export default form(PeriodForm)
+export default form(AttendeeForm)
 
