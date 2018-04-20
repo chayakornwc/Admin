@@ -5,9 +5,12 @@ import {getAttendee} from '../../../redux/actions/AttendeeActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import { debounce } from 'lodash';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+
 import PeriodTable from '../../../components/period/periodTable';
 import PeriodForm from '../../../components/period/periodForm';
+import AttendeeForm from '../../../components/Period/Attendee';
+
 import {Modal} from 'reactstrap';
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
 import values from 'redux-form/lib/values';
@@ -57,8 +60,8 @@ class Period extends Component {
     handleAttention=(id)=>{
         this.props.dispatch(resetStatus())
         this.setState({modalTitle:'รายชื่อผู้เข้าร่วมอบรม'})
-        this.props.dispatch(getPeriod(id)).then(()=>{
-            this.modalToggle();
+        this.props.dispatch(getAttendee(id)).then(()=>{
+            this.AttenModalToggle();
         })
     }
     handleDelete=(id)=>{
@@ -110,7 +113,7 @@ class Period extends Component {
                 <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
               </Modal>
               <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-              {/* <AttenForm> */}
+               <AttendeeForm modalTitle={this.state.modalTitle} data={}  /> 
               </Modal>
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
                 <PeriodTable attendee={this.handleAttention} data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
@@ -119,12 +122,11 @@ class Period extends Component {
     }
 }
 
-Period.propTypes = {
 
-};
 
 function mapStateToProps(state) {
     return{
+        attender:state.attendeeReducers.attender,
         periods:state.periodReducers.periods,
         period:state.periodReducers.period,
         periodSave:state.periodReducers.periodSave,
