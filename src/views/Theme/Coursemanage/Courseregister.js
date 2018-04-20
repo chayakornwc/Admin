@@ -23,7 +23,6 @@ class Courseregister extends Component {
 
     toggle(){    
         this.setState({ collapse: !this.state.collapse });
-
         }
             
     componentDidMount() {

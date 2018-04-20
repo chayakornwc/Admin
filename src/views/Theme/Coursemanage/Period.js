@@ -126,7 +126,10 @@ class Period extends Component {
 
 function mapStateToProps(state) {
     return{
+        attenders:state.attendeeReducers.attendesrs,
         attender:state.attendeeReducers.attender,
+        attenderSave:state.attendeeReducers.attenderSave,
+        attenderDelete:state.attendeeReducers.attenderDelete,
         periods:state.periodReducers.periods,
         period:state.periodReducers.period,
         periodSave:state.periodReducers.periodSave,
