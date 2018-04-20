@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
-import {getAttendee} from '../../../redux/actions/AttendeeActions';
+import {getAttendee, saveAttendee, deleteAttendee} from '../../../redux/actions/AttendeeActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import { debounce } from 'lodash';
@@ -88,6 +88,9 @@ class Period extends Component {
             }
         })
     }
+    handleSubmitAtten = (values)=>{
+        this.props.dispatch()
+    }
     handleSearch = (term, startDate, endDate, options) => {
         term != null ? term : null ;
         startDate != null ? startDate : null ;  
@@ -97,7 +100,7 @@ class Period extends Component {
     }
 
     render() {
-        const {periods, period, periodSave, courses, operation_rooms} = this.props;
+        const {periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         const Filter = debounce((term, startDate, endDate, options) => {
             this.handleSearch(term, startDate, endDate, options)
         },500)
@@ -113,7 +116,7 @@ class Period extends Component {
                 <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
               </Modal>
               <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-               <AttendeeForm modalTitle={this.state.modalTitle} data={}  /> 
+               <AttendeeForm modalTitle={this.state.modalTitle} data={attenders.data} onSubmitAtten={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
               </Modal>
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
                 <PeriodTable attendee={this.handleAttention} data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
