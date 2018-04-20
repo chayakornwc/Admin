@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 
 import PeriodTable from '../../../components/period/periodTable';
 import PeriodForm from '../../../components/period/periodForm';
-import AttendeeForm from '../../../components/Period/Attendee';
+import AttendeeForm from '../../../components/Period/AttendeeForm';
 
 import {Modal} from 'reactstrap';
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
@@ -27,6 +27,9 @@ class Period extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.modalToggle = this.modalToggle.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+        this.AttenModalToggle = this.AttenModalToggle.bind(this);
+        this.handleAttention = this.handleAttention.bind(this);
+        this.handleSubmitAtten = this.handleSubmitAtten.bind(this);
         this.state = {
             modal:false,
             AttenModal:false,
@@ -46,7 +49,7 @@ class Period extends Component {
     }
     AttenModalToggle(){
         this.setState({
-            modal:!this.state.AttenModal
+            AttenModal:!this.state.AttenModal
         })
     }
     handleEdit=(id)=>{
@@ -115,9 +118,11 @@ class Period extends Component {
               <Modal isOpen={this.state.modal} toggle={this.modalToggle} className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
                 <PeriodForm  modalTitle={this.state.modalTitle} data={period.data} operation_rooms={operation_rooms} course={courses}  periodSave={periodSave} onSubmit={this.handleSubmit} onToggle={this.modalToggle} />
               </Modal>
+
               <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-               <AttendeeForm modalTitle={this.state.modalTitle} data={attenders.data} onSubmitAtten={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
+               <AttendeeForm modalTitle={this.state.modalTitle} data={attenders && attenders.data} attenderSave={attenderSave} onSubmitAtten={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
               </Modal>
+
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
                 <PeriodTable attendee={this.handleAttention} data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>

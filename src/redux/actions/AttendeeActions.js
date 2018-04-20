@@ -1,6 +1,6 @@
-import axios from 'Axios';
+import axios from 'axios';
 import config from '../../configure';
-import actions from 'redux-form/lib/actions';
+
 //config
 const BASE_URL = config.BASE_URL
 

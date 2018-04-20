@@ -4,13 +4,13 @@ import courseReducer from './courseReducer';
 import authReducers from './authReducers';
 import periodReducers from './periodReducers';
 import operationRoomReducers from './operationRoomReducers';
-import attendeeReuducers from './attendeeReuducers';
+import attendeeReducers from './attendeeReducers';
 const rootReducers = combineReducers({
     form: formReducer,
     courseReducer,
     authReducers,
     periodReducers,
     operationRoomReducers,
-    attendeeReuducers
+    attendeeReducers
 });
 export default rootReducers;

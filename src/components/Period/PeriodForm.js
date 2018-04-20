@@ -60,11 +60,11 @@ class PeriodForm extends Component {
                                             <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
                                         </Col>
                                         <Col md="4">
-                                            <Field name="per_start" styles={{'flex-wrap':'unset'}} component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
+                                            <Field name="per_start" styles={{'flexWrap':'unset'}} component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
                                         </Col>
                                         <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '}
                                         <Col md="4">   
-                                            <Field name="per_end" styles={{'flex-wrap':'unset'}} component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
+                                            <Field name="per_end" styles={{'flexWrap':'unset'}} component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
                                         </Col>
                                     </FormGroup>
                                     <FormGroup row>
