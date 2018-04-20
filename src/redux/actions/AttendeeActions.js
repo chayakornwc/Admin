@@ -14,6 +14,16 @@ export const getAttendee = (id)=>{
         })
     }
 }
+export const loadAttenders = (term)=>{
+    return(dispatch)=>{
+        dispatch({type:'LOAD_ATTENDERS_PENDING'})
+        return axios({URL:`${BASE_URL}/attenders?term=${term}`}).then( results =>{
+            dispatch({type:'LOAD_ATTENDERS_SUCCESS', payload:results.data})
+        }).catch(err =>{
+            dispatch({type:'LOAD_ATTENDERS_REJECTED', payload:err.message})
+        })
+    }
+}
 export const saveAttendee = (values)=>{
     let _id =values.per_id;
     let _method ="post";

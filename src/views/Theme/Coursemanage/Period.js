@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
-import {getAttendee, saveAttendee, deleteAttendee} from '../../../redux/actions/AttendeeActions';
+import {getAttendee, saveAttendee, deleteAttendee, loadAttenders} from '../../../redux/actions/AttendeeActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import { debounce } from 'lodash';
@@ -101,11 +101,17 @@ class Period extends Component {
         options != null ? options : null;
         this.props.dispatch(loadPeriods(term, startDate, endDate, options))
     }
+    attenderSearch = (term)=>{
+        this.props.dispatch(loadAttenders(term))
+    }
 
     render() {
         const {periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         const Filter = debounce((term, startDate, endDate, options) => {
             this.handleSearch(term, startDate, endDate, options)
+        },500)
+        const attenderSearch = debounce(term =>{
+            this.attenderSearch(term)
         },500)
         if (periods.isRejected) {
             //ถ้ามี error
@@ -120,7 +126,7 @@ class Period extends Component {
               </Modal>
 
               <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-               <AttendeeForm modalTitle={this.state.modalTitle} data={attenders && attenders.data} attenderSave={attenderSave} onSubmitAtten={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
+               <AttendeeForm modalTitle={this.state.modalTitle} data={attenders && attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
               </Modal>
 
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>

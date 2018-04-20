@@ -50,7 +50,8 @@ class AttendeeForm extends Component {
             
         }
         handleChange = (values) => {
-
+            this.props.attenderSearch(values);
+            console.log(values)
         }
    
     render() {
@@ -66,13 +67,13 @@ class AttendeeForm extends Component {
                     {/* รูปแบบการแสดงผลจัดตาม Bootstrap 4 */}
                     <Form className="form-horizontal">
                                     <FormGroup row>   
-                                        <Field name="username" component={renderFieldsGroup} icon="fa fa-users"  type="text" label="ป้อนข้อมูลผู้เข้าร่วมอบรม" />    
+                                        <Field name="username" onChange={handleSubmit(this.handleChange)} component={renderFieldsGroup} icon="fa fa-users"  type="text" label="ค้นหา" />    
                                     </FormGroup>
                         </Form>
                 </ModalBody>
 
                 <ModalFooter>
-                    <Button color="primary" onClick={handleSubmit(this.onSubmit)}>บันทึก</Button>{' '}
+                    <Button color="primary" onClick={handleSubmit(this.onSubmit)}><i className="icon-paper-plane"></i>{' '}เพิ่ม</Button>{' '}
                     <Button color="secondary" onClick={onToggle}>ยกเลิก</Button>
                 </ModalFooter>
             </div>

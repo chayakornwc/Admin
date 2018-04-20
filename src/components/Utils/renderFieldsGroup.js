@@ -8,7 +8,7 @@ const renderFieldGroup = ({ input, label, type, textarea, icon, autoFocus, meta:
  const inputType = <Input {...input} placeholder={label} type={type} className="form-control" autoFocus={autoFocus} />;
  const iconType = <i className={icon} />;
     return (
-                <div >
+                <div className="w-98">
                   <Col md="12">
                       <InputGroup>
                         <InputGroupAddon addonType="prepend">
@@ -18,6 +18,7 @@ const renderFieldGroup = ({ input, label, type, textarea, icon, autoFocus, meta:
                         </InputGroupAddon>
                         {inputType}
                       </InputGroup>
+                     
                     </Col>
                     </div>
                     )
