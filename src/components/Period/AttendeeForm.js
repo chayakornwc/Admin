@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label } from 'reactstrap';
+import { Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 
 import renderSelect from '../../views/Theme/Coursemanage/Utils/renderSelect';
 import renderSelectRoom from '../../views/Theme/Coursemanage/Utils/renderSelectRoom';
@@ -51,8 +51,7 @@ class AttendeeForm extends Component {
         }
         handleChange = (values) => {
             this.props.attenderSearch(values);
-            console.log(values)
-        }
+        }   
    
     render() {
         // handleSubmit  properties of redux form
@@ -67,7 +66,18 @@ class AttendeeForm extends Component {
                     {/* รูปแบบการแสดงผลจัดตาม Bootstrap 4 */}
                     <Form className="form-horizontal">
                                     <FormGroup row>   
-                                        <Field name="username" onChange={handleSubmit(this.handleChange)} component={renderFieldsGroup} icon="fa fa-users"  type="text" label="ค้นหา" />    
+                                <Col md="12">
+                                    <InputGroup>
+                                        <InputGroupAddon addonType="prepend">
+                                        <InputGroupText>
+                                        <i className="fa fa-users"></i>
+                                        </InputGroupText>
+                                        </InputGroupAddon>
+                                        <Input name="term" onChange={e=> this.handleChange(e.target.value)} type="text" placholder="ค้นหา" />
+                                    </InputGroup>
+                                    
+                                    </Col>
+                                        {/* <Field name="term" onChange={handleSubmit(this.handleChange)} component={renderFieldsGroup} icon="fa fa-users"  type="text" label="ค้นหา" />     */}
                                     </FormGroup>
                         </Form>
                 </ModalBody>

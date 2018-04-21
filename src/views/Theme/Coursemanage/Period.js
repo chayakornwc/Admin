@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
 import {getAttendee, saveAttendee, deleteAttendee, loadAttenders} from '../../../redux/actions/AttendeeActions';
+import {publicLoadUsers} from '../../../redux/actions/userActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import { debounce } from 'lodash';
@@ -102,7 +103,9 @@ class Period extends Component {
         this.props.dispatch(loadPeriods(term, startDate, endDate, options))
     }
     attenderSearch = (term)=>{
-        this.props.dispatch(loadAttenders(term))
+        this.props.dispatch(publicLoadUsers(term)).then(() =>{
+            console.log(this.props.users)
+        })
     }
 
     render() {
@@ -140,7 +143,8 @@ class Period extends Component {
 
 function mapStateToProps(state) {
     return{
-        attenders:state.attendeeReducers.attendesrs,
+        users:state.userReducers.users,
+        attenders:state.attendeeReducers.attenders,
         attender:state.attendeeReducers.attender,
         attenderSave:state.attendeeReducers.attenderSave,
         attenderDelete:state.attendeeReducers.attenderDelete,
