@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
 import {getAttendee, saveAttendee, deleteAttendee, loadAttenders} from '../../../redux/actions/AttendeeActions';
-import {publicLoadUsers} from '../../../redux/actions/userActions';
+import {publicLoadUsers, getUser} from '../../../redux/actions/userActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import { debounce } from 'lodash';
@@ -105,8 +105,8 @@ class Period extends Component {
     attenderSearch = (term)=>{
         this.props.dispatch(publicLoadUsers(term))
     }
-    AttendSelect = (term)=>{
-        console.log(term)
+    AttendSelect = (id)=>{
+        this.props.dispatch(getUser(id))
     }
     render() {
         const {users, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;

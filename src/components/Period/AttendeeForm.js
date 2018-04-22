@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 
-import renderFieldsGroup from '../Utils/renderFieldsGroup';
 
+import renderFieldsDisabled from '../Utils/renderFieldsDisabled';
 import { Field, reduxForm } from 'redux-form';
 import renderField from '../Utils/renderFields';
 const moment = require('moment');
@@ -26,26 +26,13 @@ class AttendeeForm extends Component {
     }
 
     handleInitialize() {
-        // let initData = {
-        //     "username":parseInt(this.props.data.username),
-        //     "prefix":this.props.data.prefix,
-        //     "first_name":this.props.data.first_name,
-        //     "last_name":this.props.data.last_name,
-        //     "gender":this.props.data.gender,
-        //     "major":this.props.data.major,
-        //     "affiliation":this.props.data.affiliation,
-        //     "company":this.props.data.company,
-        //     "order_id":parseInt(this.props.data.order_id),
-        //     "per_id":parseInt(this.props.data.per_id),
-        //     "order_id":parseInt(this.props.data.order_id),
-        //     "per_id":parseInt(this.props.data.per_id),
-            
-        // };
-     //   this.props.initialize(initData);
         let initData = {
-            term:''
-        }
-        this.state.initialize(initData);
+            "username":this.props.user.username ? parseInt(this.props.user.username): '',
+            "fullname":this.props.user.fullname ? this.props.user.fullname : '',
+            "major":this.props.user.major ? this.props.user.major   :''
+        };
+       this.props.initialize(initData);
+      
     }   
         PopoverToggle =()=>{
             this.setState({
@@ -146,8 +133,11 @@ class AttendeeForm extends Component {
                                             </div >
                                          }
                                     </Col>
-                               <Field />
                                     </FormGroup>
+                                    <Field component={renderFieldsDisabled} name="username" label="บัญชีผู้ใช้" holder="บัญชีผู้ใช้ / รหัสนักศึกษา" />
+                                    <Field component={renderFieldsDisabled} name="fullname" label="ชื่อเต็ม" holder="ชื่อ นามสกุล" />
+                                    <Field component={renderFieldsDisabled} name="last_name" label="สาขาวิชา" holder="สาขาวิชา / สังกัด" />
+                                   
                         </Form>
                 </ModalBody>
 
