@@ -103,13 +103,13 @@ class Period extends Component {
         this.props.dispatch(loadPeriods(term, startDate, endDate, options))
     }
     attenderSearch = (term)=>{
-        this.props.dispatch(publicLoadUsers(term)).then(() =>{
-            console.log(this.props.users)
-        })
+        this.props.dispatch(publicLoadUsers(term))
     }
-
+    AttendSelect = (term)=>{
+        console.log(term)
+    }
     render() {
-        const {periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
+        const {users, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         const Filter = debounce((term, startDate, endDate, options) => {
             this.handleSearch(term, startDate, endDate, options)
         },500)
@@ -129,7 +129,7 @@ class Period extends Component {
               </Modal>
 
               <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-               <AttendeeForm modalTitle={this.state.modalTitle} data={attenders && attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
+               <AttendeeForm AttendSelect={this.AttendSelect} modalTitle={this.state.modalTitle} users={users.data} data={attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
               </Modal>
 
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>

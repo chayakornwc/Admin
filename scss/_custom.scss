@@ -3,3 +3,17 @@
 .w-98{
     width: 98%;
 }
+li.nav-item{
+    list-style-type: none;
+}
+.selectAttend{
+    font-size: 18px;
+}
+
+.dropdown-menu.is-active{
+    display: block!important;
+}
+.dropdown-item{
+font-size: $standfontsize;
+cursor: pointer;
+}

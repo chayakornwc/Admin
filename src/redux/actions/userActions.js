@@ -27,21 +27,20 @@ export const loadUsers = (term = '') => {
 }
 // new refactor
 export const publicLoadUsers = (term='')=>{
-    
-    if (term){
         return (dispatch) =>{
             dispatch({type:'LOAD_USERS_PENDING'})
-            return axios({
+            const request =   axios({
                 url:`${BASE_URL}/publicusers?term=${term}`,
                 method:'get',
                 headers:{authorization:localStorage.getItem('token')}
-            }).then(results =>{
-                dispatch({type:'LOAD_USERS_SUCCESS', payload:results});
+            })
+              
+            return request.then(results =>{
+                dispatch({type:'LOAD_USERS_SUCCESS', payload:results.data});
             }).catch(err=>{
                 dispatch({type:'LOAD_USERS_REJECTED', payload:err.message});
             })
         };
-    }
 }
 
 //ฟังก์ชันดึงข้อมูลผู้ใช้ตาม id ที่ส่ง

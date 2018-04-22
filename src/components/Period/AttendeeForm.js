@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import {Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 
-import renderSelect from '../../views/Theme/Coursemanage/Utils/renderSelect';
-import renderSelectRoom from '../../views/Theme/Coursemanage/Utils/renderSelectRoom';
-import renderTimepicker from '../../views/Theme/Coursemanage/Utils/renderTimepicker';
-import renderDatepicker from '../Utils/renderDatepicker';
 import renderFieldsGroup from '../Utils/renderFieldsGroup';
 
 import { Field, reduxForm } from 'redux-form';
@@ -16,12 +12,19 @@ moment().format('LL');
 class AttendeeForm extends Component {
     constructor(props){
         super(props);
-        
+        this.state ={
+            popoverOpen: false,
+            dropdownOpen:false,
+            term:''
+        }
+        this.toggle = this.toggle.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.dropdownToggle = this.dropdownToggle.bind(this);
+        this.HookAtten = this.HookAtten.bind(this);
+        this.renderUser = this.renderUser.bind(this);
     }
-    componentDidMount(){
-        console.log(this.props.data);
-       // this.handleInitialize();
-    }
+
     handleInitialize() {
         // let initData = {
         //     "username":parseInt(this.props.data.username),
@@ -39,8 +42,21 @@ class AttendeeForm extends Component {
             
         // };
      //   this.props.initialize(initData);
-        
-    }
+        let initData = {
+            term:''
+        }
+        this.state.initialize(initData);
+    }   
+        PopoverToggle =()=>{
+            this.setState({
+                popoverOpen:!this.state.popoverOpen
+            })
+        }
+        dropdownToggle = () =>{
+            this.setState({
+                dropdownOpen:!this.state.dropdownOpen
+            })
+        }
         toggle = () => {
             this.props.onToggle();
         }
@@ -50,12 +66,58 @@ class AttendeeForm extends Component {
             
         }
         handleChange = (values) => {
-            this.props.attenderSearch(values);
+            this.setState({
+                term:values
+            })
+            this.props.attenderSearch(values)
         }   
-   
+        HookAtten =(e)=>{
+          this.dropdownToggle();
+          this.setState({
+              term:''
+          })
+          console.log(e)
+         }
+        componentWillReceiveProps(nextProps){
+        if(nextProps.users == ''){
+            this.setState({
+                dropdownOpen:false
+            })
+        }else{
+            this.setState({
+                dropdownOpen:true
+            })
+      
+        }
+    
+     }
+    
+     renderUser =()=>{
+         const AttendSelect = term =>{
+             this.HookAtten(term)
+         } 
+         const isActive = this.state.dropdownOpen ? 'is-active':'is-passive'
+         if (this.state.dropdownOpen){
+          return  [this.props.users && <div key={1} className="dropdown show">
+            <div  key={2} className={"dropdown-menu "+isActive} x-placement="bottom-start"  aria-labelledby="dropdownMenuButton" >
+            {this.props.users.map(function(e, key){
+                return <div  className="dropdown-item " onClick={AttendSelect(e.id)}  key={key+3}>{e.username}{' '}{e.first_name}{' '}{e.last_name}{' '}{e.major}</div >
+            })}
+            </div>
+            </div >
+        ]
+      
+    
+    }
+         }
+     
     render() {
         // handleSubmit  properties of redux form
-        const { data, attenderSave, onSubmit, handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
+        const {users, data, attenderSave, onSubmit, handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
+        const AttendSelect = term =>{
+            this.HookAtten(term)
+        } 
+        const isActive = this.state.dropdownOpen ? 'is-active':'is-passive';
         return (
             <div>
                 <ModalHeader toggle={onToggle}>{modalTitle}</ModalHeader>
@@ -65,7 +127,7 @@ class AttendeeForm extends Component {
 
                     {/* รูปแบบการแสดงผลจัดตาม Bootstrap 4 */}
                     <Form className="form-horizontal">
-                                    <FormGroup row>   
+                            <FormGroup row>   
                                 <Col md="12">
                                     <InputGroup>
                                         <InputGroupAddon addonType="prepend">
@@ -73,11 +135,18 @@ class AttendeeForm extends Component {
                                         <i className="fa fa-users"></i>
                                         </InputGroupText>
                                         </InputGroupAddon>
-                                        <Input name="term" onChange={e=> this.handleChange(e.target.value)} type="text" placholder="ค้นหา" />
+                                        <Input value={this.state.term} autoComplete="off" id="term" name="term" onChange={e=> this.handleChange(e.target.value)} type="text" placholder="ค้นหา" />
                                     </InputGroup>
-                                    
+                                    {this.props.users && <div key={1} className="dropdown show">
+                                            <div  key={2} className={"dropdown-menu "+isActive} x-placement="bottom-start"  aria-labelledby="dropdownMenuButton" >
+                                            {this.props.users.map(function(e, key){
+                                                return <div  className="dropdown-item " onClick={()=>AttendSelect(e.id)}  key={key+3}>{e.username}{' '}{e.first_name}{' '}{e.last_name}{' '}{e.major}</div >
+                                            })}
+                                            </div>
+                                            </div >
+                                         }
                                     </Col>
-                                        {/* <Field name="term" onChange={handleSubmit(this.handleChange)} component={renderFieldsGroup} icon="fa fa-users"  type="text" label="ค้นหา" />     */}
+                               <Field />
                                     </FormGroup>
                         </Form>
                 </ModalBody>
@@ -93,10 +162,20 @@ class AttendeeForm extends Component {
 }
 
 
-
-
-
-
+Dropdown.propTypes = {
+    disabled: PropTypes.bool,
+    direction: PropTypes.oneOf(['down']),
+    group: PropTypes.bool,
+    isOpen: PropTypes.bool,
+    // For Dropdown usage inside a Nav
+    nav: PropTypes.bool,
+    active: PropTypes.bool,
+    // For Dropdown usage inside a Navbar (disables popper)
+    inNavbar: PropTypes.bool,
+    tag: PropTypes.string, // default: 'div' unless nav=true, then 'li'
+    toggle: PropTypes.func
+  };
+  
 
 
 const form = reduxForm({
