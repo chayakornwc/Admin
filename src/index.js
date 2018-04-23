@@ -96,7 +96,6 @@ const token = localStorage.getItem('token');
 //const  from  = this.props.location.state || { from: { pathname: "/" } };
 
 ReactDOM.render((
-  
   <Provider store={store}>
   <HashRouter >
     <Switch>

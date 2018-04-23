@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
 import {getAttendee, saveAttendee, deleteAttendee, loadAttenders} from '../../../redux/actions/AttendeeActions';
-import {publicLoadUsers, getUser} from '../../../redux/actions/userActions';
+import {publicLoadUsers, getUser, getPublicuser,resetStatusUsers} from '../../../redux/actions/userActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import { debounce } from 'lodash';
@@ -16,6 +16,7 @@ import {Modal} from 'reactstrap';
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
 import values from 'redux-form/lib/values';
 import PeriodFilter from '../../../components/Period/PeriodFilter';
+
 
 const alertify = require('alertify.js');
 
@@ -106,10 +107,14 @@ class Period extends Component {
         this.props.dispatch(publicLoadUsers(term))
     }
     AttendSelect = (id)=>{
-        this.props.dispatch(getUser(id))
+        this.props.dispatch(getPublicuser(id))
+    }
+    resetStatusUsers = ()=>{
+        this.props.dispatch(resetStatusUsers());
+    
     }
     render() {
-        const {users, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
+        const {users,user, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         const Filter = debounce((term, startDate, endDate, options) => {
             this.handleSearch(term, startDate, endDate, options)
         },500)
@@ -129,7 +134,7 @@ class Period extends Component {
               </Modal>
 
               <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-               <AttendeeForm AttendSelect={this.AttendSelect} modalTitle={this.state.modalTitle} users={users.data} data={attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
+               <AttendeeForm  usersReset={this.resetStatusUsers} AttendSelect={this.AttendSelect} modalTitle={this.state.modalTitle} users={users.data} user={user.data} data={attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
               </Modal>
 
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
@@ -143,6 +148,7 @@ class Period extends Component {
 
 function mapStateToProps(state) {
     return{
+        user:state.userReducers.user,   
         users:state.userReducers.users,
         attenders:state.attendeeReducers.attenders,
         attender:state.attendeeReducers.attender,

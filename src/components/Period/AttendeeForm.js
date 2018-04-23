@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 
-
 import renderFieldsDisabled from '../Utils/renderFieldsDisabled';
 import { Field, reduxForm } from 'redux-form';
+
 import renderField from '../Utils/renderFields';
+
 const moment = require('moment');
 moment.locale('th');
 moment().format('LL');
@@ -27,12 +28,12 @@ class AttendeeForm extends Component {
 
     handleInitialize() {
         let initData = {
-            "username":this.props.user.username ? parseInt(this.props.user.username): '',
-            "fullname":this.props.user.fullname ? this.props.user.fullname : '',
-            "major":this.props.user.major ? this.props.user.major   :''
-        };
-       this.props.initialize(initData);
-      
+            "username":'', 
+            "fullname":'', 
+            "major":''
+        };        
+      this.props.initialize(initData);
+    
     }   
         PopoverToggle =()=>{
             this.setState({
@@ -48,7 +49,6 @@ class AttendeeForm extends Component {
             this.props.onToggle();
         }
         onSubmit = (values) => {
-            console.log(values)
             this.props.onSubmit(values);
             
         }
@@ -58,14 +58,17 @@ class AttendeeForm extends Component {
             })
             this.props.attenderSearch(values)
         }   
-        HookAtten =(e)=>{
-          this.dropdownToggle();
-          this.setState({
-              term:''
-          })
-          console.log(e)
-         }
+        HookAtten =(id)=>{
+            this.setState({
+                term:'',
+                dropdownOpen:false
+            })
+            this.props.AttendSelect(id);
+            this.props.usersReset();
+            
+    }
         componentWillReceiveProps(nextProps){
+           
         if(nextProps.users == ''){
             this.setState({
                 dropdownOpen:false
@@ -76,6 +79,17 @@ class AttendeeForm extends Component {
             })
       
         }
+        if(nextProps.user){
+           let definedData = {
+                "username":nextProps.user.username,
+                "fullname":nextProps.user.fullname,
+                "major":nextProps.user.major
+           }
+           this.props.initialize(definedData);
+           
+            
+        }
+        
     
      }
     
@@ -136,7 +150,7 @@ class AttendeeForm extends Component {
                                     </FormGroup>
                                     <Field component={renderFieldsDisabled} name="username" label="บัญชีผู้ใช้" holder="บัญชีผู้ใช้ / รหัสนักศึกษา" />
                                     <Field component={renderFieldsDisabled} name="fullname" label="ชื่อเต็ม" holder="ชื่อ นามสกุล" />
-                                    <Field component={renderFieldsDisabled} name="last_name" label="สาขาวิชา" holder="สาขาวิชา / สังกัด" />
+                                    <Field component={renderFieldsDisabled} name="major" label="สาขาวิชา" holder="สาขาวิชา / สังกัด" />
                                    
                         </Form>
                 </ModalBody>

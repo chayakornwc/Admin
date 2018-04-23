@@ -47,7 +47,7 @@ export const saveCourse = (values)=>{
                 method:_method,
                 url:`${BASE_URL}/course/${_id}`,
                 data:values,
-                header:{authorization:localStorage.getItem('token')} //javascript web token on header authencation who am i  
+                headers:{authorization:localStorage.getItem('token')} //javascript web token on header authencation who am i  
             }).then(results=>{
                 //err check
                     if(results.data.status){

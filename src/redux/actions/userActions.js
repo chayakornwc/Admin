@@ -34,13 +34,32 @@ export const publicLoadUsers = (term='')=>{
                 method:'get',
                 headers:{authorization:localStorage.getItem('token')}
             })
-              
             return request.then(results =>{
                 dispatch({type:'LOAD_USERS_SUCCESS', payload:results.data});
             }).catch(err=>{
                 dispatch({type:'LOAD_USERS_REJECTED', payload:err.message});
             })
         };
+}
+export const getPublicuser =(id)=>{
+    return (dispatch)=>{
+        dispatch({type:'LOAD_USER_PENDING'})
+        return axios.get(`${BASE_URL}/publicuser/${id}`, {
+            headers:{
+                authorization:localStorage.getItem('token')
+            }
+        }).then(results =>{
+            dispatch({
+                type:'LOAD_USER_SUCCESS',
+                payload:results.data
+            })
+        }).catch(err=>{
+            dispatch({
+                type:'LOAD_USER_REJECTED',
+                payload:err.message
+            })
+        })
+    }
 }
 
 //ฟังก์ชันดึงข้อมูลผู้ใช้ตาม id ที่ส่ง
@@ -119,5 +138,10 @@ export const deleteUser = (id) => {
 export const resetStatus = () => {
     return (dispatch) => {
         dispatch({ type: 'SAVE_USER_SUCCESS' })
+    }
+}
+export const resetStatusUsers = () => {
+    return (dispatch) => {
+        dispatch({ type: 'LOAD_USERS_SUCCESS' })
     }
 }
