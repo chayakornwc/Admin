@@ -17,7 +17,6 @@ import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalD
 import values from 'redux-form/lib/values';
 import PeriodFilter from '../../../components/Period/PeriodFilter';
 
-
 const alertify = require('alertify.js');
 
 class Period extends Component {
@@ -35,7 +34,7 @@ class Period extends Component {
         this.state = {
             modal:false,
             AttenModal:false,
-            backdrop: 'static'
+            backdrop: 'static',
         }
       }
     componentDidMount(){
@@ -113,6 +112,9 @@ class Period extends Component {
         this.props.dispatch(resetStatusUsers());
     
     }
+    attenderSubmit = (values)=>{
+        this.props.dispatch(saveAttendee(values));
+    }
     render() {
         const {users,user, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         const Filter = debounce((term, startDate, endDate, options) => {
@@ -121,6 +123,7 @@ class Period extends Component {
         const attenderSearch = debounce(term =>{
             this.attenderSearch(term)
         },500)
+        
         if (periods.isRejected) {
             //ถ้ามี error
             return <h1>{periods.data}</h1>
@@ -134,9 +137,9 @@ class Period extends Component {
               </Modal>
 
               <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-               <AttendeeForm  usersReset={this.resetStatusUsers} AttendSelect={this.AttendSelect} modalTitle={this.state.modalTitle} users={users.data} user={user.data} data={attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
+               <AttendeeForm  attenderSubmit={this.attenderSubmit} usersReset={this.resetStatusUsers} AttendSelect={this.AttendSelect} modalTitle={this.state.modalTitle} users={users.data} user={user.data} data={attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
               </Modal>
-
+         
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
                 <PeriodTable attendee={this.handleAttention} data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>

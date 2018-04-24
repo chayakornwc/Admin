@@ -30,7 +30,8 @@ class AttendeeForm extends Component {
         let initData = {
             "username":'', 
             "fullname":'', 
-            "major":''
+            "major":'',
+            "id":''
         };        
       this.props.initialize(initData);
     
@@ -48,10 +49,10 @@ class AttendeeForm extends Component {
         toggle = () => {
             this.props.onToggle();
         }
-        onSubmit = (values) => {
-            this.props.onSubmit(values);
+        // onSubmit = (values) => {
+        //     this.props.onSubmit(values);
             
-        }
+        // }
         handleChange = (values) => {
             this.setState({
                 term:values
@@ -67,6 +68,10 @@ class AttendeeForm extends Component {
             this.props.usersReset();
             
     }
+        onSubmit = (values)=>{
+            console.log(values)
+                // this.props.attenderSubmit(values);
+        }
         componentWillReceiveProps(nextProps){
            
         if(nextProps.users == ''){
@@ -83,15 +88,15 @@ class AttendeeForm extends Component {
            let definedData = {
                 "username":nextProps.user.username,
                 "fullname":nextProps.user.fullname,
-                "major":nextProps.user.major
+                "major":nextProps.user.major,
+                "id":nextProps.user.id,
            }
            this.props.initialize(definedData);
-           
+          
             
         }
-        
-    
      }
+
     
      renderUser =()=>{
          const AttendSelect = term =>{

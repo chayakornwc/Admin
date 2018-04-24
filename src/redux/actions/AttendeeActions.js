@@ -14,7 +14,7 @@ export const getAttendee = (id)=>{
         })
     }
 }
-export const saveAttendee = (values)=>{
+export const saveAttendee = (values)=> {
     let _id =values.per_id;
     let _method ="post";
     let _route ="attendee"
@@ -24,12 +24,12 @@ export const saveAttendee = (values)=>{
             _route ="attender"
         }
 
-        return (dispatch) =>{
+        return (dispatch) => {
             return axios({
                 method:_method,
                 url:`${BASE_URL}/${_route}/${_id}`,
                 data:values,
-                header:{authorization:localStorage.getItem('token')}
+                headers:{authorization:localStorage.getItem('token')}
             }).then(results =>{
                 if (results.data.status){
                     dispatch({type:'SAVE_ATTENDER_REJECTED' ,payload:results.data.message})
@@ -41,7 +41,9 @@ export const saveAttendee = (values)=>{
                 dispatch({type:'SAVE_ATTENDER_REJECTED', payload:err.message})
             })
         }
+
 }
+
 export const deleteAttendee = (id) => {
     return (dispatch) => {
         axios({
@@ -64,3 +66,5 @@ export const resetStatus = () =>{
         dispatch({type:'SAVE_ATTENDER_SUCCESS'})
     }
 }
+
+ 
