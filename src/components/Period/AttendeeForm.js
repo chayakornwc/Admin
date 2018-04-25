@@ -66,8 +66,7 @@ class AttendeeForm extends Component {
             this.props.usersReset();   
         }
         onSubmit = (values)=>{
-            console.log(values)
-                // this.props.attenderSubmit(values);
+                this.props.attenderSubmit(values);
         }
         componentWillReceiveProps(nextProps){
            

@@ -15,7 +15,7 @@ export const getAttendee = (id)=>{
     }
 }
 export const saveAttendee = (values)=> {
-    let _id =values.per_id;
+    let _id =values.id;
     let _method ="post";
     let _route ="attendee"
         if(values.order_id){
