@@ -38,7 +38,6 @@ class PeriodForm extends Component {
             this.props.onToggle();
         }
         onSubmit = (values) => {
-         
             this.props.onSubmit(values);
             
         }

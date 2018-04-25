@@ -24,18 +24,20 @@ class AttendeeForm extends Component {
         this.dropdownToggle = this.dropdownToggle.bind(this);
         this.HookAtten = this.HookAtten.bind(this);
         this.renderUser = this.renderUser.bind(this);
+     
     }
+        handleInitialize =()=>{
+            let definedData = {
+                "id":this.props.periodId,
+                 "username":'',
+                 "fullname":'',
+                 "major":'',
+                 "registration_id":''
+            }
+            this.props.initialize(definedData); 
+        }
 
-    handleInitialize() {
-        let initData = {
-            "username":'', 
-            "fullname":'', 
-            "major":'',
-            "id":''
-        };        
-      this.props.initialize(initData);
-    
-    }   
+        
         PopoverToggle =()=>{
             this.setState({
                 popoverOpen:!this.state.popoverOpen
@@ -49,10 +51,6 @@ class AttendeeForm extends Component {
         toggle = () => {
             this.props.onToggle();
         }
-        // onSubmit = (values) => {
-        //     this.props.onSubmit(values);
-            
-        // }
         handleChange = (values) => {
             this.setState({
                 term:values
@@ -65,9 +63,8 @@ class AttendeeForm extends Component {
                 dropdownOpen:false
             })
             this.props.AttendSelect(id);
-            this.props.usersReset();
-            
-    }
+            this.props.usersReset();   
+        }
         onSubmit = (values)=>{
             console.log(values)
                 // this.props.attenderSubmit(values);
@@ -85,18 +82,21 @@ class AttendeeForm extends Component {
       
         }
         if(nextProps.user){
-           let definedData = {
-                "username":nextProps.user.username,
-                "fullname":nextProps.user.fullname,
-                "major":nextProps.user.major,
-                "id":nextProps.user.id,
-           }
-           this.props.initialize(definedData);
-          
-            
+                let  definedData = {
+                    "id":this.props.periodId,
+                        "username":nextProps.user.username,
+                        "fullname":nextProps.user.fullname,
+                        "major":nextProps.user.major,
+                        "registration_id":nextProps.user.id
+                }
+                this.props.initialize(definedData);
+            }
         }
-     }
+     
 
+     componentDidMount(){
+     
+     }
     
      renderUser =()=>{
          const AttendSelect = term =>{
