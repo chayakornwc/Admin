@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
-
+import {AutoSizer,SortDirection,SortIndicator, Column, Table } from 'react-virtualized';
+import 'react-virtualized/styles.css'; // only needs to be imported once
 import renderFieldsDisabled from '../Utils/renderFieldsDisabled';
 import { Field, reduxForm } from 'redux-form';
 
@@ -11,12 +12,13 @@ const moment = require('moment');
 moment.locale('th');
 moment().format('LL');
 class AttendeeForm extends Component {
-    constructor(props){
+    constructor(props, context){
         super(props);
         this.state ={
             popoverOpen: false,
             dropdownOpen:false,
-            term:''
+            term:'',
+            list:this.props.data
         }
         this.toggle = this.toggle.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -91,9 +93,32 @@ class AttendeeForm extends Component {
                 this.props.initialize(definedData);
             }
         }
+        componentWillUpdate (nextProps, nextState) {
+            const {
+              sortBy: prevSortBy,
+              sortDirection: prevSortDirection
+            } = this.state
+        
+            if (
+              nextState.sortBy !== prevSortBy ||
+              nextState.sortDirection !== prevSortDirection
+            ) {
+              const { sortBy, sortDirection } = nextState
+        
+              let { data } = this.props
+        
+              if (sortBy) {
+                data = data.sortBy(item => item[sortBy])
+                if (sortDirection === SortDirection.DESC) {
+                  data = data.reverse()
+                }
+              }
+            }
+          }
      
 
-     componentDidMount(){
+     componentDidMount(){   
+         {this.props.data  && console.log(this.props.data)}
      
      }
     
@@ -117,7 +142,10 @@ class AttendeeForm extends Component {
          }
      
     render() {
+        const { list, sortBy, sortDirection } = this.state
+
         // handleSubmit  properties of redux form
+      
         const {users, data, attenderSave, onSubmit, handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
         const AttendSelect = term =>{
             this.HookAtten(term)
@@ -157,6 +185,15 @@ class AttendeeForm extends Component {
                                     <Field component={renderFieldsDisabled} name="major" label="สาขาวิชา" holder="สาขาวิชา / สังกัด" />
                                    
                         </Form>
+                                <div>
+                                  
+                                            <Table {...this.props} sort={this._sort} sortBy={sortBy} sortDirection={sortDirection} width={700}  style={{'margin':'auto', 'boderBottom':'1px solid'}} height={300} headerHeight={30} rowHeight={30} rowCount={data.length}rowGetter={({ index }) => data[index]} >
+                                                <Column label='รหัสนักศึกษา' dataKey='username' width={200} disableSort={false} />
+                                            <Column width={300} label='ชื่อ - นามสกุล' dataKey='fullname' />
+                                            <Column width={200} label='สาขาวิชา' dataKey='major' />
+                                        </Table>
+                                    
+                                </div>
                 </ModalBody>
 
                 <ModalFooter>
@@ -166,6 +203,22 @@ class AttendeeForm extends Component {
             </div>
         );
     }
+    _sort ({ sortBy, sortDirection }) {
+        const {
+          sortBy: prevSortBy,
+          sortDirection: prevSortDirection
+        } = this.state
+    
+        // If list was sorted DESC by this column.
+        // Rather than switch to ASC, return to "natural" order.
+        if (prevSortDirection === SortDirection.DESC) {
+          sortBy = null
+          sortDirection = null
+        }
+    
+        this.setState({ sortBy, sortDirection })
+      }
+    
 
 }
 

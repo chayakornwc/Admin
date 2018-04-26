@@ -55,6 +55,7 @@
     "react-router-dom": "4.2.2",
     "react-select": "^1.2.1",
     "react-transition-group": "2.2.1",
+    "react-virtualized": "^9.18.5",
     "reactstrap": "5.0.0-beta",
     "redux": "^3.7.2",
     "redux-form": "^7.2.3",
