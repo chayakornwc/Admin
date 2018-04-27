@@ -111,6 +111,7 @@ class Period extends Component {
     }
     AttendSelect = (id)=>{
         this.props.dispatch(getPublicuser(id))
+        console.log('dsa')
     }
     resetStatusUsers = ()=>{
         this.props.dispatch(resetStatusUsers());
