@@ -125,7 +125,8 @@ class AttendeeForm extends Component {
      renderUser =()=>{
          const AttendSelect = term =>{
              this.HookAtten(term)
-         } 
+         }
+         
          const isActive = this.state.dropdownOpen ? 'is-active':'is-passive'
          if (this.state.dropdownOpen){
           return  [this.props.users && <div key={1} className="dropdown show">
