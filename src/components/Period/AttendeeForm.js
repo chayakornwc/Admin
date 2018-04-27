@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
-import {AutoSizer,SortDirection,SortIndicator, Column, Table } from 'react-virtualized';
+import {Table, Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+
 import 'react-virtualized/styles.css'; // only needs to be imported once
 import renderFieldsDisabled from '../Utils/renderFieldsDisabled';
 import { Field, reduxForm } from 'redux-form';
@@ -12,14 +12,14 @@ const moment = require('moment');
 moment.locale('th');
 moment().format('LL');
 class AttendeeForm extends Component {
-    constructor(props, context){
+    constructor(props){
         super(props);
         this.state ={
             popoverOpen: false,
             dropdownOpen:false,
             term:'',
-            list:this.props.data
         }
+       
         this.toggle = this.toggle.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -35,6 +35,7 @@ class AttendeeForm extends Component {
                  "fullname":'',
                  "major":'',
                  "registration_id":''
+                 
             }
             this.props.initialize(definedData); 
         }
@@ -70,52 +71,7 @@ class AttendeeForm extends Component {
         onSubmit = (values)=>{
                 this.props.attenderSubmit(values);
         }
-        componentWillReceiveProps(nextProps){
-           
-        if(nextProps.users == ''){
-            this.setState({
-                dropdownOpen:false
-            })
-        }else{
-            this.setState({
-                dropdownOpen:true
-            })
-      
-        }
-        if(nextProps.user){
-                let  definedData = {
-                    "id":this.props.periodId,
-                        "username":nextProps.user.username,
-                        "fullname":nextProps.user.fullname,
-                        "major":nextProps.user.major,
-                        "registration_id":nextProps.user.id
-                }
-                this.props.initialize(definedData);
-            }
-        }
-        componentWillUpdate (nextProps, nextState) {
-            const {
-              sortBy: prevSortBy,
-              sortDirection: prevSortDirection
-            } = this.state
-        
-            if (
-              nextState.sortBy !== prevSortBy ||
-              nextState.sortDirection !== prevSortDirection
-            ) {
-              const { sortBy, sortDirection } = nextState
-        
-              let { data } = this.props
-        
-              if (sortBy) {
-                data = data.sortBy(item => item[sortBy])
-                if (sortDirection === SortDirection.DESC) {
-                  data = data.reverse()
-                }
-              }
-            }
-          }
-     
+  
 
      componentDidMount(){   
          {this.props.data  && console.log(this.props.data)}
@@ -142,7 +98,7 @@ class AttendeeForm extends Component {
          }
      
     render() {
-        const { list, sortBy, sortDirection } = this.state
+      
 
         // handleSubmit  properties of redux form
       
@@ -185,15 +141,34 @@ class AttendeeForm extends Component {
                                     <Field component={renderFieldsDisabled} name="major" label="สาขาวิชา" holder="สาขาวิชา / สังกัด" />
                                    
                         </Form>
-                                <div>
-                                  
-                                            <Table {...this.props} sort={this._sort} sortBy={sortBy} sortDirection={sortDirection} width={700}  style={{'margin':'auto', 'boderBottom':'1px solid'}} height={300} headerHeight={30} rowHeight={30} rowCount={data.length}rowGetter={({ index }) => data[index]} >
-                                                <Column label='รหัสนักศึกษา' dataKey='username' width={200} disableSort={false} />
-                                            <Column width={300} label='ชื่อ - นามสกุล' dataKey='fullname' />
-                                            <Column width={200} label='สาขาวิชา' dataKey='major' />
-                                        </Table>
-                                    
-                                </div>
+                            <div>
+                                  {data && 
+                                    <Table>
+                                        <thead>
+                                            <tr>
+                                                <th>รหัสผู้เข้าร่วม</th>
+                                                <th>ชื่อ - นามสกุล</th>
+                                                <th>สาขาวิชา</th>
+                                                <th>คณะ/สำนัก</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                {data.map(function(e,i){
+                                                    return(
+                                                        <tr key={i}>
+                                                            <td>{e.username}</td>
+                                                            <td>{e.fullname}</td>
+                                                            <td>{e.major}</td>
+                                                            <td>{e.affiliation}</td>   
+                                                            <td><i className="fa fa-times"></i></td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                                </tbody>
+                                    </Table>
+                                      }      
+                        </div>
                 </ModalBody>
 
                 <ModalFooter>
