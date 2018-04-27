@@ -80,7 +80,7 @@ class PeriodTable extends Component {
                                       <td>{value.course_name}{' '}{value.course_nameEng}</td>
                                       <td>{moment(value.per_start).add(543, 'years').format('ll')}{' - '}{moment(value.per_end).add(543, 'years').format('ll')}</td>
                                       <td>{value.per_time_start}{' - '}{value.per_time_end}</td>
-                                      <td>{0}</td>
+                                      <td>{value.period_quantity}</td>
                                       <td>{value.per_quota}</td>
                                       <td>{value.room_name}</td>
                                       <td><Badge color={statusColor(value.per_status)}>{statusName(value.per_status)}</Badge></td>

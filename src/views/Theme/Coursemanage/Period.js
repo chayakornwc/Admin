@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
 import {getAttendee, saveAttendee, deleteAttendee, loadAttenders} from '../../../redux/actions/AttendeeActions';
-import {publicLoadUsers, getUser, getPublicuser,resetStatusUsers} from '../../../redux/actions/userActions';
+import {resetUserStore, publicLoadUsers, getUser, getPublicuser,resetStatusUsers} from '../../../redux/actions/userActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import { debounce } from 'lodash';
@@ -30,7 +30,7 @@ class Period extends Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.AttenModalToggle = this.AttenModalToggle.bind(this);
         this.handleAttention = this.handleAttention.bind(this);
-        this.handleSubmitAtten = this.handleSubmitAtten.bind(this);
+        this.attenderSubmit = this.attenderSubmit.bind(this);
         this.state = {
             modal:false,
             AttenModal:false,
@@ -96,29 +96,36 @@ class Period extends Component {
             }
         })
     }
-    handleSubmitAtten = (values)=>{
-        this.props.dispatch()
-    }
+  
     handleSearch = (term, startDate, endDate, options) => {
         term != null ? term : null ;
         startDate != null ? startDate : null ;  
         endDate != null ? endDate : null;
         options != null ? options : null;
-        this.props.dispatch(loadPeriods(term, startDate, endDate, options))
+        this.props.dispatch(loadPeriods(term, startDate, endDate, options));
     }
     attenderSearch = (term)=>{
-        this.props.dispatch(publicLoadUsers(term))
+        this.props.dispatch(publicLoadUsers(term));
     }
     AttendSelect = (id)=>{
-        this.props.dispatch(getPublicuser(id))
-        console.log('dsa')
+        this.props.dispatch(getPublicuser(id));
+        
     }
     resetStatusUsers = ()=>{
         this.props.dispatch(resetStatusUsers());
     
     }
     attenderSubmit = (values)=>{
-        this.props.dispatch(saveAttendee(values));
+        this.props.dispatch(saveAttendee(values)).then((id = values.id)=>{
+            if(!this.props.attenderSave.isRejected){
+                this.props.dispatch(getAttendee(id)).then(()=>{
+                    if(!this.props.attenders.isRejected){
+                        this.props.dispatch(resetUserStore());
+                    }
+                })
+            }
+        })
+        
     }
     render() {
         const {users,user, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;

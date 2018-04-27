@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Table, Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import {Table,Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 
-import 'react-virtualized/styles.css'; // only needs to be imported once
 import renderFieldsDisabled from '../Utils/renderFieldsDisabled';
 import { Field, reduxForm } from 'redux-form';
 
@@ -19,13 +18,13 @@ class AttendeeForm extends Component {
             dropdownOpen:false,
             term:'',
         }
-       
         this.toggle = this.toggle.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.dropdownToggle = this.dropdownToggle.bind(this);
         this.HookAtten = this.HookAtten.bind(this);
         this.renderUser = this.renderUser.bind(this);
+
      
     }
         handleInitialize =()=>{
@@ -35,7 +34,6 @@ class AttendeeForm extends Component {
                  "fullname":'',
                  "major":'',
                  "registration_id":''
-                 
             }
             this.props.initialize(definedData); 
         }
@@ -71,7 +69,30 @@ class AttendeeForm extends Component {
         onSubmit = (values)=>{
                 this.props.attenderSubmit(values);
         }
-  
+        componentWillReceiveProps(nextProps){
+           
+        if(nextProps.users == ''){
+            this.setState({
+                dropdownOpen:false
+            })
+        }else{
+            this.setState({
+                dropdownOpen:true
+            })
+      
+        }
+        if(nextProps.user){
+                let  definedData = {
+                    "id":this.props.periodId,
+                        "username":nextProps.user.username,
+                        "fullname":nextProps.user.fullname,
+                        "major":nextProps.user.major,
+                        "registration_id":nextProps.user.id
+                }
+                this.props.initialize(definedData);
+            }
+        }
+        
 
      componentDidMount(){   
          {this.props.data  && console.log(this.props.data)}
@@ -81,8 +102,7 @@ class AttendeeForm extends Component {
      renderUser =()=>{
          const AttendSelect = term =>{
              this.HookAtten(term)
-         }
-         
+         } 
          const isActive = this.state.dropdownOpen ? 'is-active':'is-passive'
          if (this.state.dropdownOpen){
           return  [this.props.users && <div key={1} className="dropdown show">
@@ -99,7 +119,7 @@ class AttendeeForm extends Component {
          }
      
     render() {
-      
+        const { list, sortBy, sortDirection } = this.state
 
         // handleSubmit  properties of redux form
       
@@ -142,34 +162,34 @@ class AttendeeForm extends Component {
                                     <Field component={renderFieldsDisabled} name="major" label="สาขาวิชา" holder="สาขาวิชา / สังกัด" />
                                    
                         </Form>
-                            <div>
-                                  {data && 
-                                    <Table>
-                                        <thead>
-                                            <tr>
-                                                <th>รหัสผู้เข้าร่วม</th>
-                                                <th>ชื่อ - นามสกุล</th>
-                                                <th>สาขาวิชา</th>
-                                                <th>คณะ/สำนัก</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                {data.map(function(e,i){
+                                         {/* ถ้ามี data*/}
+                                {data && 
+                                    <div className="visualization">
+                                       <Table hover striped responsive>
+                                       <thead> 
+                                           <tr>
+                                               <th>รหัสผู้เข้าร่วม</th>
+                                               <th>ชื่อ - นามสกุล</th>
+                                               <th>สาขาวิชา</th>
+                                               <th>สำนัก/คณะ</th>
+                                               </tr>
+                                       </thead>
+                                           <tbody>
+                                            {data.map(function(e,i){
                                                     return(
                                                         <tr key={i}>
                                                             <td>{e.username}</td>
                                                             <td>{e.fullname}</td>
                                                             <td>{e.major}</td>
-                                                            <td>{e.affiliation}</td>   
-                                                            <td><i className="fa fa-times"></i></td>
+                                                            <td>{e.affiliation}</td>
                                                         </tr>
                                                     )
-                                                })}
-                                                </tbody>
-                                    </Table>
-                                      }      
-                        </div>
+                                            })}
+                                       </tbody>
+                                   </Table>
+                               </div>
+                                }
+                                 
                 </ModalBody>
 
                 <ModalFooter>
