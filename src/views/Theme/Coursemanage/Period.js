@@ -17,7 +17,7 @@ import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalD
 import values from 'redux-form/lib/values';
 import PeriodFilter from '../../../components/Period/PeriodFilter';
 
-const alertify = require('alertify.js');
+var alertify = require('alertify.js');
 
 class Period extends Component {
 
@@ -31,6 +31,7 @@ class Period extends Component {
         this.AttenModalToggle = this.AttenModalToggle.bind(this);
         this.handleAttention = this.handleAttention.bind(this);
         this.attenderSubmit = this.attenderSubmit.bind(this);
+        this.RemoveAttenders = this.RemoveAttenders.bind(this);
         this.state = {
             modal:false,
             AttenModal:false,
@@ -42,6 +43,7 @@ class Period extends Component {
         this.props.dispatch(loadPeriods());
         this.props.dispatch(loadCourse());
         this.props.dispatch(loadRooms());
+        alertify.error('Error notification message.'); 
     }
 
     modalToggle(){
@@ -80,12 +82,29 @@ class Period extends Component {
             message:'คุณต้องการลบข้อมูลนี้ใช่หรือไม่',
             onConfirm: () => this.props.dispatch(deletePeriod(id)).then(() => {
                 this.props.dispatch(loadPeriods())
-              if(!this.props.periodDelete.isRejected){
-                  { alertify.alert('ลบข้อมูลหลักสูตรเรียบร้อยแล้ว').set('basic', true)}
-              }
+                    if(!this.props.periodDelete.isRejected){
+                        { alertify.alert('ลบข้อมูลหลักสูตรเรียบร้อยแล้ว')}
+                    }
               })
             })
     }
+    RemoveAttenders = (id, periodId)=>{
+        confirmModalDialog({
+            show:true,
+            title:'ยืนยันการลบ',
+            confirmLabel:'ยืนยัน ลบทันที',
+            message:'คุณต้องการลบข้อมูลนี้ใช่หรือไม่',
+                onConfirm: ()=>{
+                    this.props.dispatch(deleteAttendee(id)).then(()=>{
+                        this.props.dispatch(getAttendee(periodId))
+                        if(!this.props.attenderDelete.isRejected){
+                            alertify.success('ลบข้อมูลผู้เข้าร่วมเรียบร้อยแล้ว')
+                        }
+                    })
+                } 
+    })
+
+}
     handleSubmit = (values)=>{
         this.props.dispatch(savePeriod(values)).then(()=>{
             if(!this.props.periodSave.isRejected){
@@ -127,6 +146,7 @@ class Period extends Component {
         })
         
     }
+    
     render() {
         const {users,user, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         //period filter
@@ -151,7 +171,7 @@ class Period extends Component {
               </Modal>
 
               <Modal isOpen={this.state.AttenModal} toggle={this.AttenModalToggle}  className="modal-primary modal-lg" autoFocus={false} backdrop={this.state.backdrop}>
-               <AttendeeForm periodId={this.state.periodId} attenderSubmit={this.attenderSubmit} usersReset={this.resetStatusUsers} AttendSelect={this.AttendSelect} modalTitle={this.state.modalTitle} users={users.data} user={user.data} data={attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
+               <AttendeeForm RemoveAttenders={this.RemoveAttenders} periodId={this.state.periodId} attenderSubmit={this.attenderSubmit} usersReset={this.resetStatusUsers} AttendSelect={this.AttendSelect} modalTitle={this.state.modalTitle} users={users.data} user={user.data} data={attenders.data} attenderSearch={attenderSearch} attenderSave={attenderSave} onSubmit={this.handleSubmitAtten} onToggle={this.AttenModalToggle}  /> 
               </Modal>
          
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>

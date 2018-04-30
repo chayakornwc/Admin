@@ -46,18 +46,18 @@ export const saveAttendee = (values)=> {
 
 export const deleteAttendee = (id) => {
     return (dispatch) => {
-        axios({
+        return axios({
             method:'delete',
-            url:`${BASE_URL}/attender/${id}`,
-            header:{authorization:localStorage.getItem('token')}
+            url:`${BASE_URL}/attendee/${id}`,
+            headers:{authorization:localStorage.getItem('token')}
         }).then(results =>{
                 dispatch({
                     type:'DELETE_ATTENDER_SUCCESS'
-                }).catch(error =>{
-                    dispatch({
-                        type:'DELETE_ATTENDER_REJECTED', payload:error.message
-                    })
                 })
+        }).catch(err =>{
+            dispatch({
+                type:'DELETE_ATTENDER_REJECTED', payload:err.message
+            })
         })
     }
 }

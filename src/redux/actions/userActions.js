@@ -146,8 +146,8 @@ export const resetStatusUsers = () => {
     }
 }
 export const resetUserStore = ()=>{
-    data = null
+
     return (dispatch) =>{
-        dispatch({type:'LOAD_USER_SUCCESS', payload:data})
+        dispatch({type:'LOAD_USER_SUCCESS'})
     }
 }

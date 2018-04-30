@@ -8,6 +8,7 @@ import { Field, reduxForm } from 'redux-form';
 import renderField from '../Utils/renderFields';
 
 const moment = require('moment');
+
 moment.locale('th');
 moment().format('LL');
 class AttendeeForm extends Component {
@@ -24,7 +25,7 @@ class AttendeeForm extends Component {
         this.dropdownToggle = this.dropdownToggle.bind(this);
         this.HookAtten = this.HookAtten.bind(this);
         this.renderUser = this.renderUser.bind(this);
-
+    
      
     }
         handleInitialize =()=>{
@@ -81,6 +82,7 @@ class AttendeeForm extends Component {
             })
       
         }
+     
         if(nextProps.user){
                 let  definedData = {
                     "id":this.props.periodId,
@@ -90,15 +92,13 @@ class AttendeeForm extends Component {
                         "registration_id":nextProps.user.id
                 }
                 this.props.initialize(definedData);
+            }else{
+                this.handleInitialize()
             }
         }
-        
-
-     componentDidMount(){   
-         {this.props.data  && console.log(this.props.data)}
-     
-     }
     
+ 
+   
      renderUser =()=>{
          const AttendSelect = term =>{
              this.HookAtten(term)
@@ -117,16 +117,17 @@ class AttendeeForm extends Component {
     
     }
          }
-     
+
     render() {
         const { list, sortBy, sortDirection } = this.state
 
         // handleSubmit  properties of redux form
       
-        const {users, data, attenderSave, onSubmit, handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
+        const {RemoveAttenders, users, data, attenderSave, onSubmit, handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
         const AttendSelect = term =>{
             this.HookAtten(term)
         } 
+ 
         const isActive = this.state.dropdownOpen ? 'is-active':'is-passive';
         return (
             <div>
@@ -172,6 +173,7 @@ class AttendeeForm extends Component {
                                                <th>ชื่อ - นามสกุล</th>
                                                <th>สาขาวิชา</th>
                                                <th>สำนัก/คณะ</th>
+                                               <th></th>
                                                </tr>
                                        </thead>
                                            <tbody>
@@ -182,6 +184,7 @@ class AttendeeForm extends Component {
                                                             <td>{e.fullname}</td>
                                                             <td>{e.major}</td>
                                                             <td>{e.affiliation}</td>
+                                                            <td><i className="fa fa-times" onClick={()=>RemoveAttenders(e.order_id, e.per_id)}></i></td>
                                                         </tr>
                                                     )
                                             })}
@@ -198,23 +201,7 @@ class AttendeeForm extends Component {
                 </ModalFooter>
             </div>
         );
-    }
-    _sort ({ sortBy, sortDirection }) {
-        const {
-          sortBy: prevSortBy,
-          sortDirection: prevSortDirection
-        } = this.state
-    
-        // If list was sorted DESC by this column.
-        // Rather than switch to ASC, return to "natural" order.
-        if (prevSortDirection === SortDirection.DESC) {
-          sortBy = null
-          sortDirection = null
-        }
-    
-        this.setState({ sortBy, sortDirection })
-      }
-    
+    } 
 
 }
 
