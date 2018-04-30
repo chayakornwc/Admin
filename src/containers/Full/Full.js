@@ -20,6 +20,8 @@ import Typography from '../../views/Theme/Typography/';
 import Charts from '../../views/Charts/';
 import Widgets from '../../views/Widgets/';
 
+// operation room 
+import Operationroom from '../../views/Theme/Operationroom';
 // Base
 import Cards from '../../views/Base/Cards/';
 import Forms from '../../views/Base/Forms/';
@@ -72,6 +74,7 @@ class Full extends Component {
                 <Route path="/course/period" name="Period" component={Period} />
                 <Route path="/course/register" name="CourseRegister" component={Courseregister} />          
                 <Route path="/course" name="Course" component={Coursemanage} />
+                <Route path="/operationRoom" name="OperationRoom" component={Operationroom} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
                 <Route path="/base/forms" name="Forms" component={Forms}/>

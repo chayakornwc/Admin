@@ -54,46 +54,6 @@ const token = localStorage.getItem('token');
           
         }
       
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-//           <Route
-//             {...rest}
-//             render={props =>
-//              token ? (
-//                 <Component {...props} />
-//               ) : (
-//                 <Redirect
-//                   to={{
-//                     pathname: "/login",
-//                     state: { from: props.location }
-//                   }}
-//                 />
-//               )
-//             }
-//           />
-//         );
-              
-// const routers = [{
-//   path: '/',
-//   component: Login,
-//   indexRoute:{component:Login},
-//   childRoutes:[
-//       {path:'Home', component:RequireAuth(RequireAuthAdmin(User))},
-//       {path: 'album/:userID(/:title)', component: Album },
-//       {path: 'photo/:albumID(/:title)', component:Photo  },
-//       {path:'Register', component:Register},
-//       {path:'signin',component:Login},
-//       {path:'Login', component:Login},
-//       {path:'form', component:RequireAuth(RequireAuthAdmin(Form))},
-//       {path:'logout',component:RequireAuth(Logout)}
-      
-//       ]
-// }]
-  
-
-// const PrivateRoute = ({ component: Component, ...rest }) => (
-// <Route {...rest} render={props => RequireAuth(RequireAuthAdmin) ? ( <Component {...props} />  ) : ( <Redirect    to={{ pathname: "/login",     state: { from: props.location } }}  />) }/>
-//         );
-//const  from  = this.props.location.state || { from: { pathname: "/" } };
 
 ReactDOM.render((
   <Provider store={store}>

@@ -29,12 +29,22 @@ export default {
       icon: 'icon-calendar',
     },
     {
+      name: 'คลังข้อสอบ',
+      url: '/examination',
+      icon: 'icon-calendar',
+    },
+    {
       title: true,
-      name: 'components',
+      name: 'CONFIGURATION',
       wrapper: {
         element: '',
         attributes: {}
       },
+    },
+    {
+      name: 'ห้องมูลห้องปฏิบัติการ',
+      url: '/operationRoom',
+      icon: 'fa fa-building',
     },
     {
       name: 'Base',
@@ -216,39 +226,6 @@ export default {
         text: 'NEW'
       }
     },
-    {
-      divider: true
-    },
-    {
-      title: true,
-      name: 'Extras'
-    },
-    {
-      name: 'Pages',
-      url: '/pages',
-      icon: 'icon-star',
-      children: [
-        {
-          name: 'Login',
-          url: '/login',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Register',
-          url: '/register',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Error 404',
-          url: '/404',
-          icon: 'icon-star'
-        },
-        {
-          name: 'Error 500',
-          url: '/500',
-          icon: 'icon-star'
-        }
-      ]
-    }
+  
   ]
 };

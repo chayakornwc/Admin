@@ -43,6 +43,7 @@ export const saveCourse = (values)=>{
         }
 
         return(dispatch)=>{
+            dispatch({type:'LOAD_COURSE_PENDING'})
             return axios({
                 method:_method,
                 url:`${BASE_URL}/course/${_id}`,
@@ -66,6 +67,7 @@ export const saveCourse = (values)=>{
             })
         }
 }
+
 export const deleteCourse = (id)=>{
     return(dispatch)=>{
         return axios.delete(`${BASE_URL}/course/${id}`,{
