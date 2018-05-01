@@ -45,8 +45,9 @@ export const SaveRoom = (values)=>{
     return(dispatch)=>{
         dispatch({type:'SAVE_OPERATIONROOM_PENDING'})
         return axios({
-            url:`${BASE_URL}/operation_room/${id}`,
+            url:`${BASE_URL}/operation_room/${_id}`,
             method:_method,
+            data:values,
             headers:{ authorization:localStorage.getItem('token') }
         }).then(results=>{
                 if(results.data.status){

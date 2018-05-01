@@ -1,12 +1,34 @@
 import React, { Component } from 'react'
 
- class OPRregister extends Component {
+import { Field, reduxForm } from 'redux-form';
 
+import { connect } from 'react-redux';
+
+import {Row, Col, Card, CardHeader, CardBody, Form, FormGroup, Button, Alert} from 'reactstrap';
+import renderField from '../../../components/Utils/renderFields';
+import {SaveRoom} from '../../../redux/actions/operationRoomActions';
+const alertify = require('alertify.js');
+
+ class OPRregister extends Component {
+    constructor(props){
+      super(props);
+      this.state ={
+        visible:false
+      }
+      this.onSubmit = this.onSubmit.bind(this);
+    }
+    handleInitialize() {
+      let initData = {
+          "room_name": '',
+         
+      };
+      this.props.initialize(initData);
+  }
   onSubmit(e){ 
-    this.props.dispatch(savePeriod(e)).then(()=>{
-        if(!this.props.periodSave.isRejected){
+    this.props.dispatch(SaveRoom(e)).then(()=>{
+        if(!this.props.operation_roomSave.isRejected){
            this.handleInitialize();
-           alertify.alert('เพิ่มการอบรมเรียบรร้อยแล้ว').set('basic', true)
+           alertify.alert('เพิ่มห้องปฏิบัติการแล้ว').set('basic', true)
         }else{
            this.setState({ visible: true });
         }
@@ -14,8 +36,9 @@ import React, { Component } from 'react'
             this.setState({ visible: true });
           })
    }
-   
+
   render() {
+    const {operation_roomSave, handleSubmit } =this.props
     return (
       <div>
          <div className="animated fadeIn">
@@ -31,53 +54,17 @@ import React, { Component } from 'react'
                                     <a href="#" className="btn-close"><i className="icon-close"></i></a>
                                 </div>
                             </CardHeader>
-                            <Collapse isOpen={this.state.collapse} id="collapseExample">
                             <CardBody>
-                                {periodSave.isRejected && <Alert isOpen={this.state.visible} color="danger" toggle={this.onDismiss}>{periodSave.data}</Alert>}
+                                {operation_roomSave.isRejected && <Alert isOpen={this.state.visible} color="danger" toggle={this.onDismiss}>{operation_roomSave.data}</Alert>}
                                 <Form className="form-horizontal">
-                                    <FormGroup row>
-                                        <Col md="3">
-                                            <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
-                                        </Col>
-                                        <Col md="4">
-                                            <Field name="per_start" component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
-                                        </Col>
-                                        <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '}
-                                        <Col md="4">   
-                                            <Field name="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
-                                        </Col>
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Col md="3">
-                                            <Label htmlFor="appendedInputButton">ช่วงเวลาที่อบรม</Label>
-                                        </Col>
-                                        <Col md="auto">
-                                            <Field name="per_time_start" component={renderTimepicker} placeholder=""/>
-                                        </Col>
-                                        {' '}<i className="fa fa-angle-right fa-lg mt-2"></i>{' '}
-                                        <Col md="auto">
-                                            <Field name="per_time_end" component={renderTimepicker}/>
-                                        </Col>
-                                    </FormGroup>
-
-                                        <Field name="course_id"  label="หลักสูตร" data={courses.data}  component={renderSelect} />
-
                                      <FormGroup>
-                                        <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Field name="per_quota" component={renderField}  type="number" label="จำนวนที่นั่ง" />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Field name="room_id" data={operation_rooms.data}  component={renderSelectRoom} label="ห้องปฏิบัติการ" />
+                                        <Field name="room_name" component={renderField}  type="text" label="ชื่อห้องปฏิบัติการ" />
                                     </FormGroup>
                                 <div className="form-actions"> 
-                                    <Button  color="secondary">Back</Button>{ ' '}
                                     <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     
                                 </div>
                             </Form>
                         </CardBody>
-                    </Collapse>
                 </Card>
             </Col>
         </Row>  
@@ -87,9 +74,7 @@ import React, { Component } from 'react'
   }
 }
 const  mapStateToProps = (state)=>({
-  courses: state.courseReducer.courses, 
-  periodSave: state.periodReducers.periodSave,
-  operation_rooms: state.operationRoomReducers.operation_rooms
+      operation_roomSave:state.operationRoomReducers.operation_roomSave
  })
  const form = reduxForm({
   form: 'OPRregister'

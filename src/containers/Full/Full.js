@@ -22,6 +22,7 @@ import Widgets from '../../views/Widgets/';
 
 // operation room 
 import Operationroom from '../../views/Theme/Operationroom';
+import OPRregister from '../../views/Theme/Operationroom/register';
 // Base
 import Cards from '../../views/Base/Cards/';
 import Forms from '../../views/Base/Forms/';
@@ -74,6 +75,7 @@ class Full extends Component {
                 <Route path="/course/period" name="Period" component={Period} />
                 <Route path="/course/register" name="CourseRegister" component={Courseregister} />          
                 <Route path="/course" name="Course" component={Coursemanage} />
+                <Route path="/operationRoom/add" name="OperationRoom" component={OPRregister} />
                 <Route path="/operationRoom" name="OperationRoom" component={Operationroom} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
