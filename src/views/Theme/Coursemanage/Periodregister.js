@@ -33,8 +33,7 @@ class Periodregister extends Component {
         this.state = { collapse: true, visible:true};
         this.post = null
     }
-    onSubmit(e){
-        console.log(e);
+    onSubmit(e){ 
      this.props.dispatch(savePeriod(e)).then(()=>{
         
          if(!this.props.periodSave.isRejected){

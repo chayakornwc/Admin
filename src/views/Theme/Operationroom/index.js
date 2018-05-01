@@ -23,12 +23,13 @@ class Operationroom extends Component {
     componentDidMount(){
       this.props.dispatch(loadRooms());
     }
-    componentWillReceiveProps(nextProps){
-      console.log(nextProps.operation_rooms);
-    }
+   
   render() {
       const {operation_rooms, operation_roomDelete, operation_roomSave} = this.props
-      console.log(operation_rooms);
+     
+      if(operation_rooms.isRejected){
+        return <h1>{operation_rooms.data}</h1>
+      }
     return (
       <div className="animated fadeIn">
         <OPRTable data={operation_rooms.data}/>
