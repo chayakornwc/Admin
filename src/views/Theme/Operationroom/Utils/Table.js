@@ -12,7 +12,8 @@ export class OPRTable extends Component {
   }
 
   render() {
-      const {data, ButtonDelete, ButtonEdit} = this.props
+      const {data, buttonDelete, buttonEdit} = this.props
+
     return (
       <div>
            <Row>
@@ -36,7 +37,7 @@ export class OPRTable extends Component {
                           <tr key={i++}>
                                 <td>{i++}</td>
                                 <td>{e.name}</td>
-                                <td className="ar"><i onClick={()=>buttonEdit(e.room_id)} className="fa fa-edit"></i>{' '}<i onClick={()=>ButtonDelete(e.room_id)} className="fa fa-times"></i></td>
+                                <td className="ar"><i onClick={()=>buttonEdit(e.id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(e.id)} className="fa fa-times"></i></td>
                             </tr>
                         )  
                         })}
