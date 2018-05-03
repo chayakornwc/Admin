@@ -1,0 +1,59 @@
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import { Badge,Row,Col,Card,CardHeader,CardBody,Table,Pagination,PaginationItem,PaginationLink, Button } from 'reactstrap'
+class ExamTable extends Component {
+    
+    constructor(props){
+        super(props);
+    }
+    renderTableRow(data){
+        if(data.exam_id){
+            return <tr>
+                <td></td>
+            </tr>
+        }else{
+            return (null);
+        }
+    }
+  render() {
+    const {data, buttonDelete, buttonEdit} = this.props
+    return (
+      <div className="animated fadeIn">
+        <Row>
+                <Col>
+                        <Card>
+                        <CardHeader>
+                            <i className="fa fa-building"></i>OPERATION ROOM<a href="/#/operationRoom/add"><Button className="float-right" color="secondary"><i className="icon-directions"></i>{'\u00A0 Add Operation Room'}</Button></a>
+                        </CardHeader>
+                        <CardBody>
+                        {data && <Table>
+                            <thead>
+                                <tr>
+                                    <th>ลำดับ</th>
+                                    <th>ชื่อห้องปัฏิบัตการ</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {data.map(function(e, i){  
+                            return(
+                            <tr key={i++}>
+                                    <td>{i++}</td>
+                                    <td>{e.name}</td>
+                                    <td className="ar"><i onClick={()=>buttonEdit(e.id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(e.id)} className="fa fa-times"></i></td>
+                                </tr>
+                            )  
+                            })}
+                            </tbody>
+                        </Table>}
+                        </CardBody>
+                    </Card>
+                    </Col>
+                </Row>   
+        {this.renderTableRow}    
+      </div>
+    )
+  }
+}
+
+export default ExamTable;

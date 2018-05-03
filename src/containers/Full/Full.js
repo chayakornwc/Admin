@@ -23,6 +23,9 @@ import Widgets from '../../views/Widgets/';
 // operation room 
 import Operationroom from '../../views/Theme/Operationroom';
 import OPRregister from '../../views/Theme/Operationroom/register';
+
+// Examination warehouse
+import ExamWarehouse from '../../views/Theme/ExamWarehouse/ExamWarehouse';
 // Base
 import Cards from '../../views/Base/Cards/';
 import Forms from '../../views/Base/Forms/';
@@ -77,6 +80,7 @@ class Full extends Component {
                 <Route path="/course" name="Course" component={Coursemanage} />
                 <Route path="/operationRoom/add" name="OperationRoom" component={OPRregister} />
                 <Route path="/operationRoom" name="OperationRoom" component={Operationroom} />
+                <Route path="/examination" name="examinationwarehouse" component={ExamWarehouse} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
                 <Route path="/base/forms" name="Forms" component={Forms}/>
