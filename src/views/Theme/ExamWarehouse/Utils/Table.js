@@ -8,9 +8,12 @@ class ExamTable extends Component {
     }
     renderTableRow(data){
         if(data.exam_id){
-            return <tr>
-                <td></td>
-            </tr>
+          data.map(function(e,i){
+              return <tr>
+                  <td>{i+1}</td>
+                  <td>{e.course_name}</td>
+              </tr>
+          })
         }else{
             return (null);
         }
@@ -35,15 +38,7 @@ class ExamTable extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                            {data.map(function(e, i){  
-                            return(
-                            <tr key={i++}>
-                                    <td>{i++}</td>
-                                    <td>{e.name}</td>
-                                    <td className="ar"><i onClick={()=>buttonEdit(e.id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(e.id)} className="fa fa-times"></i></td>
-                                </tr>
-                            )  
-                            })}
+                                {this.renderTableRow(data)}
                             </tbody>
                         </Table>}
                         </CardBody>

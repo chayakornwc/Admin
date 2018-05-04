@@ -19,7 +19,7 @@ class ExamWarehouse extends Component {
         }
     return (
       <div className="animated fadeIn">
-        <ExamTable data={courses.data} />
+        
         
       </div>
     )
