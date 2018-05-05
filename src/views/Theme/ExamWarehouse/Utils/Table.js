@@ -5,24 +5,26 @@ class ExamTable extends Component {
     
     constructor(props){
         super(props);
+       
     }
   
-  IshaveExam =(id = null)=>{
-        let _render = <i className="fa fa-add"><a href="../examination/add/"></a></i>
-        if(data=null){
-            _render = <i className="fa fa-edit"></i>
+  
+  render() {
+    const {data, buttonDelete, buttonEdit} = this.props
+    const  IshaveExam = (id = null)=>{
+        let _render = <Button color="danger"  disabled size="sm"><i key={id} className="fa fa-times-rectangle ">{' ไม่พบข้อสอบ'}<a href="../examination/add/"></a></i> </Button>  
+        if(id){
+            _render = <i key={id} className="fa fa-file-text"></i>   
         }
         return _render
     }
-  render() {
-    const {data, buttonDelete, buttonEdit} = this.props
     return (
       <div className="animated fadeIn">
         <Row>
                 <Col>
                         <Card>
                         <CardHeader>
-                            <i className="fa fa-building"></i>OPERATION ROOM<a href="/#/operationRoom/add"><Button className="float-right" color="secondary"><i className="icon-directions"></i>{'\u00A0 Add Operation Room'}</Button></a>
+                            <i className="fa fa-folder-o"></i>Examination Warehouse<a href="/#/operationRoom/add"><Button size="sm" className="float-right" color="primary"><i className="fa fa-plus"></i>{'\u00A0 เพิ่มข้อสอบ'}</Button></a>
                         </CardHeader>
                         <CardBody>
                         {data && <Table>
@@ -38,7 +40,7 @@ class ExamTable extends Component {
                             return <tr key={i}>
                                 <td>{i+1}</td>
                                 <td>{e.course_name}</td>
-                                <td>{()=>this.IshaveExam(e.exam_id)}</td>
+                                <td className="ar">{IshaveExam(e.exam_id)}</td>
                             </tr>
                         }) }
                             </tbody>

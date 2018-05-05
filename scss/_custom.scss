@@ -31,3 +31,6 @@ cursor: pointer;
 .ac{
     text-align: center;
 }
+:disabled{
+    cursor: not-allowed;
+}
