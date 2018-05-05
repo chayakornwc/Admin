@@ -6,17 +6,13 @@ class ExamTable extends Component {
     constructor(props){
         super(props);
     }
-    renderTableRow(data){
-        if(data.exam_id){
-          data.map(function(e,i){
-              return <tr>
-                  <td>{i+1}</td>
-                  <td>{e.course_name}</td>
-              </tr>
-          })
-        }else{
-            return (null);
+  
+    IshaveExam(id = null){
+        let render = <i className="fa fa-add"><a href="../examination/add/"></a></i>
+        if(data=null){
+            _render = <i className="fa fa-edit"></i>
         }
+        return render
     }
   render() {
     const {data, buttonDelete, buttonEdit} = this.props
@@ -33,12 +29,18 @@ class ExamTable extends Component {
                             <thead>
                                 <tr>
                                     <th>ลำดับ</th>
-                                    <th>ชื่อห้องปัฏิบัตการ</th>
+                                    <th>ชื่อหลักสูตร</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.renderTableRow(data)}
+                        {data &&data.map(function(e,i){
+                            return <tr>
+                                <td>{i+1}</td>
+                                <td>{e.course_name}</td>
+                                <td>{IshaveExam(e.exam_id)}</td>
+                            </tr>
+                        }) }
                             </tbody>
                         </Table>}
                         </CardBody>

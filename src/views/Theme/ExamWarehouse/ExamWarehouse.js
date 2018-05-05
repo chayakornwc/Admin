@@ -13,13 +13,13 @@ class ExamWarehouse extends Component {
     }
   render() {
     const  {courses} = this.props;
-    console.log(courses)
+
         if(courses.isRejected){
             return <h1>{courses.data}</h1>
         }
     return (
       <div className="animated fadeIn">
-        
+        <ExamTable data={courses.data} />
         
       </div>
     )

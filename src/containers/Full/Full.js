@@ -26,6 +26,8 @@ import OPRregister from '../../views/Theme/Operationroom/register';
 
 // Examination warehouse
 import ExamWarehouse from '../../views/Theme/ExamWarehouse/ExamWarehouse';
+import ExamRegister from '../../views/Theme/ExamWarehouse/ExamRegister';
+
 // Base
 import Cards from '../../views/Base/Cards/';
 import Forms from '../../views/Base/Forms/';
@@ -80,6 +82,7 @@ class Full extends Component {
                 <Route path="/course" name="Course" component={Coursemanage} />
                 <Route path="/operationRoom/add" name="OperationRoom" component={OPRregister} />
                 <Route path="/operationRoom" name="OperationRoom" component={Operationroom} />
+                <Route path="/examination/add" name="" component={ExamRegister} />
                 <Route path="/examination" name="examinationwarehouse" component={ExamWarehouse} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
@@ -87,7 +90,7 @@ class Full extends Component {
                 <Route path="/base/switches" name="Swithces" component={Switches} />
                 <Route path="/base/tables" name="Tables" component={Tables}/>
                 <Route path="/base/tabs" name="Tabs" component={Tabs}/>
-                <Route path="/base/breadcrumbs" name="Breadcrumbs" component={Breadcrumbs}/>
+                <Route path="/base/breadcrumbs" name="Breadcrumbs" component={Breadcrumbs} />
                 <Route path="/base/carousels" name="Carousels" component={Carousels}/>
                 <Route path="/base/collapses" name="Collapses" component={Collapses}/>
                 <Route path="/base/dropdowns" name="Dropdowns" component={Dropdowns}/>
