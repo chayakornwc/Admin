@@ -7,12 +7,12 @@ class ExamTable extends Component {
         super(props);
     }
   
-    IshaveExam(id = null){
-        let render = <i className="fa fa-add"><a href="../examination/add/"></a></i>
+  IshaveExam =(id = null)=>{
+        let _render = <i className="fa fa-add"><a href="../examination/add/"></a></i>
         if(data=null){
             _render = <i className="fa fa-edit"></i>
         }
-        return render
+        return _render
     }
   render() {
     const {data, buttonDelete, buttonEdit} = this.props
@@ -35,10 +35,10 @@ class ExamTable extends Component {
                             </thead>
                             <tbody>
                         {data &&data.map(function(e,i){
-                            return <tr>
+                            return <tr key={i}>
                                 <td>{i+1}</td>
                                 <td>{e.course_name}</td>
-                                <td>{IshaveExam(e.exam_id)}</td>
+                                <td>{()=>this.IshaveExam(e.exam_id)}</td>
                             </tr>
                         }) }
                             </tbody>
@@ -47,7 +47,7 @@ class ExamTable extends Component {
                     </Card>
                     </Col>
                 </Row>   
-        {this.renderTableRow}    
+        
       </div>
     )
   }
