@@ -24,7 +24,7 @@ class ExamTable extends Component {
                 <Col>
                         <Card>
                         <CardHeader>
-                            <i className="fa fa-folder-o"></i>Examination Warehouse<a href="/#/operationRoom/add"><Button size="sm" className="float-right" color="primary"><i className="fa fa-plus"></i>{'\u00A0 เพิ่มข้อสอบ'}</Button></a>
+                            <i className="fa fa-folder-o"></i>Examination Warehouse<a href="/#/examination/add"><Button size="sm" className="float-right" color="primary"><i className="fa fa-plus"></i>{'\u00A0 เพิ่มข้อสอบ'}</Button></a>
                         </CardHeader>
                         <CardBody>
                         {data && <Table>

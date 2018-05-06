@@ -17,5 +17,20 @@ export const loadCourse = (term='') => { //  initial course term  keeping empty 
         })
     }
 }
+export const loadNullexam = ()=>{
+    return (dispatch)=>{
+        dispatch({type:'LOAD_NULLEXAM_PENDING'})
+        return axios.get(`${BASE_URL}/nullexamination`,{
+            headers:{authorization:localStorage.getItem('token')}
+        }).then(results =>{
+            dispatch({type:'LOAD_NULLEXAM_SUCCESS', payload:results.data})
+        }).catch(err =>{
+            dispatch({type:'LOAD_NULLEXAM_REJECTED',payload: err.message})
+        })
+    }
+    }
+    
+   
+    
 // only one action dispatch courseReducers
 
