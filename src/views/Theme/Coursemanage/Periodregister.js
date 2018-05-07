@@ -16,9 +16,10 @@ import { connect } from 'react-redux';
 const alertify = require('alertify.js');
 
 const moment = require('moment');
+
 moment.locale('th');
 
-const selectStyle ={
+const selectStyle = {
     marginLeft:'61px',
     marginBottom:'1rem',
     borderRadius:'0.2rem'

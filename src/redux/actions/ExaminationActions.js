@@ -28,7 +28,7 @@ export const loadNullexam = ()=>{
             dispatch({type:'LOAD_NULLEXAM_REJECTED',payload: err.message})
         })
     }
-    }
+}
     
    
     

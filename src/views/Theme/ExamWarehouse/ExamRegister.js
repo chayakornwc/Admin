@@ -3,21 +3,22 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import {loadNullexam} from '../../../redux/actions/ExaminationActions';
 import { connect } from 'react-redux';
-
+import  renderSelectExams from './Utils/renderSelectExams';
 import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
  class ExamRegister extends Component {
+
      constructor(props){
          super(props);
+         this.onSubmit = this.onSubmit.bind(this);
          this.state = {
              collapse:true
          }
-         this.handleSubmit = this.handleSubmit.bind(this)
      }
      toggle(){
 
      }
-     handleSubmit(){
-         console.log('handleSubmit')
+     onSubmit(e){
+        console.log(e)
      }
      componentDidMount(){
          this.props.dispatch(loadNullexam());
@@ -25,6 +26,7 @@ import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, 
      
   render() {
     //  const {handleSubmit} = this.props
+    const {nullExams, handleSubmit} = this.props
     return (
       <div className="animated fadeIn">
       <Row>
@@ -37,11 +39,10 @@ import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, 
                         <CardBody>
                           
                         <Form className="form-horizontal">
-                       
-                            
+                            <Field name="course_id" component={renderSelectExams} data={nullExams.data} label="เลือกหลักสูตร" />
                             <div className="form-actions"> 
                             <Button  color="secondary">Back</Button>{ ' '}
-                            <Button  onClick={this.handleSubmit(this.onSubmit)} color="primary">Save changes</Button>     
+                            <Button  onClick={handleSubmit(this.onSubmit)} color="primary">Save changes</Button>     
                             </div>
                         </Form>
                         </CardBody>
