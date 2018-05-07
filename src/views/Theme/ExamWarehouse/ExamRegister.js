@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import Switch from 'react-router-dom/Switch';
 import PropTypes from 'prop-types';
+import { Field, reduxForm } from 'redux-form';
+import {loadNullexam} from '../../../redux/actions/ExaminationActions';
+import { connect } from 'react-redux';
+
 import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
  class ExamRegister extends Component {
      constructor(props){
@@ -13,12 +16,11 @@ import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, 
      toggle(){
 
      }
-     static propTypes = {
-        handleSubmit : PropTypes.func
-    }
-  
      handleSubmit(){
-         console.log('hello')
+         console.log('handleSubmit')
+     }
+     componentDidMount(){
+         this.props.dispatch(loadNullexam());
      }
      
   render() {
@@ -62,7 +64,7 @@ const form = reduxForm({
  })
  
  const  mapStateToProps = (state)=>({
-    courses: state.courseReducer.courses, 
+    nullExams: state.ExaminationReducers.nullExams, 
    
    })
 
