@@ -1,6 +1,9 @@
-import ReactQuill from 'react-quill'; // ES6
+import React from 'react';
+import { FormGroup, Col, Label, Input } from 'reactstrap';
+import ReactQuill from 'react-quill'; 
+import 'react-quill/dist/quill.snow.css'; 
 
-const renderTextAre = ({ input, label, type, data, autoFocus, meta: { touched, error } }) => {
+const renderTextArea = ({ input, label, type, autoFocus, meta: { touched, error } }) => {
 
     return (
                 <div>
@@ -8,11 +11,14 @@ const renderTextAre = ({ input, label, type, data, autoFocus, meta: { touched, e
                     <Col md="3">
                     <Label htmlFor={input.name}>{label}</Label>
                     </Col>
-                    <Col xs="12" md="4">              
-                        <ReactQuill />
+                    <Col xs="12" md="9">              
+                        <ReactQuill {...input} value={input.value}  className="form-control" />
+                        {touched && error && <span className="text-danger">{error}</span>}
                     </Col>        
                     </FormGroup>
                     </div>
                 
                     )
     }
+
+    export default renderTextArea;
