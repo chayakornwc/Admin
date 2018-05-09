@@ -12,6 +12,7 @@ const renderSelectExams = ({ input, label, type, data, autoFocus, meta: { touche
                     </Col>
                     <Col xs="12" md="4">              
                     <select {...input}  type="select" className="form-control" >
+                    <option></option>
                     {data && data.map(value =>(
                         <option key={value.course_id} value={value.course_id}>{value.course_name}</option>
                     ))
