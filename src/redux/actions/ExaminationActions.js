@@ -29,6 +29,20 @@ export const loadNullexam = ()=>{
         })
     }
 }
+export const loadExaminationBycourse = (id)=>{
+    return (dispatch)=>{
+        dispatch({type:'LOAD_EXAMINATION_PENDING'})
+        return axios({
+            method:'get',
+            url:`${BASE_URL}/examination/${id}`,
+            headers:{authorization:localStorage.getItem('token')}
+        }).then(results=>{
+            dispatch({type:'LOAD_EXAMINATION_SUCCESS', payload:results.data})
+        }).catch(err=>{
+            dispatch({type:'LOAD_EXAMINATION_REJECTED', payload: err.message})
+        })
+    }
+}
 export const saveExamination = ()=>{
     let _id ='';
     let _method ='post';

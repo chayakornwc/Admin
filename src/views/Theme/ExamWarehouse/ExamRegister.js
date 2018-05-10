@@ -15,9 +15,7 @@ var alertify = require('alertify.js');
          super(props);
          this.onSubmit = this.onSubmit.bind(this);
           this.handleInitialize = this.handleInitialize.bind(this);
-         this.state = {
-             collapse:true
-         }
+       
      }
      toggle(){
         
@@ -56,7 +54,7 @@ var alertify = require('alertify.js');
                     <CardHeader>
                         <i className="fa fa-edit"></i> ลงทะเบียนข้อมูลหลักสูตร <small className="float-right color-red">การลงทะเบียนสำหรับหลักสูตรที่ยังไม่มีข้อสอบ</small>
                     </CardHeader>
-                    <Collapse isOpen={this.state.collapse} id="collapseExample">
+     
                         <CardBody>
                         <form onSubmit={handleSubmit(this.onSubmit)} className="form-horizontal">
                             <Field name="course_id" component={renderSelectExams} data={nullExams.data} label="เลือกหลักสูตร" />
@@ -67,7 +65,7 @@ var alertify = require('alertify.js');
                             </div>
                         </form>
                         </CardBody>
-                        </Collapse>
+                      
                     </Card>
                 </Col>
             </Row>  

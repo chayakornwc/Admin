@@ -7,7 +7,7 @@ import renderSelect from './renderSelect';
 const renderMembers = ({fields, meta:{ error, submitFailed  } }) => {
     return (
             <div>
-                    <FormGroup>
+                <FormGroup>
                     <Button className="btn-block" color="info" type="button" onClick={() => fields.push({})}>
                     เพิ่มข้อ
                     </Button>

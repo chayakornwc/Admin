@@ -11,10 +11,10 @@ class ExamTable extends Component {
   
   render() {
     const {data, buttonDelete, buttonEdit} = this.props
-    const  IshaveExam = (id = null)=>{
-        let _render = <Button color="danger"  disabled size="sm"><i key={id} className="fa fa-times-rectangle ">{' ไม่พบข้อสอบ'}<a href="../examination/add/"></a></i> </Button>  
-        if(id){
-            _render = <i key={id} className="fa fa-file-text"></i>   
+    const  IshaveExam = (exam_id = null, course_id)=>{
+        let _render = <Button color="danger"  disabled size="sm"><i key={course_id} className="fa fa-times-rectangle ">{' ไม่พบข้อสอบ'}<a href="../examination/add/"></a></i> </Button>  
+        if(exam_id){
+            _render = <i key={course_id} onClick={buttonEdit} className="fa-wow fa fa-file-text"></i>   
         }
         return _render
     }
@@ -40,7 +40,7 @@ class ExamTable extends Component {
                             return <tr key={i}>
                                 <td>{i+1}</td>
                                 <td>{e.course_name}</td>
-                                <td className="ar">{IshaveExam(e.exam_id)}</td>
+                                <td className="ar">{IshaveExam(e.exam_id, e.course_id)}</td>
                             </tr>
                         }) }
                             </tbody>
