@@ -14,7 +14,7 @@ var alertify = require('alertify.js');
      constructor(props){
          super(props);
          this.onSubmit = this.onSubmit.bind(this);
-       
+          this.handleInitialize = this.handleInitialize.bind(this);
          this.state = {
              collapse:true
          }
@@ -22,37 +22,32 @@ var alertify = require('alertify.js');
      toggle(){
         
      }
+     handleInitialize() {
+      let initData = {
+          "members": [],
+          "course_id":'',
+      };
+      this.props.initialize(initData);
+  }
      onSubmit(e){
-      //  let data ={};
-      //  data.course_id = e.course_id
-      // const members = e.members
-      //   {members&& members.map(function(obj, i){
-      //    data.question = obj.question
-      //    data.answer1 = obj.answer1
-      //    data.answer2 = obj.answer2
-      //    data.answer3 = obj.answer3
-      //    data.answer4 = obj.answer4
-      //    data.anwser_real = obj.anwser_real
-          
-      //   })
-      this.props.dispatch(registerexamination(e)).then(()=>{
+     return this.props.dispatch(registerexamination(e)).then(()=>{
         if(!this.props.examSave.isRejected){
-          alertify.success('ลงทะเบียน ข้อสอบเรียบร้อยแล้ว')
+          this.props.dispatch(loadNullexam());
+          alertify.success(this.props.examSave.data.message);
+          this.handleInitialize();
         }else{
-          alertify.error(this.props.examSave.data)
-        }
-      })
+          alertify.error(this.props.examSave.data);
       }
-     
+      })
+    }
      
      componentDidMount(){
          this.props.dispatch(loadNullexam());
      }
   
   render() {
-    //  const {handleSubmit} = this.props
     const {nullExams, handleSubmit, submitting} = this.props
-  
+
     return (
       <div className="animated fadeIn">
       <Row>
@@ -67,8 +62,8 @@ var alertify = require('alertify.js');
                             <Field name="course_id" component={renderSelectExams} data={nullExams.data} label="เลือกหลักสูตร" />
                             <FieldArray name="members" component={renderMembers} />
                             <div className="form-actions"> 
-                            <Button  color="secondary">Back</Button>{ ' '}
-                            <Button disabled={submitting}  type="submit" color="primary">Save changes</Button>     
+                            <Button disabled={submitting}  color="secondary">Back</Button>{ ' '}
+                            <Button disabled={submitting} type="submit" color="primary"><span>Save changes</span></Button>     
                             </div>
                         </form>
                         </CardBody>
