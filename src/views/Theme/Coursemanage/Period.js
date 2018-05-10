@@ -43,7 +43,7 @@ class Period extends Component {
         this.props.dispatch(loadPeriods());
         this.props.dispatch(loadCourse());
         this.props.dispatch(loadRooms());
-        alertify.error('Error notification message.'); 
+    
     }
 
     modalToggle(){

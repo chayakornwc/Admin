@@ -1,16 +1,17 @@
 import React from 'react';
-import { FormGroup, Col, Label, Input } from 'reactstrap';
+import {Button, ListGroup, ListGroupItem, FormGroup, Col, Label, Input } from 'reactstrap';
 //renderField จะรับ props ต่างๆ ของ Field ที่ได้จาก redux-form
- 
-const renderMembers = ({fields, meta:{ touched, error, submitFailed } }) => {
-
+import {Field} from 'redux-form';
+import renderTextArea from './renderTextArea';
+import renderSelect from './renderSelect';
+const renderMembers = ({fields, meta:{ error, submitFailed  } }) => {
     return (
             <div>
                     <FormGroup>
                     <Button className="btn-block" color="info" type="button" onClick={() => fields.push({})}>
                     เพิ่มข้อ
                     </Button>
-                    {(touched || submitFailed) && error && <span><h5>{error}</h5></span>}
+                    {submitFailed && error && <span className="text-danger"><strong><i className="fa fa-warning"></i>{' '}{error}</strong></span>}
                 <div className="form-control"> 
                     <ListGroup>
                 {fields.map((member, index) => (
@@ -51,22 +52,13 @@ const renderMembers = ({fields, meta:{ touched, error, submitFailed } }) => {
                         component={renderTextArea}
                         label="คำตอบ. 4"
                     />
-                    <FormGroup>
-                        <Col md="2">
-                        <Label>
-                        คำตอบที่ถูกต้อง
-                        </Label>
-                        </Col>
-                        <Col md="10">
-                        <Field name="trueanser" component="select">
-                        <option>กรุณาเลือก</option>
-                        <option value="1">ข้อ 1 </option>
-                        <option value="2">ข้อ 2</option>
-                        <option value="3">ข้อ 3</option>
-                        <option value="4">ข้อ 4</option>
-                        </Field>
-                        </Col>
-                    </FormGroup>
+                    <Field 
+                    name={`${member}.answer_real`} 
+                    type="select"
+                    label="คำตอบที่ถูกต้อง" 
+                    component={renderSelect}
+                    />
+                    
                     </ListGroupItem>
                 ))}
                 </ListGroup>
@@ -78,5 +70,6 @@ const renderMembers = ({fields, meta:{ touched, error, submitFailed } }) => {
     }
    
 
-export default renderSelectExams;
+export default renderMembers;
   
+ 

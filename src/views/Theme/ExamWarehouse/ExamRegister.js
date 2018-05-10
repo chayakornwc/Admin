@@ -1,99 +1,54 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import {FieldArray, Field, reduxForm } from 'redux-form';
-import {loadNullexam} from '../../../redux/actions/ExaminationActions';
+import {saveExamination,loadNullexam, registerexamination} from '../../../redux/actions/ExaminationActions';
 import { connect } from 'react-redux';
 import  renderSelectExams from './Utils/renderSelectExams';
 import renderTextArea from './Utils/renderTextArea';
-import {ListGroup, Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText, ListGroupItem} from 'reactstrap';
+import renderMembers from './Utils/rendersMembers';
+
+import {ListGroup, Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText, ListGroupItem, EXITED} from 'reactstrap';
+var alertify = require('alertify.js');
  class ExamRegister extends Component {
 
      constructor(props){
          super(props);
          this.onSubmit = this.onSubmit.bind(this);
-         this.renderMembers = this.renderMembers.bind(this);
+       
          this.state = {
              collapse:true
          }
      }
      toggle(){
-
+        
      }
      onSubmit(e){
-        console.log(e)
-     }
+      //  let data ={};
+      //  data.course_id = e.course_id
+      // const members = e.members
+      //   {members&& members.map(function(obj, i){
+      //    data.question = obj.question
+      //    data.answer1 = obj.answer1
+      //    data.answer2 = obj.answer2
+      //    data.answer3 = obj.answer3
+      //    data.answer4 = obj.answer4
+      //    data.anwser_real = obj.anwser_real
+          
+      //   })
+      this.props.dispatch(registerexamination(e)).then(()=>{
+        if(!this.props.examSave.isRejected){
+          alertify.success('ลงทะเบียน ข้อสอบเรียบร้อยแล้ว')
+        }else{
+          alertify.error(this.props.examSave.data)
+        }
+      })
+      }
+     
+     
      componentDidMount(){
          this.props.dispatch(loadNullexam());
      }
-    renderMembers = ({fields, meta:{ touched, error, submitFailed } })=>{
-    
-      return <FormGroup>
-          <Button className="btn-block" color="info" type="button" onClick={() => fields.push({})}>
-            เพิ่มข้อ
-          </Button>
-          {(touched || submitFailed) && error && <span><h5>{error}</h5></span>}
-         <div className="form-control"> 
-          <ListGroup>
-        {fields.map((member, index) => (
-          <ListGroupItem key={index}>
-          <FormGroup>
-            <Button size="sm" color="danger" type="button" className="float-right" title="Remove Member" onClick={() => fields.remove(index)} >
-            <i className="fa fa-remove"></i>
-            </Button>
-          </FormGroup>  
-            <h4>ข้อ. {index + 1}</h4>
-            <Field
-              name={`${member}.question`}
-              type="textarea"
-              component={renderTextArea}
-              label="คำถาม"
-            /> 
-            <Field
-            name={`${member}.answer1`}
-            type="textarea"
-            component={renderTextArea}
-            label="คำตอบ. 1"
-          />
-           <Field
-              name={`${member}.answer2`}
-              type="textarea"
-              component={renderTextArea}
-              label="คำตอบ. 2"
-            />
-             <Field
-              name={`${member}.answer3`}
-              type="textarea"
-              component={renderTextArea}
-              label="คำตอบ. 3"
-            />
-             <Field
-              name={`${member}.answer4`}
-              type="textarea"
-              component={renderTextArea}
-              label="คำตอบ. 4"
-            />
-            <FormGroup>
-              <Col md="2">
-              <Label>
-              คำตอบที่ถูกต้อง
-                </Label>
-              </Col>
-              <Col md="10">
-              <Field name="trueanser" component="select">
-                <option>กรุณาเลือก</option>
-                <option value="1">ข้อ 1 </option>
-                <option value="2">ข้อ 2</option>
-                <option value="3">ข้อ 3</option>
-                <option value="4">ข้อ 4</option>
-              </Field>
-              </Col>
-            </FormGroup>
-          </ListGroupItem>
-        ))}
-      </ListGroup>
-      </div>
-      </FormGroup>
-    } 
+  
   render() {
     //  const {handleSubmit} = this.props
     const {nullExams, handleSubmit, submitting} = this.props
@@ -110,9 +65,9 @@ import {ListGroup, Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, Drop
                         <CardBody>
                         <form onSubmit={handleSubmit(this.onSubmit)} className="form-horizontal">
                             <Field name="course_id" component={renderSelectExams} data={nullExams.data} label="เลือกหลักสูตร" />
-                            <FieldArray name="members" component={this.renderMembers} />
+                            <FieldArray name="members" component={renderMembers} />
                             <div className="form-actions"> 
-                            <Button  color="secondary">Back</Button>{ ' '}.
+                            <Button  color="secondary">Back</Button>{ ' '}
                             <Button disabled={submitting}  type="submit" color="primary">Save changes</Button>     
                             </div>
                         </form>
@@ -125,15 +80,48 @@ import {ListGroup, Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, Drop
     )
   }
 }
-function validate(values){
-    const errors ={};
-    if(!values.course_id){
-      errors.course_id ="กรุณาเลือก"
+const validate = values => {
+  const errors = {}
+  if (!values.course_id) {
+    errors.course_id = 'กรุณาเลือก'
+  }
+  if (!values.members || values.members.length <5) {
+    errors.members = { _error: 'ต้องการข้อสอบอย่างน้อย 5ข้อ ในการลงทะเบียน' }
+  } else {
+    const membersArrayErrors = []
+    values.members.forEach((member, memberIndex) => {
+      const memberErrors = {}
+      if (!member || !member.question) {
+        memberErrors.question = 'ช่องนี้เว่นว่างไม่ได้'
+        membersArrayErrors[memberIndex] = memberErrors
+      }
+      if (!member || !member.answer1) {
+        memberErrors.answer1 = 'ช่องนี้เว่นว่างไม่ได้'
+        membersArrayErrors[memberIndex] = memberErrors
+      }
+      if (!member || !member.answer2) {
+        memberErrors.answer2 = 'ช่องนี้เว่นว่างไม่ได้'
+        membersArrayErrors[memberIndex] = memberErrors
+      }
+      if (!member || !member.answer3) {
+        memberErrors.answer3 = 'ช่องนี้เว่นว่างไม่ได้'
+        membersArrayErrors[memberIndex] = memberErrors
+      }
+      if (!member || !member.answer4) {
+        memberErrors.answer4 = 'ช่องนี้เว่นว่างไม่ได้'
+        membersArrayErrors[memberIndex] = memberErrors
+      }
+      if (!member || !member.answer_real) {
+        memberErrors.answer_real = 'กรุณาเลือก ช่องนี้เว้นว่างไม่ได้'
+        membersArrayErrors[memberIndex] = memberErrors
+      }
+     
+    })
+    if (membersArrayErrors.length) {
+      errors.members = membersArrayErrors
     }
-    if(!values.members){
-      errors.members = "free data"
-    }
-    return errors;
+  }
+  return errors
 }
 const form = reduxForm({
     form: 'ExamRegister',
@@ -142,7 +130,7 @@ const form = reduxForm({
  
  const  mapStateToProps = (state)=>({
     nullExams: state.ExaminationReducers.nullExams, 
-   
+    examSave:state.ExaminationReducers.examSave
    })
 
 ExamRegister = connect(mapStateToProps)(ExamRegister)

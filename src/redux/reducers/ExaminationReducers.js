@@ -17,6 +17,12 @@ export default (state = initialState, action) =>{
         case'LOAD_NULLEXAM_SUCCESS':
         return{...state, nullExams:{data:action.payload, isLoading:false, isRejected:true}}
 
+        case'SAVE_EXAMINATION_PENDING':
+        return{...state, examSave:{data:null, isLoading:true, isRejected:false}}
+        case'SAVE_EXAMINATION_SUCCESS':
+        return{...state, examSave:{data:null, isLoading:false, isRejected:false}}
+        case'SAVE_EXAMINATION_REJECTED':
+        return{...state,examSave:{data:action.payload, isLoading:false, isRejected:true}}
     
         default: 
         return state

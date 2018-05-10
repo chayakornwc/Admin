@@ -2,8 +2,8 @@ import React from 'react';
 import { FormGroup, Col, Label, Input } from 'reactstrap';
 //renderField จะรับ props ต่างๆ ของ Field ที่ได้จาก redux-form
  
-const renderSelectExams = ({ input, label, type, data, autoFocus, meta: { touched, error } }) => {
-
+const renderSelect = ({ input, label, type, data, autoFocus, meta: { touched, error } }) => {
+    const numbers = [1, 2, 3, 4, 5];
     return (
             <div>
                 <FormGroup row>
@@ -13,8 +13,8 @@ const renderSelectExams = ({ input, label, type, data, autoFocus, meta: { touche
                     <Col xs="12" md="4">              
                     <select {...input}  type="select" className="form-control" >
                     <option></option>
-                    {data && data.map(value =>(
-                        <option key={value.course_id} value={value.course_id}>{value.course_name}</option>
+                    {numbers && numbers.map(value =>(
+                        <option key={value} value={value}>ข้อ. {value}</option>
                     ))
                     }
                     </select> 
@@ -28,5 +28,5 @@ const renderSelectExams = ({ input, label, type, data, autoFocus, meta: { touche
  
 
 
-export default renderSelectExams;
+export default renderSelect;
   

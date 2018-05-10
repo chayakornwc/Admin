@@ -40,7 +40,7 @@ const renderTextArea = ({ input, label, type, autoFocus, meta: { touched, error 
                             }} 
                             modules={createModule.modules}
                             className="form-control" />
-                        {touched && error && <span className="text-danger">{error}</span>}
+                        {touched && error && <span className="text-danger"><strong><i className="fa fa-warning"></i>{' '}{error}</strong></span>}
                     </Col>        
                     </FormGroup>
                     </div>

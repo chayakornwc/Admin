@@ -29,6 +29,40 @@ export const loadNullexam = ()=>{
         })
     }
 }
+export const saveExamination = ()=>{
+    let _id ='';
+    let _method ='post';
+        if(values.exam_id){
+            _id = values.exam_id
+            _method ='put'
+        }
+    return (dispatch)=>{
+        dispatch({type:'SAVE_EXAMINATION_PENDING'})
+        return axios({url:`${BAST_URL}/registerexamination/${id}`,
+        method:_method,
+        headers:{authorization:localStorage.getItem('token')}
+        }).then(results =>{
+            dispatch({type:'SAVE_EXAMINATION_SUCCESS', payload:results.data})
+        }).catch(err=>{
+            dispatch({type:'SAVE_EXAMINATION_REJECTED',payload: err.message})
+        })
+    }
+}
+export const registerexamination = (values)=>{
+    console.log(values)
+    return (dispatch)=>{
+        dispatch({type:'SAVE_EXAMINATION_PENDING'})
+        return axios({url:`${BASE_URL}/registerexamination/`,
+        method:'post',
+        data:values,
+        headers:{authorization:localStorage.getItem('token')}
+        }).then(results =>{
+            dispatch({type:'SAVE_EXAMINATION_SUCCESS', payload:results.data})
+        }).catch(err=>{
+            dispatch({type:'SAVE_EXAMINATION_REJECTED',payload: err.message})
+        })
+    }
+}
     
    
     
