@@ -31,15 +31,15 @@ export const loadNullexam = ()=>{
 }
 export const loadExaminationBycourse = (id)=>{
     return (dispatch)=>{
-        dispatch({type:'LOAD_EXAMINATION_PENDING'})
+        dispatch({type:'LOAD_EXAMINATIONBYCOURSE_PENDING'})
         return axios({
             method:'get',
             url:`${BASE_URL}/examination/${id}`,
             headers:{authorization:localStorage.getItem('token')}
         }).then(results=>{
-            dispatch({type:'LOAD_EXAMINATION_SUCCESS', payload:results.data})
+            dispatch({type:'LOAD_EXAMINATIONBYCOURSE_SUCCESS', payload:results.data})
         }).catch(err=>{
-            dispatch({type:'LOAD_EXAMINATION_REJECTED', payload: err.message})
+            dispatch({type:'LOAD_EXAMINATIONBYCOURSE_REJECTED', payload: err.message})
         })
     }
 }

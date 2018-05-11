@@ -1,20 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import { Badge,Row,Col,Card,CardHeader,CardBody,Table,Pagination,PaginationItem,PaginationLink, Button } from 'reactstrap'
-class ExamTable extends Component {
-    
+
+class ExamTable extends Component {    
     constructor(props){
         super(props);
-       
     }
-  
-  
   render() {
     const {data, buttonDelete, buttonEdit} = this.props
     const  IshaveExam = (exam_id = null, course_id)=>{
         let _render = <Button color="danger"  disabled size="sm"><i key={course_id} className="fa fa-times-rectangle ">{' ไม่พบข้อสอบ'}<a href="../examination/add/"></a></i> </Button>  
         if(exam_id){
-            _render = <i key={course_id} onClick={buttonEdit} className="fa-wow fa fa-file-text"></i>   
+            _render = <i key={course_id} onClick={()=>buttonEdit(course_id)} className="fa-wow fa fa-file-text"></i>   
         }
         return _render
     }

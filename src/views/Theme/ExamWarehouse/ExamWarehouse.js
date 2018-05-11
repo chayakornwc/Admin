@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { loadCourse} from '../../../redux/actions/ExaminationActions';
+import { loadCourse,loadExaminationBycourse} from '../../../redux/actions/ExaminationActions';
 import {Modal} from 'reactstrap';
 import ExamTable from './Utils/Table';
 import ExaminationForm from './Utils/ExaminationForm'
-
+import Loader from '../../../components/Utils/Loader';
 class ExamWarehouse extends Component {
     constructor(props){
         super(props);
         this.handleEdit = this.handleEdit.bind(this);
+        this.modalToggle = this.modalToggle.bind(this);
         this.state = {
             ModalTitle:'',
             modal:false
@@ -23,11 +24,9 @@ class ExamWarehouse extends Component {
         })
     }
     handleEdit=(id)=>{
-        this.props.dispatch(resetStatus())
-        this.setState({modalTitle:'แก้ไข'})
-        this.props.dispatch(getPeriod(id)).then(()=>{
-        this.modalToggle();
-            
+        this.setState({modalTitle:'แก้ไขชุดข้อสอบ'})
+        this.modalToggle();  
+        this.props.dispatch(loadExaminationBycourse(id)).then(()=>{
         })  
     }
    
@@ -35,17 +34,21 @@ class ExamWarehouse extends Component {
        
     }
   render() {
-    const  {courses} = this.props;
+    const  {courses, examination} = this.props;
     
         if(courses.isRejected){
             return <h1>{courses.data}</h1>
         }
+      
     return (
+    <div>
+         {courses.isLoading && <Loader/>}
       <div className="animated fadeIn">
         <ExamTable buttonEdit={this.handleEdit} data={courses.data} />
-        <Modal isOpen={this.state.modal}>
-            <ExaminationForm  />
+        <Modal className="modal-warning modal-lg" toggle={this.modalToggle} isOpen={this.state.modal}>
+            <ExaminationForm onToggle={this.modalToggle} Loading={examination.isLoading} modalTitle={this.state.modalTitle} data={examination && examination.data} />
         </Modal>
+      </div>
       </div>
     )
   }
@@ -53,8 +56,8 @@ class ExamWarehouse extends Component {
 
 function mapStateToProps(state) {
     return{
-        courses:state.courseReducer.courses
-        
+        courses:state.courseReducer.courses,
+        examination:state.ExaminationReducers.examination
     }
 }
 export default connect(mapStateToProps)(ExamWarehouse);
