@@ -10,7 +10,7 @@ import Loader from '../../../../components/Utils/Loader';
          super(props);
      }
      handleInitailiza(){
-         const members = this.props.data.members
+         const members = (this.props.data && this.props.data.members) 
  
          let initData = {
              'members':[]
@@ -30,13 +30,16 @@ import Loader from '../../../../components/Utils/Loader';
      componentDidMount(){
          this.handleInitailiza();
      }
+     handleSubmit = (values)=>{
+        this.props.buttonSubmit(values);
+     }
   render() {
-     const {data,onToggle,modalTitle, Loading} = this.props
+     const {data,onToggle,modalTitle,handleSubmit, Loading, submitting} = this.props
     return (
       <div>
         <ModalHeader toggle={onToggle}>{modalTitle}{': '}{data&&data.course_name}</ModalHeader>
             <ModalBody> 
-                <form  className="form-control">
+                <form  onSubmit={handleSubmit(this.handleSubmit)} className="form-control">
                     <FieldArray 
                     component={renderMembers} 
                     name="members" />
@@ -44,8 +47,8 @@ import Loader from '../../../../components/Utils/Loader';
                 
             </ModalBody>
             <ModalFooter>
-                    <Button color="primary" type="submit">บันทึก</Button>{' '}
-                    <Button color="secondary" onClick={onToggle}>ปิด</Button>
+                    <Button disabled={submitting} color="primary" type="submit">บันทึก</Button>{' '}
+                    <Button disabled={submitting} color="secondary" onClick={onToggle}>ปิด</Button>
         </ModalFooter>
       </div>
     )

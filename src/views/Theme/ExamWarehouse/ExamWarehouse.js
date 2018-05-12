@@ -31,7 +31,7 @@ class ExamWarehouse extends Component {
     }
    
     handleSubmit = (values)=>{
-       
+       console.log(values)
     }
   render() {
     const  {courses, examination} = this.props;
@@ -46,7 +46,7 @@ class ExamWarehouse extends Component {
       <div className="animated fadeIn">
         <ExamTable buttonEdit={this.handleEdit} data={courses.data} />
         <Modal className="modal-warning modal-lg" toggle={this.modalToggle} isOpen={this.state.modal}>
-            <ExaminationForm onToggle={this.modalToggle} Loading={examination.isLoading} modalTitle={this.state.modalTitle} data={examination && examination.data} />
+            <ExaminationForm buttonSubmit={this.handleSubmit} onToggle={this.modalToggle} Loading={examination.isLoading} modalTitle={this.state.modalTitle} data={examination && examination.data} />
         </Modal>
       </div>
       </div>
