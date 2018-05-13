@@ -10,11 +10,14 @@ import Loader from '../../../../components/Utils/Loader';
          super(props);
      }
      handleInitailiza(){
-         const members = (this.props.data && this.props.data.members) 
- 
-         let initData = {
-             'members':[]
-         }
+
+        let initData = {
+            'members':[],
+            course_id: this.props.data.course_id
+        }
+        const members =   this.props.data.members ;
+        
+        
          if(members){
             members.forEach((e,i) => {
                 e.question = unescape(e.question);
@@ -30,8 +33,8 @@ import Loader from '../../../../components/Utils/Loader';
      componentDidMount(){
          this.handleInitailiza();
      }
-     handleSubmit = (values)=>{
-        this.props.buttonSubmit(values);
+     onSubmit = (values)=>{
+      this.props.buttonSubmit(values)
      }
   render() {
      const {data,onToggle,modalTitle,handleSubmit, Loading, submitting} = this.props
@@ -39,7 +42,7 @@ import Loader from '../../../../components/Utils/Loader';
       <div>
         <ModalHeader toggle={onToggle}>{modalTitle}{': '}{data&&data.course_name}</ModalHeader>
             <ModalBody> 
-                <form  onSubmit={handleSubmit(this.handleSubmit)} className="form-control">
+                <form  onSubmit={handleSubmit(this.onSubmit)} >
                     <FieldArray 
                     component={renderMembers} 
                     name="members" />
@@ -47,7 +50,7 @@ import Loader from '../../../../components/Utils/Loader';
                 
             </ModalBody>
             <ModalFooter>
-                    <Button disabled={submitting} color="primary" type="submit">บันทึก</Button>{' '}
+                    <Button onClick={handleSubmit(this.onSubmit)} disabled={submitting} color="primary" type="submit">บันทึก</Button>{' '}
                     <Button disabled={submitting} color="secondary" onClick={onToggle}>ปิด</Button>
         </ModalFooter>
       </div>

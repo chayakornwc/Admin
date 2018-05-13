@@ -12,7 +12,7 @@ const renderMembers = ({fields, meta:{ error, submitFailed  } }) => {
                     เพิ่มข้อ
                     </Button>
                     {submitFailed && error && <span className="text-danger"><strong><i className="fa fa-warning"></i>{' '}{error}</strong></span>}
-                <div className="form-control"> 
+                <div> 
                     <ListGroup>
                 {fields.map((member, index) => (
                     <ListGroupItem key={index}>

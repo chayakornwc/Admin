@@ -77,6 +77,21 @@ export const registerexamination = (values)=>{
         })
     }
 }
+export const updateExamination = (values)=>{
+    var id = values.corse_id;
+    return (dispatch)=>{
+        dispatch({type:'SAVE_EXAMINATION_PENDING'})
+        return axios({url:`${BASE_URL}/registerexamination/update/${id}`,
+        method:'post',
+        data:values,
+        headers:{authorization:localStorage.getItem('token')}
+        }).then(results =>{
+            dispatch({type:'SAVE_EXAMINATION_SUCCESS', payload:results.data})
+        }).catch(err=>{
+            dispatch({type:'SAVE_EXAMINATION_REJECTED',payload: err.message})
+        })
+    }
+}
     
    
     

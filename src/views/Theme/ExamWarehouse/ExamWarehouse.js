@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { loadCourse,loadExaminationBycourse} from '../../../redux/actions/ExaminationActions';
+import { loadCourse,loadExaminationBycourse, updateExamination} from '../../../redux/actions/ExaminationActions';
 import {Modal} from 'reactstrap';
 import ExamTable from './Utils/Table';
 import ExaminationForm from './Utils/ExaminationForm'
@@ -10,6 +10,7 @@ class ExamWarehouse extends Component {
         super(props);
         this.handleEdit = this.handleEdit.bind(this);
         this.modalToggle = this.modalToggle.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             ModalTitle:'',
             modal:false
@@ -31,7 +32,8 @@ class ExamWarehouse extends Component {
     }
    
     handleSubmit = (values)=>{
-       console.log(values)
+        // console.log(values);
+        this.props.dispatch(updateExamination(values));
     }
   render() {
     const  {courses, examination} = this.props;
@@ -46,7 +48,7 @@ class ExamWarehouse extends Component {
       <div className="animated fadeIn">
         <ExamTable buttonEdit={this.handleEdit} data={courses.data} />
         <Modal className="modal-warning modal-lg" toggle={this.modalToggle} isOpen={this.state.modal}>
-            <ExaminationForm buttonSubmit={this.handleSubmit} onToggle={this.modalToggle} Loading={examination.isLoading} modalTitle={this.state.modalTitle} data={examination && examination.data} />
+           {examination.data && <ExaminationForm buttonSubmit={this.handleSubmit} onToggle={this.modalToggle} Loading={examination.isLoading} modalTitle={this.state.modalTitle} data={examination.data} /> } 
         </Modal>
       </div>
       </div>
