@@ -78,7 +78,7 @@ export const registerexamination = (values)=>{
     }
 }
 export const updateExamination = (values)=>{
-    var id = values.corse_id;
+    var id = values.course_id;
     return (dispatch)=>{
         dispatch({type:'SAVE_EXAMINATION_PENDING'})
         return axios({url:`${BASE_URL}/registerexamination/update/${id}`,

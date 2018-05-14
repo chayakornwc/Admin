@@ -5,6 +5,7 @@ import {Modal} from 'reactstrap';
 import ExamTable from './Utils/Table';
 import ExaminationForm from './Utils/ExaminationForm'
 import Loader from '../../../components/Utils/Loader';
+const alertify = require('alertify.js');
 class ExamWarehouse extends Component {
     constructor(props){
         super(props);
@@ -33,7 +34,12 @@ class ExamWarehouse extends Component {
    
     handleSubmit = (values)=>{
         // console.log(values);
-        this.props.dispatch(updateExamination(values));
+        return this.props.dispatch(updateExamination(values)).then(()=>{
+            if(!this.props.examSave.isRejected){
+                alertify.success(this.props.examSave.data.message);
+                this.modalToggle();  
+            }
+        })
     }
   render() {
     const  {courses, examination} = this.props;
@@ -47,7 +53,7 @@ class ExamWarehouse extends Component {
          {courses.isLoading && <Loader/>}
       <div className="animated fadeIn">
         <ExamTable buttonEdit={this.handleEdit} data={courses.data} />
-        <Modal className="modal-warning modal-lg" toggle={this.modalToggle} isOpen={this.state.modal}>
+        <Modal className="modal-info modal-lg" toggle={this.modalToggle} isOpen={this.state.modal}>
            {examination.data && <ExaminationForm buttonSubmit={this.handleSubmit} onToggle={this.modalToggle} Loading={examination.isLoading} modalTitle={this.state.modalTitle} data={examination.data} /> } 
         </Modal>
       </div>
@@ -59,7 +65,8 @@ class ExamWarehouse extends Component {
 function mapStateToProps(state) {
     return{
         courses:state.courseReducer.courses,
-        examination:state.ExaminationReducers.examination
+        examination:state.ExaminationReducers.examination,
+        examSave:state.ExaminationReducers.examSave
     }
 }
 export default connect(mapStateToProps)(ExamWarehouse);

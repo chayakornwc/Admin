@@ -50,16 +50,59 @@ import Loader from '../../../../components/Utils/Loader';
                 
             </ModalBody>
             <ModalFooter>
-                    <Button onClick={handleSubmit(this.onSubmit)} disabled={submitting} color="primary" type="submit">บันทึก</Button>{' '}
+                    <Button disabled={submitting} onClick={handleSubmit(this.onSubmit)} disabled={submitting} color="primary" type="submit">บันทึก</Button>{' '}
                     <Button disabled={submitting} color="secondary" onClick={onToggle}>ปิด</Button>
         </ModalFooter>
       </div>
     )
   }
 }
+const validate = values => {
+    const errors = {}
+    if (!values.course_id) {
+      errors.course_id = 'กรุณาเลือก'
+    }
+    if (!values.members || values.members.length <5) {
+      errors.members = { _error: 'ต้องการข้อสอบอย่างน้อย 5ข้อ ในการลงทะเบียน' }
+    } else {
+      const membersArrayErrors = []
+      values.members.forEach((member, memberIndex) => {
+        const memberErrors = {}
+        if (!member || !member.question) {
+          memberErrors.question = 'ช่องนี้เว่นว่างไม่ได้'
+          membersArrayErrors[memberIndex] = memberErrors
+        }
+        if (!member || !member.answer1) {
+          memberErrors.answer1 = 'ช่องนี้เว่นว่างไม่ได้'
+          membersArrayErrors[memberIndex] = memberErrors
+        }
+        if (!member || !member.answer2) {
+          memberErrors.answer2 = 'ช่องนี้เว่นว่างไม่ได้'
+          membersArrayErrors[memberIndex] = memberErrors
+        }
+        if (!member || !member.answer3) {
+          memberErrors.answer3 = 'ช่องนี้เว่นว่างไม่ได้'
+          membersArrayErrors[memberIndex] = memberErrors
+        }
+        if (!member || !member.answer4) {
+          memberErrors.answer4 = 'ช่องนี้เว่นว่างไม่ได้'
+          membersArrayErrors[memberIndex] = memberErrors
+        }
+        if (!member || !member.answer_real) {
+          memberErrors.answer_real = 'กรุณาเลือก ช่องนี้เว้นว่างไม่ได้'
+          membersArrayErrors[memberIndex] = memberErrors
+        }
+       
+      })
+      if (membersArrayErrors.length) {
+        errors.members = membersArrayErrors
+      }
+    }
+    return errors
+  }
 const form = reduxForm({
     form: 'ExaminationForm',
- 
+    validate
  })
  
 export default form(ExaminationForm);
