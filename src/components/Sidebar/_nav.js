@@ -1,13 +1,10 @@
 export default {
   items: [
     {
-      name: 'Dasboard',
+      name: 'สถิติการเข้าร่วมอบรม',
       url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info',
-        text: 'NEW'
-      }
+      icon: 'fa fa-line-chart',
+     
     },
     {
       title: true,
@@ -45,6 +42,21 @@ export default {
       name: 'ห้องมูลห้องปฏิบัติการ',
       url: '/operationRoom',
       icon: 'fa fa-building',
+    },
+    {
+      name: 'ข้อมูลผู้ใช้งาน',
+      url: '/users',
+      icon: 'fa fa-users',
+    },
+    {
+      name: 'ออกใบวุฒิบัติ',
+      url: '/cert',
+      icon: 'fa fa-certificate',
+    },
+    {
+      name: 'รายงานการเข้าร่วมอบรม',
+      url: '/cert',
+      icon: 'fa fa-coffee',
     },
     {
       name: 'Base',

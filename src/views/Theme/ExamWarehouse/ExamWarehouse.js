@@ -26,7 +26,7 @@ class ExamWarehouse extends Component {
         })
     }
     handleEdit=(id)=>{
-        this.setState({modalTitle:'แก้ไขชุดข้อสอบ'})
+        this.setState({modalTitle:'แก้ไขข้อมูลผู้ใช้งาน'})
         this.modalToggle();  
         this.props.dispatch(loadExaminationBycourse(id)).then(()=>{
         })  

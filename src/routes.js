@@ -33,6 +33,7 @@ const routes = {
   '/notifications/badges': 'Badges',
   '/notifications/modals': 'Modals',
   '/theme': 'Theme',
+  '/users': 'User Management',
   '/examination':'Examination warehouse',
   '/operationRoom': 'Operation Room',
   '/operationRoom/add': 'Add operation room',
