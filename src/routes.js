@@ -34,6 +34,7 @@ const routes = {
   '/notifications/modals': 'Modals',
   '/theme': 'Theme',
   '/users': 'User Management',
+  '/user/register':'Add user',
   '/examination':'Examination warehouse',
   '/operationRoom': 'Operation Room',
   '/operationRoom/add': 'Add operation room',

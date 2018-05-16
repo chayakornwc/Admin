@@ -3,7 +3,7 @@ import {Row, Table, Card, Col, CardHeader, CardBody, Button} from 'reactstrap'
 class UserTable extends Component {
     
   render() {
-      const {data}   = this.props
+      const {data, buttonDelete}   = this.props
      
     return (
       <div>
@@ -32,7 +32,8 @@ class UserTable extends Component {
                                      <td>{e.prefix}{' '}{e.first_name}{' '}{e.last_name}</td>
                                      <td>{Affiliation(e.affiliation)}</td>
                                      <td>{e.major}</td>
-                                     <td className="ar"><i className="fa fa-pencil fa-wow " ></i>{' '}<i className="fa-danger fa fa-times" /></td>
+                                     <td className="ar"><i className="fa fa-pencil fa-wow " ></i>{' '}<i onClick={()=>{buttonDelete(e.id)}} className="fa-danger fa fa-times" /></td>
+                                    
                                   </tr>
                               )
                           })}

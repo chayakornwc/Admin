@@ -31,6 +31,7 @@ import ExamRegister from '../../views/Theme/ExamWarehouse/ExamRegister';
 
 //  users module
 import Users from '../../views/Theme/users/users';
+import UserRegister from '../../views/Theme/users/userRegister';
 
 // Base
 import Cards from '../../views/Base/Cards/';
@@ -88,6 +89,7 @@ class Full extends Component {
                 <Route path="/operationRoom" name="OperationRoom" component={Operationroom} />
                 <Route path="/examination/add" name="" component={ExamRegister} />
                 <Route path="/examination" name="examinationwarehouse" component={ExamWarehouse} />
+                <Route path="/users/register" name="userRegister" component={UserRegister} />
                 <Route path="/users" name="usermangement" component={Users} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
