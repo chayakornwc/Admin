@@ -26,7 +26,6 @@ import Full from './containers/Full/'
 import Login from './views/Pages/Login/'
 import Register from './views/Pages/Register/'
 import Page404 from './views/Pages/Page404/'
-import Page500 from './views/Pages/Page500/'
 
 import RequireAuth from './views/Pages/Auth/Authentication'
 import RequireAuthAdmin from './views/Pages/Auth/AuthenticationAdmin'
