@@ -11,7 +11,7 @@ class UserTable extends Component {
                 <Col>
                     <Card>
                     <CardHeader>
-                        <i className="icon-note"></i> จัดการ ผู้ใช้งาน <a href="/#/course/period/register"><Button className="float-right" color="info"><i className="fa fa-user-plus"></i>{'\u00A0 เพิ่มผู้ใช้งาน'}</Button></a>
+                        <i className="icon-note"></i> จัดการ ผู้ใช้งาน <a href="/#/users/register"><Button className="float-right" color="info"><i className="fa fa-user-plus"></i>{'\u00A0 เพิ่มผู้ใช้งาน'}</Button></a>
                     </CardHeader>
                     <CardBody>
                         <Table hover striped responsive> 
