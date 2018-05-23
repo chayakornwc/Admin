@@ -21,10 +21,36 @@ const alertify = require('alertify.js');
              super(props)
          }
         onSubmit = (values)=>{
-            console.log(values);
+            return this.props.dispatch(saveUser(values)).then(()=>{
+                if(!this.props.userSave){
+                    alertify.success(this.props.userSave.data);
+                }else{
+                    alertify.error(this.props.userSave.data);
+                }
+                
+            })
         }
         handleInitailize = ()=>{
-            
+                let initData = {
+                    "username":"",
+                    "password":"password",
+                    "first_name":"",
+                    "last_name":"",
+                    "email":"",
+                    "prefix":"",
+                    "gender":"",
+                    "address":"",
+                    "city":"",
+                    "district":"",
+                    "province":"",
+                    "major":"",
+                    "affiliation":"",
+                    "company":"มหาวิทยาลัยราชภัฏลำปาง"
+                }
+            this.props.initialize(initData);
+        }
+        componentDidMount(){
+            this.handleInitailize();
         }
       render() {     
           const _province = ['กรุงเทพฯ',
@@ -135,7 +161,16 @@ const alertify = require('alertify.js');
             {id:1032, label:"โรงเรียนสาธิตมหาวิทยาลัยราชภัฏลำปาง"},
             {id:2000, label:"บุคคลภายนอก"}         
           ];
-          const {handleSubmit} = this.props     
+          const gender = ['ชาย', 'หญิง'];
+          const userGroup = [
+              {id:1, label:"ผู้บริหาร"},
+              {id:2, label:"ผู้ดูแลระบบ"},
+              {id:4, label:"บุคคลากรสายวิชาการ"},
+              {id:5, label:"บุคลากรสายสนับสนุน"},
+              {id:6, label:"นักศึกษา"},
+              {id:7, label:"บุคคลากร"},
+          ];
+          const {handleSubmit, submitting} = this.props     
         return (
           <div className="animated fadeIn">
                  <Row>
@@ -143,22 +178,22 @@ const alertify = require('alertify.js');
                         <Card>
                             <CardHeader>
                                     <i className="fa fa-address-card-o"></i>  เพิ่มผู้ใช้งาน
-                                    <div className="card-actions">
-
-                                        <a href="#" className="btn-setting"><i className="icon-settings"></i></a>
+                                    <div className="card-actions">    
                                         <Button className="btn btn-minimize" data-target="#collapseExample" onClick={this.toggle}><i className="icon-arrow-up"></i></Button>
-                                        <a href="#" className="btn-close"><i className="icon-close"></i></a>
                                     </div>
                                 </CardHeader>
                                 <CardBody>
                                     {/* {periodSave.isRejected && <Alert isOpen={this.state.visible} color="danger" toggle={this.onDismiss}>{periodSave.data}</Alert>} */}
                                     <Form className="form-horizontal">
                                         <FormGroup>
-                                            <Field name="username" component={renderField}  type="text" label="Username"/>
+                                            <Field name="username" component={renderField}  type="text" label="รหัสนักศึกษา / ชื่อบัญชีผู้ใช้"/>
                                         </FormGroup>
                                         <FormGroup>
                                             <Field name="password" component={renderField}  type="password" label="Password"/>
                                         </FormGroup> 
+                                        <FormGroup>
+                                            <Field name="user_group" data={userGroup}component={renderSelectObject}  type="text" label="ประเภทผู้ใช้งาน"/>
+                                        </FormGroup>
                                         <FormGroup>
                                             <Field name="email" component={renderField}  type="text" label="E-mail" />
                                         </FormGroup>
@@ -172,7 +207,7 @@ const alertify = require('alertify.js');
                                             <Field name="last_name" component={renderField}  type="text" label="นามสกุล" />
                                         </FormGroup>   
                                         <FormGroup>
-                                            <Field name="gender" component={renderField}  type="text" label="เพศ" />
+                                            <Field name="gender" component={renderSelect} data={gender} type="text" label="เพศ" />
                                         </FormGroup>
                                         <FormGroup>
                                             <Field name="address" component={renderField}  type="text" label="ที่อยู่" />
@@ -195,13 +230,12 @@ const alertify = require('alertify.js');
                                         <FormGroup>
                                             <Field name="company" component={renderField}  type="text" label="สังกัด" />
                                         </FormGroup>
-                                        
-                                       
                                     <div className="form-actions"> 
                                         <Button  color="secondary">Back</Button>{ ' '}
                                         <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     
                                     </div>
                                 </Form>
+                            
                             </CardBody>
                     </Card>
                 </Col>
@@ -230,6 +264,12 @@ function validate(values){
     }
     if(!values.prefix){
         errors.prefix = "ต้องการฟิลด์นี้";
+    }
+    if(!values.gender){
+        errors.gender = "ต้องการฟิลด์นี้"
+    }
+    if(!values.company){
+        errors.company = "ต้องการฟิลด์นี้"
     }
     if(!values.first_name){
         errors.first_name = "ต้องการฟิลด์นี้";

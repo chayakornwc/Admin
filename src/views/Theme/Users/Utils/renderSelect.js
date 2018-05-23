@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, Col, Label, Input } from 'reactstrap';
+import { FormGroup, Col, Label, Input, Alert } from 'reactstrap';
 
 const renderSelect = ({ input, label, type, data,  autoFocus, meta: { touched, error } }) => {
         return (
@@ -9,14 +9,14 @@ const renderSelect = ({ input, label, type, data,  autoFocus, meta: { touched, e
                         <Label htmlFor={input.name}>{label}</Label>
                         </Col>
                         <Col xs="12" md="4">              
-                        <select {...input}  type="select" className="form-control" >    
-                        <option></option>
+                        <select {...input}  type="select" className="form-control">    
+                        <option selected>กรุณาเลือก</option>
                         {data && data.map((value, index) =>(
                             <option key={index} value={value}>{value}</option>
                         ))
                         }
                         </select> 
-                         {touched && error && <small className="text-danger">{error}</small>}
+                         {touched && error && <Alert color="danger" className="text-danger">{error}</Alert>}
                         </Col>        
                         </FormGroup>
                         </div>

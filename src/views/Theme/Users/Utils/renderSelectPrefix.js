@@ -14,7 +14,7 @@ const data = ["นาย", "นางสาว", "นาง", "ดร.", "ผศ
                     </Col>
                     <Col xs="12" md="4">              
                     <select {...input}  type="select" className="form-control" >    
-                    <option selected></option>
+                    <option selected>กรุณาเลือก</option>
                     {data && data.map((value, index) =>(
                         <option key={index} value={value} selected>{value}</option>
                     ))
