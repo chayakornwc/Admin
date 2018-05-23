@@ -22,8 +22,9 @@ const alertify = require('alertify.js');
          }
         onSubmit = (values)=>{
             return this.props.dispatch(saveUser(values)).then(()=>{
-                if(!this.props.userSave){
+                if(!this.props.userSave.isRejected){
                     alertify.success(this.props.userSave.data);
+                    this.props.handleInitailize();
                 }else{
                     alertify.error(this.props.userSave.data);
                 }
