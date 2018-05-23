@@ -1,4 +1,5 @@
 import React from 'react';
+import {Alert} from 'reactstrap'
 //renderField จะรับ props ต่างๆ ของ Field ที่ได้จาก redux-form
 const renderField = ({ input, label, type, textarea, autoFocus, meta: { touched, error } }) => {
 //สำหรับรูปแบบ Field ที่เป็น TextArea
@@ -12,7 +13,7 @@ const textareaType = <textarea {...input} placeholder={label} className="form-co
                                 {/* เลือกว่าจะแสดงแบบ textarea หรือ input ธรรมดา*/}
                                     {textarea ? textareaType : inputType}
                                     {/* ส่วนนี้จะแสดงข้อความ error ที่ได้จากการ validate */}
-                                    {touched && error && <small className="text-danger">{error}</small>}
+                                    {touched && error && <Alert color="danger"><i className="fa fa-warning"></i>{' '}{error}</Alert>}
                         </div>
                     </div>
                     )
