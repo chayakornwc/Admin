@@ -236,12 +236,12 @@ const alertify = require('alertify.js');
                                         <Button  color="secondary">Back</Button>{ ' '}
                                         <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     
                                     </div>
-                                   
+                                    
                                 </Form>
-                            
                             </CardBody>
                     </Card>
                 </Col>
+                
             </Row>  
               
           </div>

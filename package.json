@@ -1,7 +1,7 @@
 {
   "name": "@admin/react",
   "version": "1.0.10",
-  "description": "Open Source Bootstrap Admin Template",
+  "description": "Open source Training manament IS",
   "author": "chayakorn wc",
   "copyright": "chayakornwc",
   "license": "MIT",
@@ -67,7 +67,7 @@
   },
   "scripts": {
     "dev": "webpack -d --progress --watch --profile --json > compilation-stats.json --env.dev",
-    "start": "webpack-dev-server --output-public-path=/build/ --progress --color --inline --env.dev",
+    "start": "webpack-dev-server --watch-poll --progress --color --inline --env.dev",
     "build": "webpack -p --progress --env.prod",
     "clean": "rimraf ./build"
   },

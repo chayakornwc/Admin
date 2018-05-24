@@ -2,18 +2,24 @@ import React, { Component } from 'react'
 import {loadUsers,getUser, deleteUser, resetStatus} from '../../../redux/actions/userActions';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { Badge,Row,Col,Card,CardHeader,CardBody,Pagination,PaginationItem,PaginationLink, Button } from 'reactstrap';
-import {confirmModalDialog} from '../../../components/Utils/reactConfirmModalDialog'
+import { Modal, Badge,Row,Col,Card,CardHeader,CardBody,Pagination,PaginationItem,PaginationLink, Button } from 'reactstrap';
+import {confirmModalDialog} from '../../../components/Utils/reactConfirmModalDialog';
+import Userform from './Utils/Userform';
 const moment = require('moment');
 import UserTable from './Utils/Table';
+
 moment.locale('th');
 import Loader from '../../../components/Utils/Loader';
  class  Users extends Component {
      constructor(props){
          super(props);
+         this.state = {
+             Modal:false
+         }
             this.handleDelete = this.handleDelete.bind(this);
             this.handleEdit = this.handleEdit.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
+            
      }
      componentDidMount(){
         return this.props.dispatch(loadUsers()).then()
@@ -39,7 +45,7 @@ import Loader from '../../../components/Utils/Loader';
     }
     
      
-        handleDelete = (id) => {
+        handleDelete = (id) => {    
             confirmModalDialog({
                 show: true,
                 title: 'ยืนยันการลบ',
@@ -53,10 +59,16 @@ import Loader from '../../../components/Utils/Loader';
                 })
             })
         }
+    modalToggle = ()=>{
+        this.setState({
+            Modal:!this.state.Modal
+        })
+    }
+
     
     
   render() {
-      const {users} = this.props  
+      const {users, user} = this.props  
     return (
         <div>
             {users.isLoading &&  <Loader />}
@@ -68,10 +80,17 @@ import Loader from '../../../components/Utils/Loader';
                     buttonEdit={this.handleEdit}
                     buttonSubmit={this.handleSubmit}
                     buttonDelete={this.handleDelete}
-                    />
-                }  
+                    />  
+                }
+                
             </div>
             }
+             <Modal isOpen={this.state.Modal}>
+                    <Userform
+                        data={user.data}
+                        
+                    />
+            </Modal>
       </div>
     )
   }
@@ -81,7 +100,8 @@ import Loader from '../../../components/Utils/Loader';
 
 function mapStateToProps(state){
     return {
-        users:state.userReducers.users
+        users:state.userReducers.users,
+        user:state.userReducers.user
     }
 }
 export default connect(mapStateToProps)(Users)
