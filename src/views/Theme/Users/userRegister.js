@@ -23,8 +23,9 @@ const alertify = require('alertify.js');
         onSubmit = (values)=>{
             return this.props.dispatch(saveUser(values)).then(()=>{
                 if(!this.props.userSave.isRejected){
-                    alertify.success(this.props.userSave.data);
                     this.props.handleInitailize();
+                    console.log(this.props.userSave);
+                    alertify.success("เพิ่มข้อมูลเรียบร้อยแล้ว"); 
                 }else{
                     alertify.error(this.props.userSave.data);
                 }
@@ -235,6 +236,7 @@ const alertify = require('alertify.js');
                                         <Button  color="secondary">Back</Button>{ ' '}
                                         <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     
                                     </div>
+                                   
                                 </Form>
                             
                             </CardBody>

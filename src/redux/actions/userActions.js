@@ -106,10 +106,9 @@ export const saveUser = (values) => {
             //เมื่อข้อมูลส่งกลับมาต้องเช็คสถานะก่อนว่า username ซ้ำหรือไม่
             //โดยserver จะส่ง object ที่ชื่อว่า status และ message กลับมา
             if (results.data.status) {
-                dispatch({ type: 'SAVE_USER_REJECTED', payload: results.data.message })
-                
+                dispatch({ type: 'SAVE_USER_REJECTED', payload: results.data.message })         
             } else {
-                dispatch({ type: 'SAVE_USER_SUCCESS', payload:results }) 
+                dispatch({ type: 'SAVE_USER_SUCCESS', payload: results.data.message}) 
             }
         }).catch(err => {
             //กรณี error
