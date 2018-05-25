@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label } from 'reactstrap';
+import { Alert, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label } from 'reactstrap';
 import renderSelect from '../../views/Theme/Coursemanage/Utils/renderSelect';
 import renderSelectRoom from '../../views/Theme/Coursemanage/Utils/renderSelectRoom';
 import renderTimepicker from '../../views/Theme/Coursemanage/Utils/renderTimepicker';

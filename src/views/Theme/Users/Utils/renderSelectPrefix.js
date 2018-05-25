@@ -5,7 +5,7 @@ import {Alert} from 'reactstrap';
 const renderSelectprefix = ({ input, label, type,  autoFocus, meta: { touched, error } }) => {
 
 const data = ["นาย", "นางสาว", "นาง", "ดร.", "ผศ.", "รอง ศจ.", "ศจ."];
-   
+  
     return (
                 <div>
                     <FormGroup row>
@@ -13,10 +13,10 @@ const data = ["นาย", "นางสาว", "นาง", "ดร.", "ผศ
                     <Label htmlFor={input.name}>{label}</Label>
                     </Col>
                     <Col xs="12" md="4">              
-                    <select {...input}  type="select" className="form-control" >    
-                    <option selected>กรุณาเลือก</option>
-                    {data && data.map((value, index) =>(
-                        <option key={index} value={value} selected>{value}</option>
+                    <select {...input} value={input.value} className="form-control" >    
+                    <option>กรุณาเลือก</option>
+                    {data && data.map((e, i) =>(
+                        <option key={i} value={e}>{e}</option>
                     ))
                     }
                   

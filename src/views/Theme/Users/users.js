@@ -1,50 +1,52 @@
 import React, { Component } from 'react'
-import {loadUsers,getUser, deleteUser, resetStatus} from '../../../redux/actions/userActions';
+import {loadUsers,getUser,saveUser, deleteUser, resetStatus} from '../../../redux/actions/userActions';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { Modal, Badge,Row,Col,Card,CardHeader,CardBody,Pagination,PaginationItem,PaginationLink, Button } from 'reactstrap';
 import {confirmModalDialog} from '../../../components/Utils/reactConfirmModalDialog';
 import Userform from './Utils/Userform';
+import Passwordform from './Utils/Passwordform';
 const moment = require('moment');
 import UserTable from './Utils/Table';
-
+const alertify = require('alertify.js');
 moment.locale('th');
 import Loader from '../../../components/Utils/Loader';
  class  Users extends Component {
      constructor(props){
          super(props);
          this.state = {
-             Modal:false
+             Modal:false,
+             modalTitle:'',
+             _Modalpassword:false
          }
             this.handleDelete = this.handleDelete.bind(this);
             this.handleEdit = this.handleEdit.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
+            this.handleChangepassword = this.handleChangepassword.bind(this);
+            this.modalToggle = this.modalToggle.bind(this);
+            this.modalpasswordToggle = this.modalpasswordToggle.bind(this);
             
      }
      componentDidMount(){
         return this.props.dispatch(loadUsers()).then()
      }
-     handleEdit = (id) => {
-        this.props.dispatch(resetStatus())
-        this.setState({ modalTitle: 'แก้ไข' })
-        this.props.dispatch(getUser(id)).then(() => {
-            this.toggle()
-        })
-    
-    }
-    
+
     
     handleSubmit = (values) => {
-        this.props.dispatch(saveUser(values)).then(() => {
+       return this.props.dispatch(saveUser(values)).then(() => {
             if (!this.props.userSave.isRejected) {
-                this.toggle()
+                if(this.state.Modal){
+                    this.modalToggle();
+                }
+                if(this.state._Modalpassword){
+                    this.modalpasswordToggle();
+                }
                 this.props.dispatch(loadUsers())
                 {alertify.success('บันทึกข้อมูลเรียบร้อยแล้ว')}
             }
         })
     }
-    
-     
+ 
         handleDelete = (id) => {    
             confirmModalDialog({
                 show: true,
@@ -59,16 +61,37 @@ import Loader from '../../../components/Utils/Loader';
                 })
             })
         }
+        handleEdit = (id) => {
+            this.props.dispatch(resetStatus())
+            this.setState({ modalTitle: 'แก้ไข' })
+            this.props.dispatch(getUser(id)).then(() => {
+                this.modalToggle();
+            })
+        
+        }
+        
     modalToggle = ()=>{
         this.setState({
             Modal:!this.state.Modal
         })
     }
+    modalpasswordToggle = ()=>{
+        this.setState({
+            _Modalpassword:!this.state._Modalpassword
+        })
+    }
+    handleChangepassword = (id)=>{
+        this.props.dispatch(resetStatus())
+        this.setState({modalTitle:'เปลี่ยนรหัสผ่านผู้ใช้งาน'})
+        this.props.dispatch(getUser(id)).then(()=>{
+           this.modalpasswordToggle();
+       })
+    }
 
     
     
   render() {
-      const {users, user} = this.props  
+      const {users, user, userSave} = this.props  
     return (
         <div>
             {users.isLoading &&  <Loader />}
@@ -80,16 +103,29 @@ import Loader from '../../../components/Utils/Loader';
                     buttonEdit={this.handleEdit}
                     buttonSubmit={this.handleSubmit}
                     buttonDelete={this.handleDelete}
+                    buttonChangePassword={this.handleChangepassword}
                     />  
                 }
                 
             </div>
             }
-             <Modal isOpen={this.state.Modal}>
+             <Modal className="modal-primary modal-lg" isOpen={this.state.Modal} toggle={this.modalToggle}>
                     <Userform
+                        onToggle={this.modalToggle}
                         data={user.data}
-                        
+                        modalTitle={this.state.modalTitle}
+                        userSave={userSave}
+                        onSubmit={this.handleSubmit}
                     />
+            </Modal>
+            <Modal className="modal-primary modal-lg" isOpen={this.state._Modalpassword} toggle={this.modalpasswordToggle}>
+                <Passwordform
+                onToggle={this.modalpasswordToggle}
+                data={user.data}
+                modalTitle={this.state.modalTitle}
+                userSave={userSave}
+                onSubmit={this.handleSubmit}
+                />
             </Modal>
       </div>
     )
@@ -101,6 +137,7 @@ import Loader from '../../../components/Utils/Loader';
 function mapStateToProps(state){
     return {
         users:state.userReducers.users,
+        userSave:state.userReducers.userSave,
         user:state.userReducers.user
     }
 }

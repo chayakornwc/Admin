@@ -9,10 +9,10 @@ const renderSelect = ({ input, label, type, data,  autoFocus, meta: { touched, e
                         <Label htmlFor={input.name}>{label}</Label>
                         </Col>
                         <Col xs="12" md="4">              
-                        <select {...input}  type="select" className="form-control">    
-                        <option selected>กรุณาเลือก</option>
-                        {data && data.map((value, index) =>(
-                            <option key={index} value={value}>{value}</option>
+                        <select {...input}  value={input.value} type="select" className="form-control">     
+                        <option>กรุณาเลือก</option>
+                        {data && data.map((e, i) =>(
+                            <option key={i} value={e}>{e}</option>
                         ))
                         }
                         </select> 

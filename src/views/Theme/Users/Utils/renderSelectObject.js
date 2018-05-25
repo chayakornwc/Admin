@@ -9,12 +9,12 @@ const renderSelectObject = ({ input, label, type, data,  autoFocus, meta: { touc
                         <Label htmlFor={input.name}>{label}</Label>
                         </Col>
                         <Col xs="12" md="4">              
-                        <select {...input}  type="select" className="form-control" >    
-                        <option selected>กรุณาเลือก</option>
-                        {data && data.map((value, index) =>(
-                            <option key={index} value={value.id}>{value.label}</option>
-                        ))
-                        }
+                        <select  {...input} value={input.value} type="select"  className="form-control">    
+                        <option >กรุณาเลือก</option>
+                            {data && data.map((e, i) =>(
+                                <option key={i} value={e.id}>{e.label}</option>
+                            ))
+                            }
                         </select> 
                          {touched && error && <Alert color="danger"><i className="fa fa-warning"></i>{' '}{error}</Alert>}
                         </Col>        
