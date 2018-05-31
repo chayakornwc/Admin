@@ -30,7 +30,7 @@ class Passwordform extends Component {
     const gender = ['ชาย', 'หญิง'];
     return (
       <div>
-          <ModalHeader toggle={onToggle} onToggle={onToggle}>{modalTitle}{' '}{this.props.data.username}</ModalHeader>
+          <ModalHeader toggle={onToggle} onToggle={onToggle}>{modalTitle}{' '}{this.props.data.username}{' '}{this.props.data.first_name}{' '}{this.props.data.last_name}</ModalHeader>
           <ModalBody>
             <Form 
                 className="form-horizontal"

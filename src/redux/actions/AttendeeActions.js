@@ -34,7 +34,7 @@ export const saveAttendee = (values)=> {
                 if (results.data.status){
                     dispatch({type:'SAVE_ATTENDER_REJECTED' ,payload:results.data.message})
                 } else{
-                    dispatch({type:'SAVE_ATTENDER_SUCCESS', payload:results})
+                    dispatch({type:'SAVE_ATTENDER_SUCCESS', payload:results.data})
                 }
             }).catch(err =>{
                 //system failure

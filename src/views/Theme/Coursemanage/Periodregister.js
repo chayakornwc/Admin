@@ -131,6 +131,9 @@ return (
                                     <FormGroup>
                                         <Field name="room_id" data={operation_rooms.data}  component={renderSelectRoom} label="ห้องปฏิบัติการ" />
                                     </FormGroup>
+                                    <FormGroup>
+                                        <Field name="lecture" component={renderField} label="วิทยากร" />
+                                    </FormGroup>
                                 <div className="form-actions"> 
                                     <Button  color="secondary">Back</Button>{ ' '}
                                     <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     
@@ -176,10 +179,13 @@ function validate(values){
         errors.per_price = "ต้องกรอกฟิลด์นี้"
     }
     if(!values.per_quota){
-        errors.per_quota = "ต้องกรอกฟิลด์นี้_"
+        errors.per_quota = "ต้องกรอกฟิลด์นี้"
     }
     if(!values.room_id){
         errors.room_id ="กรุณาเลือก"
+    }
+    if(!values.lecture){
+        errors.lecture = "ต้องกรอกฟิลด์นี้";
     }
     return errors;
 }

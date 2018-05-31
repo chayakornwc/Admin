@@ -31,7 +31,7 @@ export default (state = initialState, action) =>{
 
         //การบันทึกข้อมูล  
         case'SAVE_ATTENDER_SUCCESS':
-        return{...state, attenderSave:{data:null, isLoading:false, isRejected:false}}
+        return{...state, attenderSave:{data:action.payload, isLoading:false, isRejected:false}}
         case'SAVE_ATTENDER_REJECTED':
         return{...state, attenderSave:{data:action.payload, isLoading:false, isRejected:true}}
 

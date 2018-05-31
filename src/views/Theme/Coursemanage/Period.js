@@ -55,12 +55,13 @@ class Period extends Component {
         this.setState({
             AttenModal:!this.state.AttenModal
         })
+       
     }
     handleEdit=(id)=>{
         this.props.dispatch(resetStatus())
         this.setState({modalTitle:'แก้ไข'})
         this.props.dispatch(getPeriod(id)).then(()=>{
-        this.modalToggle();
+            this.props.dispatch(loadPeriods());
             
         })
     }
@@ -98,7 +99,9 @@ class Period extends Component {
                     this.props.dispatch(deleteAttendee(id)).then(()=>{
                         this.props.dispatch(getAttendee(periodId))
                         if(!this.props.attenderDelete.isRejected){
-                            alertify.success('ลบข้อมูลผู้เข้าร่วมเรียบร้อยแล้ว')
+                            this.props.dispatch(loadPeriods());
+                            alertify.success('ลบข้อมูลผู้เข้าร่วมเรียบร้อยแล้ว');
+                        
                         }
                     })
                 } 
@@ -109,9 +112,8 @@ class Period extends Component {
         this.props.dispatch(savePeriod(values)).then(()=>{
             if(!this.props.periodSave.isRejected){
                 this.modalToggle();
-                this.props.dispatch(loadPeriods());
                 alertify.alert('แก้ไขข้อมูลเรียบร้อยแล้ว').set('basic', true);
-                
+                this.props.dispatch(loadPeriods());
             }
         })
     }
@@ -139,7 +141,9 @@ class Period extends Component {
             if(!this.props.attenderSave.isRejected){
                 this.props.dispatch(getAttendee(id)).then(()=>{
                     if(!this.props.attenders.isRejected){
+                        alertify.success(this.props.attenderSave.data.message)
                         this.props.dispatch(resetUserStore());
+                        this.props.dispatch(loadPeriods());
                     }
                 })
             }

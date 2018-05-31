@@ -29,7 +29,8 @@ class PeriodForm extends Component {
             "course_id":this.props.data.course_id,
             "per_price":this.props.data.per_price,
             "per_quota":this.props.data.per_quota,
-            "course_status": 0
+            "course_status": 0,
+            "lecture":this.props.data.lecture 
         };
         this.props.initialize(initData);
         
@@ -90,6 +91,9 @@ class PeriodForm extends Component {
                                     <FormGroup>
                                         <Field name="room_id" data={operation_rooms.data}  component={renderSelectRoom} label="ห้องปฏิบัติการ" />
                                     </FormGroup>
+                                    <FormGroup>
+                                        <Field name="lecture"   component={renderField} label="วิทยากร" />
+                                    </FormGroup>
                         </Form>
                 </ModalBody>
 
@@ -123,11 +127,12 @@ function validate(values){
     if(!values.per_price){
         errors.per_price = "ต้องกรอกฟิลด์นี้"
     }
-    if(!values.per_quota){
-        errors.per_quota = "ต้องกรอกฟิลด์นี้_"
-    }
+    
     if(!values.room_id){
         errors.room_id ="กรุณาเลือก"
+    }
+    if(!values.lecture){
+        errors.lecture = "ต้องกรอกฟิลด์นี้";
     }
     return errors;
 }
