@@ -35,7 +35,7 @@ export const getPeriod = (id)=>{
 export const savePeriod = (values)=>{
     let _id ='';    
     let _method ='post';
-    console.log(values);
+   
         if(values.per_id){
             _id = values.per_id;
             _method='put';

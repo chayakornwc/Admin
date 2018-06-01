@@ -101,7 +101,6 @@ class Period extends Component {
                         if(!this.props.attenderDelete.isRejected){
                             this.props.dispatch(loadPeriods());
                             alertify.success('ลบข้อมูลผู้เข้าร่วมเรียบร้อยแล้ว');
-                        
                         }
                     })
                 } 
