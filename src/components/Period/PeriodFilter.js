@@ -11,6 +11,7 @@ const moment = require('moment');
 moment.locale('th');
 
 class PeriodFilter extends Component {
+  
     constructor(props){
         super(props);
           this.state = {
@@ -23,7 +24,7 @@ class PeriodFilter extends Component {
      
        
     }
-    static propTypes ={
+    static propTypes = {
       onSearchTermChange:propTypes.func.isRequired,
       placeholder:propTypes.string,
     
