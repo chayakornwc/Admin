@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label } from 'reactstrap';
 import renderSelect from '../../views/Theme/Coursemanage/Utils/renderSelect';
+import renderSelectObject from '../../views/Theme/Coursemanage/Utils/renderSelectObject';
 import renderSelectRoom from '../../views/Theme/Coursemanage/Utils/renderSelectRoom';
 import renderTimepicker from '../../views/Theme/Coursemanage/Utils/renderTimepicker';
 import renderDatepicker from '../Utils/renderDatepicker';
@@ -21,8 +22,8 @@ class PeriodForm extends Component {
     handleInitialize() {
         let initData = {
             "per_id":parseInt(this.props.data.per_id),
-            "per_start": this.props.data.per_start ? moment(this.props.data.per_start, ['YYYY-MM-DD', 'DD MMMM YYYY']).add(543, 'years').format('LL') : null,
-            "per_end":this.props.data.per_end ? moment(this.props.data.per_end, ['YYYY-MM-DD', 'DD MMMM YYYY']).add(543,'years').format('LL') : null,
+            "per_start": this.props.data.per_start ? moment(this.props.data.per_start, [moment.ISO_8601, 'DD MMMM YYYY']).add(543, 'years').format('LL') : null,
+            "per_end":this.props.data.per_end ? moment(this.props.data.per_end, [moment.ISO_8601, 'DD MMMM YYYY']).add(543,'years').format('LL') : null,
             "per_time_start":this.props.data.per_time_start ? moment(this.props.data.per_time_start, 'LT').format('LT') : null,
             "per_time_end":this.props.data.per_time_end ?  moment(this.props.data.per_time_end, 'LT').format('LT') : null,
             "room_id":this.props.data.room_id,
@@ -30,6 +31,7 @@ class PeriodForm extends Component {
             "per_price":this.props.data.per_price,
             "per_quota":this.props.data.per_quota,
             "course_status": 0,
+            "per_status":this.props.data.per_status,
             "lecture":this.props.data.lecture 
         };
         this.props.initialize(initData);
@@ -46,6 +48,11 @@ class PeriodForm extends Component {
     render() {
         // handleSubmit  properties of redux form
         const { data, periodSave, onSubmit, handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
+        const _status = [{id:0, label:'เปิดการอบรม'},
+        {id:1, label:'กำลังดำเนินการ'},
+        {id:2, label:'ระงับการอบรม'},
+        {id:3, label:'การอบรมเสร็จสิ้น'},
+        {id:4, label:'เปิดสอบ'}];
         return (
             <div>
                 <ModalHeader toggle={onToggle}>{modalTitle}</ModalHeader>
@@ -55,15 +62,16 @@ class PeriodForm extends Component {
 
                     {/* รูปแบบการแสดงผลจัดตาม Bootstrap 4 */}
                     <Form className="form-horizontal">
+                                    <Field name="per_status" data={_status} label="สถานะการอบรม"  component={renderSelectObject} />
                                     <FormGroup row>
                                         <Col md="3">
                                             <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
                                         </Col>
-                                        <Col md="4">
+                                        <Col md="3">
                                             <Field name="per_start" styles={{'flexWrap':'unset'}} component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
                                         </Col>
-                                        <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '}
-                                        <Col md="4">   
+                                        <i className="fa fa-angle-right fa-lg mt-2"></i>
+                                        <Col md="3">   
                                             <Field name="per_end" styles={{'flexWrap':'unset'}} component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
                                         </Col>
                                     </FormGroup>

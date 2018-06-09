@@ -61,7 +61,7 @@ class Period extends Component {
         this.props.dispatch(resetStatus())
         this.setState({modalTitle:'แก้ไข'})
         this.props.dispatch(getPeriod(id)).then(()=>{
-            this.props.dispatch(loadPeriods());
+            this.modalToggle();
             
         })
     }
@@ -111,8 +111,9 @@ class Period extends Component {
         this.props.dispatch(savePeriod(values)).then(()=>{
             if(!this.props.periodSave.isRejected){
                 this.modalToggle();
-                alertify.alert('แก้ไขข้อมูลเรียบร้อยแล้ว').set('basic', true);
                 this.props.dispatch(loadPeriods());
+                alertify('แก้ไขข้อมูลเรียบร้อยแล้ว').set('basic', true);
+               
             }
         })
     }
