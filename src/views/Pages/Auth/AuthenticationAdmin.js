@@ -10,15 +10,15 @@ export default function (ComposedComponent) {
                 }
             componentWillMount() {
                     if (this.props.data) {
-                    if (this.props.data.user_group <= 1) {
-                        this.context.router.history.push('/dashboard');
+                    if (this.props.data.user_group > 2) {
+                        this.context.router.history.push('/404');
                                 }
                             }
                     }
                 componentWillUpdate(nextProps) {
                     if (nextProps.data) {
-                            if (nextProps.data.user_group <= 1) {
-                                this.context.router.history.push('/dasboard');
+                            if (nextProps.data.user_group >2) {
+                                this.context.router.history.push('/404');
                                             }
                                     }
                                 }

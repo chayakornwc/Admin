@@ -55,7 +55,7 @@ export default {
     },
     {
       name: 'รายงานการเข้าร่วมอบรม',
-      url: '/cert',
+      url: '/coffee',
       icon: 'fa fa-coffee',
     },
     {

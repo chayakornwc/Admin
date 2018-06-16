@@ -30,9 +30,12 @@ import ExamRegister from '../../views/Theme/ExamWarehouse/ExamRegister';
 
 
 //  users module
+
 import Users from '../../views/Theme/users/users';
 import UserRegister from '../../views/Theme/users/userRegister';
 
+//Certificate module
+import Cerificate from '../../views/Theme/Cerificate/Certificate'
 // Base
 import Cards from '../../views/Base/Cards/';
 import Forms from '../../views/Base/Forms/';
@@ -67,6 +70,7 @@ import SimpleLineIcons from '../../views/Icons/SimpleLineIcons/';
 import Alerts from '../../views/Notifications/Alerts/';
 import Badges from '../../views/Notifications/Badges/';
 import Modals from '../../views/Notifications/Modals/';
+import Certificate from '../../views/Theme/Cerificate/Certificate';
 
 class Full extends Component {
   
@@ -91,6 +95,7 @@ class Full extends Component {
                 <Route path="/examination" name="examinationwarehouse" component={ExamWarehouse} />
                 <Route path="/users/register" name="userRegister" component={UserRegister} />
                 <Route path="/users" name="usermangement" component={Users} />
+                <Route path="/cert" name="Certificate" component={Certificate} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
                 <Route path="/base/forms" name="Forms" component={Forms}/>

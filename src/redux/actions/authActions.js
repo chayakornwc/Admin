@@ -14,14 +14,12 @@ export const signin = ({ username, password }) => {
                     data: { username, password }
                     }).then(response => {
                         localStorage.setItem('token', response.data.token)
-                        
                         const token = localStorage.getItem('token')
                             dispatch({
                                 type: 'AUTH_USER',
                                 payload: jwtDecode(token)
                             })
                             browserHistory.push('/dasboard');
-                               
                      }).catch(() => {
                              dispatch({ type: 'AUTH_ERROR', payload: "Login failed wrong username or password." })
                             })
