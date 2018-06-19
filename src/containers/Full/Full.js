@@ -71,6 +71,7 @@ import Alerts from '../../views/Notifications/Alerts/';
 import Badges from '../../views/Notifications/Badges/';
 import Modals from '../../views/Notifications/Modals/';
 import Certificate from '../../views/Theme/Cerificate/Certificate';
+import Generate from '../../views/Theme/Cerificate/Generate';
 
 class Full extends Component {
   
@@ -95,6 +96,7 @@ class Full extends Component {
                 <Route path="/examination" name="examinationwarehouse" component={ExamWarehouse} />
                 <Route path="/users/register" name="userRegister" component={UserRegister} />
                 <Route path="/users" name="usermangement" component={Users} />
+                <Route path="/cert/generate/:period_id" name="Certifiation generate" component={Generate} />
                 <Route path="/cert" name="Certificate" component={Certificate} />
                 <Route path="/theme/typography" name="Typography" component={Typography}/>
                 <Route path="/base/cards" name="Cards" component={Cards}/>
