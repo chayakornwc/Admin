@@ -46,6 +46,7 @@
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.5",
     "nodemon": "^1.17.4",
+    "npm": "^6.1.0",
     "pdfmake": "^0.1.36",
     "prop-types": "^15.6.1",
     "rc-time-picker": "^3.3.1",
