@@ -49,7 +49,7 @@ export default {
       icon: 'fa fa-users',
     },
     {
-      name: 'ออกใบวุฒิบัติ',
+      name: 'ออกใบวุฒิบัตร',
       url: '/cert',
       icon: 'fa fa-certificate',
     },

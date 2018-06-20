@@ -40,4 +40,27 @@ export const loadCertificationByperiodId = (id)=>{
             })
         )
     }
+}   
+export const loadCertificationByOptions = (values) =>{
+    var param = Object.keys(values).map(function(e){return values[e]}).join(",");
+    return(dispatch)=>{
+        dispatch({
+            type:'LOAD_CERTIFICATIONBYOPTION_PENDING',
+        })
+        return axios({
+            method:'get',
+            url:`${BASE_URL}/certification/forprint?option=${param}`,
+            headers:{authorization:localStorage.getItem('token')},
+        }).then(results=>{
+            dispatch({
+                type:'LOAD_CERTIFICATIONBYOPTION_SUCCESS',
+                payload:results.data
+            })
+        }).catch(err=>{
+            dispatch({
+                type:'LOAD_CERTIFICATIONBYOPTION_REJECTED',
+                payload:err.message
+            })
+        })
+    }
 }
