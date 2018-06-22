@@ -43,8 +43,9 @@ const routes = {
   '/course/period':'Period',
   '/course/period/register':'Period Register',
   '/cert':'Certification',
-  '/cert/generate/':'generate',
+  '/cert/generate':'generate',
   '/cert/generate/:id':':id',
+  '/report':'Report',
   '/theme/colors': 'Colors',
   '/theme/typography': 'Typography',
   '/widgets': 'Widgets'

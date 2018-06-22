@@ -35,7 +35,7 @@ import Users from '../../views/Theme/users/users';
 import UserRegister from '../../views/Theme/users/userRegister';
 
 //Certificate module
-import Cerificate from '../../views/Theme/Cerificate/Certificate'
+
 // Base
 import Cards from '../../views/Base/Cards/';
 import Forms from '../../views/Base/Forms/';
@@ -72,7 +72,7 @@ import Badges from '../../views/Notifications/Badges/';
 import Modals from '../../views/Notifications/Modals/';
 import Certificate from '../../views/Theme/Cerificate/Certificate';
 import Generate from '../../views/Theme/Cerificate/Generate';
-
+import Report from '../../views/Theme/Report/Report'
 class Full extends Component {
   
   render() {
@@ -86,6 +86,7 @@ class Full extends Component {
             <Container fluid>
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
+                <Route path="/report" name="Report" component={Report}/>
                 <Route path="/course/period/register" name="PeriodRegister" component={Periodregister} />  
                 <Route path="/course/period" name="Period" component={Period} />
                 <Route path="/course/register" name="CourseRegister" component={Courseregister} />          
@@ -98,36 +99,6 @@ class Full extends Component {
                 <Route path="/users" name="usermangement" component={Users} />
                 <Route path="/cert/generate/:period_id" name="Certifiation generate" component={Generate} />
                 <Route path="/cert" name="Certificate" component={Certificate} />
-                <Route path="/theme/typography" name="Typography" component={Typography}/>
-                <Route path="/base/cards" name="Cards" component={Cards}/>
-                <Route path="/base/forms" name="Forms" component={Forms}/>
-                <Route path="/base/switches" name="Swithces" component={Switches} />
-                <Route path="/base/tables" name="Tables" component={Tables}/>
-                <Route path="/base/tabs" name="Tabs" component={Tabs}/>
-                <Route path="/base/breadcrumbs" name="Breadcrumbs" component={Breadcrumbs} />
-                <Route path="/base/carousels" name="Carousels" component={Carousels}/>
-                <Route path="/base/collapses" name="Collapses" component={Collapses}/>
-                <Route path="/base/dropdowns" name="Dropdowns" component={Dropdowns}/>
-                <Route path="/base/jumbotrons" name="Jumbotrons" component={Jumbotrons}/>
-                <Route path="/base/list-groups" name="ListGroups" component={ListGroups}/>  
-                <Route path="/base/navbars" name="Navbars" component={Navbars}/>
-                <Route path="/base/navs" name="Navs" component={Navs}/>
-                <Route path="/base/paginations" name="Paginations" component={Paginations}/>
-                <Route path="/base/popovers" name="Popovers" component={Popovers}/>
-                <Route path="/base/progress-bar" name="Progress Bar" component={ProgressBar}/>
-                <Route path="/base/tooltips" name="Tooltips" component={Tooltips}/>
-                <Route path="/buttons/buttons" name="Buttons" component={Buttons}/>
-                <Route path="/buttons/button-dropdowns" name="ButtonDropdowns" component={ButtonDropdowns}/>
-                <Route path="/buttons/button-groups" name="ButtonGroups" component={ButtonGroups}/>
-                <Route path="/buttons/social-buttons" name="Social Buttons" component={SocialButtons}/>
-                <Route path="/icons/flags" name="Flags" component={Flags}/>
-                <Route path="/icons/font-awesome" name="Font Awesome" component={FontAwesome}/>
-                <Route path="/icons/simple-line-icons" name="Simple Line Icons" component={SimpleLineIcons}/>
-                <Route path="/notifications/alerts" name="Alerts" component={Alerts}/>
-                <Route path="/notifications/badges" name="Badges" component={Badges}/>
-                <Route path="/notifications/modals" name="Modals" component={Modals}/>
-                <Route path="/widgets" name="Widgets" component={Widgets}/>
-                <Route path="/charts" name="Charts" component={Charts}/>
                 <Redirect from="/" to="/dashboard"/>
               </Switch>
             </Container>
