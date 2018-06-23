@@ -5,27 +5,22 @@ import {
   Row,
   Col,
   Progress,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   CardTitle,
   Button,
-  ButtonToolbar,
-  ButtonGroup,
-  ButtonDropdown,
-  Label,
   Input,
-  Table
+ 
 } from 'reactstrap';
+import {connect} from 'react-redux';
+import {analysisAttends} from '../../redux/actions/analysisActions.js';
 
+const moment = require('moment');
+moment.locale('th')
 const brandPrimary = '#20a8d8';
 const brandSuccess = '#4dbd74';
-const brandInfo = '#63c2de';
 const brandWarning = '#f8cb00';
 const brandDanger = '#f86c6b';
 
@@ -42,162 +37,7 @@ const cardChartData1 = {
   ],
 };
 
-const cardChartOpts1 = {
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [{
-      gridLines: {
-        color: 'transparent',
-        zeroLineColor: 'transparent'
-      },
-      ticks: {
-        fontSize: 2,
-        fontColor: 'transparent',
-      }
 
-    }],
-    yAxes: [{
-      display: false,
-      ticks: {
-        display: false,
-        min: Math.min.apply(Math, cardChartData1.datasets[0].data) - 5,
-        max: Math.max.apply(Math, cardChartData1.datasets[0].data) + 5,
-      }
-    }],
-  },
-  elements: {
-    line: {
-      borderWidth: 1
-    },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4,
-    },
-  }
-}
-
-// Card Chart 2
-const cardChartData2 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: brandInfo,
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [1, 18, 9, 17, 34, 22, 11]
-    }
-  ],
-};
-
-const cardChartOpts2 = {
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [{
-      gridLines: {
-        color: 'transparent',
-        zeroLineColor: 'transparent'
-      },
-      ticks: {
-        fontSize: 2,
-        fontColor: 'transparent',
-      }
-
-    }],
-    yAxes: [{
-      display: false,
-      ticks: {
-        display: false,
-        min: Math.min.apply(Math, cardChartData2.datasets[0].data) - 5,
-        max: Math.max.apply(Math, cardChartData2.datasets[0].data) + 5,
-      }
-    }],
-  },
-  elements: {
-    line: {
-      tension: 0.00001,
-      borderWidth: 1
-    },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4,
-    },
-  }
-}
-
-// Card Chart 3
-const cardChartData3 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [78, 81, 80, 45, 34, 12, 40]
-    }
-  ],
-};
-
-const cardChartOpts3 = {
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [{
-      display: false
-    }],
-    yAxes: [{
-      display: false
-    }],
-  },
-  elements: {
-    line: {
-      borderWidth: 2
-    },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-    },
-  }
-}
-
-// Card Chart 4
-const cardChartData4 = {
-  labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderColor: 'transparent',
-      data: [78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98]
-    }
-  ],
-};
-
-const cardChartOpts4 = {
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [{
-      display: false,
-      barPercentage: 0.6,
-    }],
-    yAxes: [{
-      display: false,
-    }]
-  }
-}
 
 // Social Box Chart
 const socialBoxData = [
@@ -225,29 +65,7 @@ const makeSocialBoxData = (dataSetNo) => {
   return () => data;
 };
 
-const socialChartOpts = {
-  responsive: true,
-  maintainAspectRatio: false,
-  legend: {
-    display: false
-  },
-  scales: {
-    xAxes: [{
-      display: false
-    }],
-    yAxes: [{
-      display: false
-    }]
-  },
-  elements: {
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3
-    }
-  }
-};
+
 
 // sparkline charts
 const sparkLineChartData = [
@@ -349,35 +167,7 @@ for (var i = 0; i <= elements; i++) {
   data3.push(random(1, 400));
 }
 
-const mainChart = {
-  labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
-  datasets: [
-    {
-      label: 'คณะเทคโนโลยีอตสาหกรรม',
-      backgroundColor: convertHex(brandDanger, 10),
-      borderColor: brandDanger,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 2,
-      data: data1
-    },
-    {
-      label: 'คณะวิทยาศาสตร์',
-      backgroundColor: 'transparent',
-      borderColor: brandSuccess,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 2,
-      data: data2
-    },
-    {
-      label: 'คณะเทคโนลียีการเกษตร',
-      backgroundColor: 'transparent',
-      borderColor: brandInfo,
-      pointHoverBackgroundColor: '#fff',
-      borderWidth: 2,
-      data: data3
-    }
-  ]
-}
+
 
 const mainChartOpts = {
   maintainAspectRatio: false,
@@ -394,8 +184,8 @@ const mainChartOpts = {
       ticks: {
         beginAtZero: true,
         maxTicksLimit: 10,
-        stepSize: Math.ceil(1000 / 10),
-        max: 1000
+        stepSize: Math.ceil(10 / 10),
+        max: 10
       }
     }]
   },
@@ -409,19 +199,28 @@ const mainChartOpts = {
   }
 }
 
-
+var yearSelect = [];
+for (var i = 0; i < 5; i++) {
+  yearSelect.push(moment().add(543-i,'year').year());
+}
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-
+    this.handleYearChange = this.handleYearChange.bind(this);
     this.state = {
       dropdownOpen: false,
       radioSelected: 2
     };
   }
+    componentDidMount(){
+      let currentyear = moment().add(543,'year').year()
+      this.props.dispatch(analysisAttends(currentyear)).then(()=>{
+
+      })
+    }
 
   toggle() {
     this.setState({
@@ -434,23 +233,114 @@ class Dashboard extends Component {
       radioSelected: radioSelected
     });
   }
-
+  handleYearChange(e){
+    this.props.dispatch(analysisAttends(e.target.value))
+  }
   render() {
+   const {attendsBoard} = this.props
+    var itechData = [];
+    var sciData = [];
+    var eduData = [];
+    var humanData = [];
+    var manageData = [];
+    var arcData = [];
+    var otherData = [];
+    
+    {attendsBoard.data && attendsBoard.data.map((e,i)=>{
+      itechData.push(e.itech)
+      sciData.push(e.sci)
+      eduData.push(e.edu)
+      humanData.push(e.human)
+      manageData.push(e.manage)
+      arcData.push(e.arc)
+      otherData.push(e.other)
+    })}
+    console.log(itechData)
+   const Point = {
+    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+    datasets: [
+      {
+        label: 'คณะเทคโนโลยีอตสาหกรรม',
+        backgroundColor: '#transparent',
+        borderColor: '#ee0a0a',
+        pointHoverBackgroundColor: '#ee0a0a',
+        borderWidth: 2,
+        data: itechData
+      },
+      {
+        label: 'คณะวิทยาศาสตร์',
+        backgroundColor: 'transparent',
+        borderColor: '#ffc107',
+        pointHoverBackgroundColor: '#ffc107',
+        borderWidth: 2,
+        data: sciData
+      },
+      {
+        label: 'คณะครุศาสตร์',
+        backgroundColor: 'transparent',
+        borderColor: '#6f42c1',
+        pointHoverBackgroundColor: '#6f42c1',
+        borderWidth: 2,
+        data: eduData,
+      },{
+        label:'คณะมนุษยศาสตร์และสังคมศาสตร์',
+        backgroundColor: 'transparent',
+        borderColor: '#f58a05',
+        pointHoverBackgroundColor: '#f58a05',
+        borderWidth: 2,
+        data: humanData,
+      },
+      {
+        label:'คณะวิทยาการจัดาร',
+        backgroundColor: 'transparent',
+        borderColor: '#63c2de',
+        pointHoverBackgroundColor: '#63c2de',
+        borderWidth: 2,
+        data: humanData,
+      },
+      {
+        label: 'คณะเทคโนลียีการเกษตร',
+        backgroundColor: 'transparent',
+        borderColor: '#4dbd74',
+        pointHoverBackgroundColor: '#fff',
+        borderWidth: 2,
+        data: arcData
+      },
+      {
+        label: 'บุคลคากรภายนอก / บุคคลากรภายใน',
+        backgroundColor: 'transparent',
+        borderColor: '#4dbd74',
+        pointHoverBackgroundColor: '#fff',
+        borderWidth: 2,
+        data: otherData
+      }
+    ]
+  }
 
     return (
-      <div>
+      
+      <div className="animated fadeIn">
         <Row>
           <Col>
             <Card>
               <CardBody>
                 <Row>
-                  <Col sm="5">
+                  <Col md="10">
                     <CardTitle className="mb-0">สถิติ</CardTitle>
-                    <div className="small text-muted"> การเข้าร่วมอบรม ปีพ.ศ 2015</div>
+                    <div className="small text-muted"> การเข้าร่วมอบรม ปี พ.ศ </div>
+                  </Col>
+                  <Col>
+                    <Input type="select" className="float-right" onChange={this.handleYearChange} name="select" id="exampleSelect" >
+                        {yearSelect && yearSelect.map((e,i)=>{
+                          return (
+                            <option key={i}>{e}</option>
+                          )
+                        })}
+                    </Input>
                   </Col>
                 </Row>
                 <div className="chart-wrapper" style={{height: 300 + 'px', marginTop: 40 + 'px'}}>
-                  <Line data={mainChart} options={mainChartOpts} height={300}/>
+                  <Line data={Point} options={mainChartOpts} height={300}/>
                 </div>
               </CardBody>
               <CardFooter>
@@ -489,116 +379,17 @@ class Dashboard extends Component {
           </Col>
         </Row>
 
-        <Row>
-          <Col xs="6" sm="6" lg="3">
-            <div className="social-box facebook">
-              <i className="fa fa-facebook"></i>
-              <div className="chart-wrapper">
-                <Line data={makeSocialBoxData(0)} options={socialChartOpts} height={90}/>
-              </div>
-              <ul>
-                <li>
-                  <strong>89k</strong>
-                  <span>friends</span>
-                </li>
-                <li>
-                  <strong>459</strong>
-                  <span>feeds</span>
-                </li>
-              </ul>
-            </div>
-          </Col>
-
-          <Col xs="6" sm="6" lg="3">
-            <div className="social-box twitter">
-              <i className="fa fa-twitter"></i>
-              <div className="chart-wrapper">
-                <Line data={makeSocialBoxData(1)} options={socialChartOpts} height={90}/>
-              </div>
-              <ul>
-                <li>
-                  <strong>973k</strong>
-                  <span>followers</span>
-                </li>
-                <li>
-                  <strong>1.792</strong>
-                  <span>tweets</span>
-                </li>
-              </ul>
-            </div>
-          </Col>
-
-          <Col xs="6" sm="6" lg="3">
-
-            <div className="social-box linkedin">
-              <i className="fa fa-linkedin"></i>
-              <div className="chart-wrapper">
-                <Line data={makeSocialBoxData(2)} options={socialChartOpts} height={90}/>
-              </div>
-              <ul>
-                <li>
-                  <strong>500+</strong>
-                  <span>contacts</span>
-                </li>
-                <li>
-                  <strong>292</strong>
-                  <span>feeds</span>
-                </li>
-              </ul>
-            </div>
-          </Col>
-
-          <Col xs="6" sm="6" lg="3">
-            <div className="social-box google-plus">
-              <i className="fa fa-google-plus"></i>
-              <div className="chart-wrapper">
-                <Line data={makeSocialBoxData(3)} options={socialChartOpts} height={90}/>
-              </div>
-              <ul>
-                <li>
-                  <strong>894</strong>
-                  <span>followers</span>
-                </li>
-                <li>
-                  <strong>92</strong>
-                  <span>circles</span>
-                </li>
-              </ul>
-            </div>
-          </Col>
-        </Row>
+       
 
         <Row>
           <Col>
             <Card>
               <CardHeader>
-                Traffic {'&'} Sales
+                  อัตราส่วน
               </CardHeader>
               <CardBody>
                 <Row>
-                  <Col xs="12" md="6" xl="4">
-                    <Row>
-                      <Col sm="6">
-                        <div className="callout callout-info">
-                          <small className="text-muted">New Clients</small>
-                          <br/>
-                          <strong className="h4">9,123</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30}/>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col sm="6">
-                        <div className="callout callout-danger">
-                          <small className="text-muted">Recurring Clients</small>
-                          <br/>
-                          <strong className="h4">22,643</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30}/>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
+                  <Col>
                     <hr className="mt-0"/>
                     <ul className="horizontal-bars">
                       <li>
@@ -664,37 +455,9 @@ class Dashboard extends Component {
                           <Progress className="progress-xs" color="danger" value="69"/>
                         </div>
                       </li>
-                      <li className="legend">
-                        <Badge pill color="info"></Badge>
-                        <small>New clients</small>
-                        &nbsp; <Badge pill color="danger"></Badge>
-                        <small>Recurring clients</small>
-                      </li>
                     </ul>
                   </Col>
                   <Col xs="12" md="6" xl="4">
-                    <Row>
-                      <Col sm="6">
-                        <div className="callout callout-warning">
-                          <small className="text-muted">Pageviews</small>
-                          <br/>
-                          <strong className="h4">78,623</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(2, brandWarning)} options={sparklineChartOpts} width={100} height={30}/>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col sm="6">
-                        <div className="callout callout-success">
-                          <small className="text-muted">Organic</small>
-                          <br/>
-                          <strong className="h4">49,123</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(3, brandSuccess)} options={sparklineChartOpts} width={100} height={30}/>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
                     <hr className="mt-0"/>
                     <ul className="horizontal-bars type-2">
                       <li>
@@ -752,135 +515,6 @@ class Dashboard extends Component {
                       </li>
                     </ul>
                   </Col>
-                  <Col xs="12" xl="4">
-                    <Row>
-                      <Col sm="6">
-                        <div className="callout">
-                          <small className="text-muted">CTR</small>
-                          <br/>
-                          <strong className="h4">23%</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(4)} options={sparklineChartOpts} width={100} height={30}/>
-                          </div>
-                        </div>
-                      </Col>
-                      <Col sm="6">
-                        <div className="callout callout-primary">
-                          <small className="text-muted">Bounce Rate</small>
-                          <br/>
-                          <strong className="h4">5%</strong>
-                          <div className="chart-wrapper">
-                            <Line data={makeSparkLineData(5, brandPrimary)} options={sparklineChartOpts} width={100} height={30}/>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                    <hr className="mt-0"/>
-                    <ul className="icons-list">
-                      <li>
-                        <i className="icon-screen-desktop bg-primary"></i>
-                        <div className="desc">
-                          <div className="title">iMac 4k</div>
-                          <small>Lorem ipsum dolor sit amet</small>
-                        </div>
-                        <div className="value">
-                          <div className="small text-muted">Sold this week</div>
-                          <strong>1.924</strong>
-                        </div>
-                        <div className="actions">
-                          <Button color="link" className="text-muted"><i className="icon-settings"></i></Button>
-                        </div>
-                      </li>
-                      <li>
-                        <i className="icon-screen-smartphone bg-info"></i>
-                        <div className="desc">
-                          <div className="title">Samsung Galaxy Edge</div>
-                          <small>Lorem ipsum dolor sit amet</small>
-                        </div>
-                        <div className="value">
-                          <div className="small text-muted">Sold this week</div>
-                          <strong>1.224</strong>
-                        </div>
-                        <div className="actions">
-                          <Button color="link" className="text-muted"><i className="icon-settings"></i></Button>
-                        </div>
-                      </li>
-                      <li>
-                        <i className="icon-screen-smartphone bg-warning"></i>
-                        <div className="desc">
-                          <div className="title">iPhone 6S</div>
-                          <small>Lorem ipsum dolor sit amet</small>
-                        </div>
-                        <div className="value">
-                          <div className="small text-muted">Sold this week</div>
-                          <strong>1.163</strong>
-                        </div>
-                        <div className="actions">
-                          <Button color="link" className="text-muted"><i className="icon-settings"></i></Button>
-                        </div>
-                      </li>
-                      <li>
-                        <i className="icon-user bg-danger"></i>
-                        <div className="desc">
-                          <div className="title">Premium accounts</div>
-                          <small>Lorem ipsum dolor sit amet</small>
-                        </div>
-                        <div className="value">
-                          <div className="small text-muted">Sold this week</div>
-                          <strong>928</strong>
-                        </div>
-                        <div className="actions">
-                          <Button color="link" className="text-muted"><i className="icon-settings"></i></Button>
-                        </div>
-                      </li>
-                      <li>
-                        <i className="icon-social-spotify bg-success"></i>
-                        <div className="desc">
-                          <div className="title">Spotify Subscriptions</div>
-                          <small>Lorem ipsum dolor sit amet</small>
-                        </div>
-                        <div className="value">
-                          <div className="small text-muted">Sold this week</div>
-                          <strong>893</strong>
-                        </div>
-                        <div className="actions">
-                          <Button color="link" className="text-muted"><i className="icon-settings"></i></Button>
-                        </div>
-                      </li>
-                      <li>
-                        <i className="icon-cloud-download bg-danger"></i>
-                        <div className="desc">
-                          <div className="title">Ebook</div>
-                          <small>Lorem ipsum dolor sit amet</small>
-                        </div>
-                        <div className="value">
-                          <div className="small text-muted">Downloads</div>
-                          <strong>121.924</strong>
-                        </div>
-                        <div className="actions">
-                          <Button color="link" className="text-muted"><i className="icon-settings"></i></Button>
-                        </div>
-                      </li>
-                      <li>
-                        <i className="icon-camera bg-warning"></i>
-                        <div className="desc">
-                          <div className="title">Photos</div>
-                          <small>Lorem ipsum dolor sit amet</small>
-                        </div>
-                        <div className="value">
-                          <div className="small text-muted">Uploaded</div>
-                          <strong>12.125</strong>
-                        </div>
-                        <div className="actions">
-                          <Button color="link" className="text-muted"><i className="icon-settings"></i></Button>
-                        </div>
-                      </li>
-                      <li className="divider text-center">
-                        <Button color="link" size="sm" className="text-muted" data-toggle="tooltip" data-placement="top"
-                                title="show more"><i className="icon-options"></i></Button>
-                      </li>
-                    </ul>
-                  </Col>
                 </Row>
                 <br/>
                
@@ -892,5 +526,9 @@ class Dashboard extends Component {
     )
   }
 }
-
-export default Dashboard;
+function mapStateToProps(state){
+  return{
+    attendsBoard:state.analysisReducers.attendsBoard
+  }
+}
+export default connect(mapStateToProps)(Dashboard);

@@ -9,6 +9,7 @@ import attendeeReducers from './attendeeReducers';
 import ExaminationReducers from './ExaminationReducers';
 import certificationReducers from './certificationReducers';
 import courseOrderReducers from './courseOrderReducers'
+import analysisReducers from './analysisReducers'
 const rootReducers = combineReducers({
     form: formReducer,
     userReducers,
@@ -19,7 +20,7 @@ const rootReducers = combineReducers({
     attendeeReducers,
     ExaminationReducers,
     certificationReducers,
-    courseOrderReducers
-    
+    courseOrderReducers,
+    analysisReducers
 });
 export default rootReducers;    
