@@ -6,13 +6,15 @@ import {
   DropdownToggle,
   Dropdown
 } from 'reactstrap';
-
+import {connect} from 'react-redux'
+import {signout} from '../../redux/actions/authActions'
 class HeaderDropdown extends Component {
 
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
     this.state = {
       dropdownOpen: false
     };
@@ -23,27 +25,20 @@ class HeaderDropdown extends Component {
       dropdownOpen: !this.state.dropdownOpen
     });
   }
+  handleLogout(){
+    this.props.dispatch(signout())
+    console.log('hello')
+  }
 
   dropAccnt() {
     return (
       <Dropdown nav isOpen={this.state.dropdownOpen} toggle={this.toggle}>
         <DropdownToggle nav>
-          <img src={'img/avatars/6.jpg'} className="img-avatar" alt="admin@webmaster.com"/>
+        <i className="icon-logout" size="lg"/>
         </DropdownToggle>
         <DropdownMenu right>
           <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
-          <DropdownItem><i className="fa fa-bell-o"></i> Updates<Badge color="info">42</Badge></DropdownItem>
-          <DropdownItem><i className="fa fa-envelope-o"></i> Messages<Badge color="success">42</Badge></DropdownItem>
-          <DropdownItem><i className="fa fa-tasks"></i> Tasks<Badge color="danger">42</Badge></DropdownItem>
-          <DropdownItem><i className="fa fa-comments"></i> Comments<Badge color="warning">42</Badge></DropdownItem>
-          <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>
-          <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
-          <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
-          <DropdownItem><i className="fa fa-usd"></i> Payments<Badge color="secondary">42</Badge></DropdownItem>
-          <DropdownItem><i className="fa fa-file"></i> Projects<Badge color="primary">42</Badge></DropdownItem>
-          <DropdownItem divider/>
-          <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
-          <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem>
+          <DropdownItem onClick={this.handleLogout}><i className="fa fa-lock"></i> Logout</DropdownItem>
         </DropdownMenu>
       </Dropdown>
     );
@@ -57,4 +52,7 @@ class HeaderDropdown extends Component {
   }
 }
 
-export default HeaderDropdown;
+function mapStateToProps(state){
+return{}
+}
+export default connect(mapStateToProps)(HeaderDropdown);

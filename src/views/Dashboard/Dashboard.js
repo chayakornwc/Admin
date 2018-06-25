@@ -261,6 +261,7 @@ class Dashboard extends Component {
     datasets: [
       {
         label: 'คณะเทคโนโลยีอตสาหกรรม',
+      
         backgroundColor: '#transparent',
         borderColor: '#ee0a0a',
         pointHoverBackgroundColor: '#ee0a0a',
@@ -319,7 +320,7 @@ class Dashboard extends Component {
 
     return (
       
-      <div className="animated fadeIn">
+      <div className="fadeIn animated">
         <Row>
           <Col>
             <Card>
