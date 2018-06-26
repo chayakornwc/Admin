@@ -20,152 +20,8 @@ import {analysisAttends} from '../../redux/actions/analysisActions.js';
 const moment = require('moment');
 moment.locale('th')
 const brandPrimary = '#20a8d8';
-const brandSuccess = '#4dbd74';
-const brandWarning = '#f8cb00';
-const brandDanger = '#f86c6b';
-
-// Card Chart 1
-const cardChartData1 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: brandPrimary,
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [65, 59, 84, 84, 51, 55, ,33,22]
-    }
-  ],
-};
 
 
-
-// Social Box Chart
-const socialBoxData = [
-  {data: [65, 59, 84, 84, 51, 55, 40], label: 'facebook'},
-  {data: [1, 13, 9, 17, 34, 41, 38], label: 'twitter'},
-  {data: [78, 81, 80, 45, 34, 12, 40], label: 'linkedin'},
-  {data: [35, 23, 56, 22, 97, 23, 64], label: 'google'}
-];
-
-const makeSocialBoxData = (dataSetNo) => {
-  const dataset = socialBoxData[dataSetNo];
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        backgroundColor: 'rgba(255,255,255,.1)',
-        borderColor: 'rgba(255,255,255,.55)',
-        pointHoverBackgroundColor: '#fff',
-        borderWidth: 2,
-        data: dataset.data,
-        label: dataset.label,
-      }
-    ]
-  };
-  return () => data;
-};
-
-
-
-// sparkline charts
-const sparkLineChartData = [
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: 'New Clients'
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: 'Recurring Clients'
-  },
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: 'Pageviews'
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: 'Organic'
-  },
-  {
-    data: [78, 81, 80, 45, 34, 12, 40],
-    label: 'CTR'
-  },
-  {
-    data: [1, 13, 9, 17, 34, 41, 38],
-    label: 'Bounce Rate'
-  }
-];
-
-const makeSparkLineData = (dataSetNo, variant) => {
-  const dataset = sparkLineChartData[dataSetNo];
-  const data = {
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    datasets: [
-      {
-        backgroundColor: 'transparent',
-        borderColor: variant ? variant : '#c2cfd6',
-        data: dataset.data,
-        label: dataset.label
-      }
-    ],
-  };
-  return () => data;
-};
-
-const sparklineChartOpts = {
-  responsive: true,
-  maintainAspectRatio: true,
-  scales: {
-    xAxes: [{
-      display: false,
-    }],
-    yAxes: [{
-      display: false,
-    }]
-  },
-  elements: {
-    line: {
-      borderWidth: 2
-    },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3,
-    }
-  },
-  legend: {
-    display: false
-  }
-};
-
-// Main Chart
-
-// convert Hex to RGBA
-function convertHex(hex, opacity) {
-  hex = hex.replace('#', '');
-  var r = parseInt(hex.substring(0, 2), 16);
-  var g = parseInt(hex.substring(2, 4), 16);
-  var b = parseInt(hex.substring(4, 6), 16);
-
-  var result = 'rgba(' + r + ',' + g + ',' + b + ',' + opacity / 100 + ')';
-  return result;
-}
-
-//Random Numbers
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-var elements = 12;
-var data1 = [];
-var data2 = [];
-var data3 = [];
-
-for (var i = 0; i <= elements; i++) {
-  data1.push(random(50, 200));
-  data2.push(random(80, 100));
-  data3.push(random(1, 400));
-}
 
 
 
@@ -236,6 +92,18 @@ class Dashboard extends Component {
   handleYearChange(e){
     this.props.dispatch(analysisAttends(e.target.value))
   }
+  calCulatic(data){
+    var sum = 0
+          Object.keys(data).forEach(function(key){
+            if(data[key].length>0){
+              data[key].reduce((e,i)=>{
+                sum +=i
+               })
+            }
+              
+        });
+    return sum
+  }
   render() {
    const {attendsBoard} = this.props
     var itechData = [];
@@ -255,7 +123,38 @@ class Dashboard extends Component {
       arcData.push(e.arc)
       otherData.push(e.other)
     })}
-    console.log(itechData)
+    const statisticData  = {
+      itech:itechData,
+      sci:sciData,
+      edu:eduData,
+      human:humanData,
+      manage:manageData,
+      arc:arcData,
+      other:otherData
+    }
+    
+  var sumary =  this.calCulatic(statisticData);
+    var countItech = statisticData.itech.length > 0 ? statisticData.itech.reduce((e,i)=>{
+      return e+i
+    }) : null;
+    var countSci = statisticData.sci.length > 0 ? statisticData.sci.reduce((e,i)=>{
+      return e+i
+    }) : null;
+    var countEdu = statisticData.edu.length > 0 ? statisticData.edu.reduce((e,i)=>{
+      return e+i
+    }) : null;
+    var countHuman = statisticData.human.length > 0 ? statisticData.human.reduce((e,i)=>{
+      return e+i
+    }) : null;
+    var countManage = statisticData.manage.length > 0 ? statisticData.manage.reduce((e,i)=>{
+      return e+i
+    }) : null;
+    var countArc = statisticData.arc.length > 0 ? statisticData.arc.reduce((e,i)=>{
+      return e+i
+    }) : null;
+    var countOther = statisticData.other.length > 0 ? statisticData.other.reduce((e,i)=>{
+      return e+i
+    }) : null;
    const Point = {
     labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUNE', 'JULY', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
     datasets: [
@@ -334,7 +233,7 @@ class Dashboard extends Component {
                     <Input type="select" className="float-right" onChange={this.handleYearChange} name="select" id="exampleSelect" >
                         {yearSelect && yearSelect.map((e,i)=>{
                           return (
-                            <option key={i}>{e}</option>
+                            <option key={'years-'+i}>{e}</option>
                           )
                         })}
                     </Input>
@@ -392,127 +291,57 @@ class Dashboard extends Component {
                 <Row>
                   <Col>
                     <hr className="mt-0"/>
-                    <ul className="horizontal-bars">
-                      <li>
-                        <div className="title">
-                          Monday
-                        </div>
-                        <div className="bars">
-                          <Progress className="progress-xs" color="info" value="34"/>
-                          <Progress className="progress-xs" color="danger" value="78"/>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="title">
-                          Tuesday
-                        </div>
-                        <div className="bars">
-                          <Progress className="progress-xs" color="info" value="56"/>
-                          <Progress className="progress-xs" color="danger" value="94"/>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="title">
-                          Wednesday
-                        </div>
-                        <div className="bars">
-                          <Progress className="progress-xs" color="info" value="12"/>
-                          <Progress className="progress-xs" color="danger" value="67"/>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="title">
-                          Thursday
-                        </div>
-                        <div className="bars">
-                          <Progress className="progress-xs" color="info" value="43"/>
-                          <Progress className="progress-xs" color="danger" value="91"/>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="title">
-                          Friday
-                        </div>
-                        <div className="bars">
-                          <Progress className="progress-xs" color="info" value="22"/>
-                          <Progress className="progress-xs" color="danger" value="73"/>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="title">
-                          Saturday
-                        </div>
-                        <div className="bars">
-                          <Progress className="progress-xs" color="info" value="53"/>
-                          <Progress className="progress-xs" color="danger" value="82"/>
-                        </div>
-                      </li>
-                      <li>
-                        <div className="title">
-                          Sunday
-                        </div>
-                        <div className="bars">
-                          <Progress className="progress-xs" color="info" value="9"/>
-                          <Progress className="progress-xs" color="danger" value="69"/>
-                        </div>
-                      </li>
-                    </ul>
-                  </Col>
-                  <Col xs="12" md="6" xl="4">
-                    <hr className="mt-0"/>
                     <ul className="horizontal-bars type-2">
+            
+                        <li>
+                            <span className="title">คณะเทคโนโลยีอตสาหกรรม</span>
+                            <span className="value">{countItech && countItech}<span className="text-muted small">({countItech ? (countItech/sumary*100).toFixed(2):0}%)</span></span>
+                            <div className="bars">
+                              <Progress className="progress-xs" color="red" value={countItech ? (countItech/sumary*100).toFixed(2):0}/>
+                            </div>
+                          </li>
                       <li>
-                        <i className="icon-user"></i>
-                        <span className="title">Male</span>
-                        <span className="value">43%</span>
+                        <span className="title">คณะวิทยาศาสตร์</span>
+                        <span className="value">{countSci && countSci}<span className="text-muted small">({countSci ? (countSci/sumary*100).toFixed(2):0}%)</span></span>
                         <div className="bars">
-                          <Progress className="progress-xs" color="warning" value="43"/>
+                          <Progress className="progress-xs" color="warning" value={countSci ?(countSci/sumary*100).toFixed(2) : 0}/>
+                        </div>
+                      </li>
+                      
+                      <li>
+                        <span className="title">คณะครุศาสตร์</span>
+                        <span className="value">{countEdu && countEdu} <span className="text-muted small">({countEdu ? (countEdu/sumary*100).toFixed(2) : 0}%)</span></span>
+                        <div className="bars">
+                          <Progress className="progress-xs" color="purple" value={countEdu ? (countEdu/sumary*100).toFixed(2): 0}/>
                         </div>
                       </li>
                       <li>
-                        <i className="icon-user-female"></i>
-                        <span className="title">Female</span>
-                        <span className="value">37%</span>
+                        <span className="title">คณะเทคโนลียีการเกษตร</span>
+                        <span className="value">{countArc && countArc} <span className="text-muted small">({countArc ? (countArc/sumary*100).toFixed(2):0}%)</span></span>
                         <div className="bars">
-                          <Progress className="progress-xs" color="warning" value="37"/>
-                        </div>
-                      </li>
-                      <li className="divider"></li>
-                      <li>
-                        <i className="icon-globe"></i>
-                        <span className="title">Organic Search</span>
-                        <span className="value">191,235 <span className="text-muted small">(56%)</span></span>
-                        <div className="bars">
-                          <Progress className="progress-xs" color="success" value="56"/>
+                          <Progress className="progress-xs" color="success" value={countArc ? (countArc/sumary*100).toFixed(2):0}/>
                         </div>
                       </li>
                       <li>
-                        <i className="icon-social-facebook"></i>
-                        <span className="title">Facebook</span>
-                        <span className="value">51,223 <span className="text-muted small">(15%)</span></span>
+                        <span className="title">คณะวิทยาการจัดการ</span>
+                        <span className="value">{countManage && countManage} <span className="text-muted small">({countManage ? (countManage/sumary*100).toFixed(2):0}%)</span></span>
                         <div className="bars">
-                          <Progress className="progress-xs" color="success" value="15"/>
+                          <Progress className="progress-xs" color="primary" value={countManage ? (countManage/sumary*100).toFixed(2):0}/>
                         </div>
                       </li>
                       <li>
-                        <i className="icon-social-twitter"></i>
-                        <span className="title">Twitter</span>
-                        <span className="value">37,564 <span className="text-muted small">(11%)</span></span>
+                        <span className="title">คณะมนุษยศาสตร์และสังคมศาสตร์</span>
+                        <span className="value">{countHuman && countHuman}<span className="text-muted small">({countHuman ? (countHuman/sumary*100).toFixed(2):0}%)</span></span>
                         <div className="bars">
-                          <Progress className="progress-xs" color="success" value="11"/>
+                          <Progress className="progress-xs" color="orange" value={countHuman? (countHuman/sumary*100).toFixed(2):0}/>
                         </div>
                       </li>
                       <li>
-                        <i className="icon-social-linkedin"></i>
-                        <span className="title">LinkedIn</span>
-                        <span className="value">27,319 <span className="text-muted small">(8%)</span></span>
+                        <span className="title">บุคคลากรภายใน / บุคลคากรภายนอก</span>
+                        <span className="value">{countOther && countOther}<span className="text-muted small">({countOther ?(countOther/sumary*100).toFixed(2):0}%)</span></span>
                         <div className="bars">
-                          <Progress className="progress-xs" color="success" value="8"/>
+                          <Progress className="progress-xs" color="gray-900" value={countOther ? (countOther/sumary*100).toFixed(2) : 0}/>
                         </div>
-                      </li>
-                      <li className="divider text-center">
-                        <Button color="link" size="sm" className="text-muted" data-toggle="tooltip" data-placement="top"
-                                title="" data-original-title="show more"><i className="icon-options"></i></Button>
                       </li>
                     </ul>
                   </Col>

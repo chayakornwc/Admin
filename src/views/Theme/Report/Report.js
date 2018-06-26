@@ -19,7 +19,7 @@ import {connect} from 'react-redux'
 
   render() {
     const {courseOrders} = this.props
-    console.log(courseOrders)
+  
     return (
       <div className="animated fadeIn">
         <ReportFilter onSearchTermChange={this.handleRage}/>
