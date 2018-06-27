@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import {Bar, Line} from 'react-chartjs-2';
+import { Line} from 'react-chartjs-2';
 import {
-  Badge,
   Row,
   Col,
   Progress,
@@ -10,7 +9,6 @@ import {
   CardBody,
   CardFooter,
   CardTitle,
-  Button,
   Input,
  
 } from 'reactstrap';
@@ -19,10 +17,6 @@ import {analysisAttends} from '../../redux/actions/analysisActions.js';
 
 const moment = require('moment');
 moment.locale('th')
-const brandPrimary = '#20a8d8';
-
-
-
 
 
 const mainChartOpts = {
@@ -278,9 +272,6 @@ class Dashboard extends Component {
             </Card>
           </Col>
         </Row>
-
-       
-
         <Row>
           <Col>
             <Card>
@@ -347,7 +338,6 @@ class Dashboard extends Component {
                   </Col>
                 </Row>
                 <br/>
-               
               </CardBody>
             </Card>
           </Col>
