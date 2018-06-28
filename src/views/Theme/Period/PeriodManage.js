@@ -148,7 +148,6 @@ class PeriodManage extends Component {
         const {activeTab} = this.state
         const {users,user, periodsurvey, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         // ค้นหาผู้เข้าร่วมเพื่อเพิ่มเข้าไปใน period
-        console.log(periodsurvey)
         const attenderSearch = debounce(term =>{
             this.attenderSearch(term) 
         },500)
@@ -215,7 +214,7 @@ class PeriodManage extends Component {
                         </Row>
                 </Container>
                     }
-                    {activeTab ===3&& periodsurvey.data !==null && <Surver data={periodsurvey.data}/>}
+                    {activeTab ===3&& periodsurvey.data !==null   && <Surver data={periodsurvey.data}/>}
                 </TabContent>
             </div>
         );

@@ -6,7 +6,7 @@ import renderFieldsDisabled from '../Utils/renderFieldsDisabled';
 import { Field, reduxForm } from 'redux-form';
 
 import renderField from '../Utils/renderFields';
-
+import Affiliation from '../Utils/Affiliation';
 const moment = require('moment');
 
 moment.locale('th');
@@ -181,7 +181,7 @@ class AttendeeForm extends Component {
                                                             <td>{e.username}</td>
                                                             <td>{e.fullname}</td>
                                                             <td>{e.major}</td>
-                                                            <td>{e.affiliation}</td>
+                                                            <td>{Affiliation(e.affiliation)}</td>
                                                             <td className="text-right"><i  style={{paddingRight:'.5rem'}} className="fa fa-times" onClick={()=>RemoveAttenders(e.order_id, e.per_id)}></i></td>
                                                         </tr>
                                                     )

@@ -67,7 +67,7 @@ const mainChartOpts = {
       <div className="container">
           <Row style={{paddingTop:'1rem'}}>
           <Col> 
-              <span>จำนวนผู้ร่วมตอบแบบประเมิณ {data[0].COUNT}</span>
+              <span>จำนวนผู้ร่วมตอบแบบประเมิณ {data!==null &&data.lenght>0 &&data[0].COUNT}</span>
                 </Col>
 
           </Row>
