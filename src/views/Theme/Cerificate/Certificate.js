@@ -24,7 +24,7 @@ moment.locale('th');
      static contextTypes = {
       router: PropTypes.object
          }
-     componentWillMount(){
+     componentDidMount(){
          return (
            this.props.dispatch(loadPeriods('','','',[3])).then(()=>{
                this.props.dispatch(loadCertification()).then(()=>{
@@ -65,7 +65,6 @@ moment.locale('th');
                         <ListGroupItemHeading>{e.course_name} <Badge color={statusColor(e.per_status)}>{statusName(e.per_status)}</Badge></ListGroupItemHeading>
                         <ListGroupItemText>
                         <Badge color="danger">{certifications.data && this.countCert(certifications.data, e.per_id)}คนที่ผ่านการสอบ</Badge>  อบรม ณ วันที่ {moment(e.per_start).add(543, 'years').format('ll')}{' - '}{moment(e.per_end).add(543, 'years').format('ll')} เวลา {e.per_time_start}{' - '}{e.per_time_end} วิทยากร {e.lecture}
-                            
                         </ListGroupItemText>
                       </ListGroupItem>
                     )

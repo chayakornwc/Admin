@@ -18,3 +18,26 @@ export const analysisAttends = (id)=>{
         })
     }
 }
+//GET SURVEY BY PERIOD ID
+export const getPeriodSurvey = (id)=>{
+    return(dispatch) =>{
+        dispatch({
+            type:'LOAD_PERIODSURVEY_PENDING'
+        })
+        return axios({
+            url:`${BASE_URL}/periodsurvey/${id}`,
+            method:'get',
+            headers:{authorization:localStorage.getItem('token')}
+        }).then(results=>{
+            dispatch({
+                type:'LOAD_PERIODSURVEY_SUCCESS',
+                payload:results.data
+            }).catch(err=>{
+                dispatch({
+                    type:'LOAD_PERIODSURVEY_REJECTED',
+                    payload:err.message
+                })
+            })
+        })
+    }
+}

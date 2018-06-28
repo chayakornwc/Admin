@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Alert, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label } from 'reactstrap';
+import {CardFooter, Container, Button, Row, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label } from 'reactstrap';
 import renderSelect from '../../views/Theme/Coursemanage/Utils/renderSelect';
+
 import renderSelectObject from '../../views/Theme/Coursemanage/Utils/renderSelectObject';
 import renderSelectRoom from '../../views/Theme/Coursemanage/Utils/renderSelectRoom';
 import renderTimepicker from '../../views/Theme/Coursemanage/Utils/renderTimepicker';
@@ -54,63 +55,63 @@ class PeriodForm extends Component {
         {id:3, label:'การอบรมเสร็จสิ้น'},
         {id:4, label:'เปิดสอบ'}];
         return (
-            <div>
-                <ModalHeader toggle={onToggle}>{modalTitle}</ModalHeader>
-                 <ModalBody>
-                    {/* ตรวจสอบว่ามี err หรือไม่ */}
-                    {periodSave.isRejected && <div className="alert alert-danger">{periodSave.data}</div>}
-
-                    {/* รูปแบบการแสดงผลจัดตาม Bootstrap 4 */}
-                    <Form className="form-horizontal">
-                                    <Field name="per_status" data={_status} label="สถานะการอบรม"  component={renderSelectObject} />
-                                    <FormGroup row>
-                                        <Col md="3">
-                                            <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
-                                        </Col>
-                                        <Col md="3">
-                                            <Field name="per_start" styles={{'flexWrap':'unset'}} component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
-                                        </Col>
-                                        <i className="fa fa-angle-right fa-lg mt-2"></i>
-                                        <Col md="3">   
-                                            <Field name="per_end" styles={{'flexWrap':'unset'}} component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
-                                        </Col>
-                                    </FormGroup>
-                                    <FormGroup row>
-                                        <Col md="3">
-                                            <Label htmlFor="appendedInputButton">ช่วงเวลาที่อบรม</Label>
-                                        </Col>
-                                        <Col md="auto">
-                                            <Field name="per_time_start" component={renderTimepicker} placeholder=""/>
-                                        </Col>
-                                        {' '}<i className="fa fa-angle-right fa-lg mt-2"></i>{' '}
-                                        <Col md="auto">
-                                            <Field name="per_time_end" component={renderTimepicker}/>
-                                        </Col>
-                                    </FormGroup>
-
-                                        <Field name="course_id" data={course.data} label="หลักสูตร"   component={renderSelect} />
-
-                                     <FormGroup>
-                                        <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Field name="per_quota" component={renderField}  type="number" label="จำนวนที่นั่ง" />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Field name="room_id" data={operation_rooms.data}  component={renderSelectRoom} label="ห้องปฏิบัติการ" />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Field name="lecture"   component={renderField} label="วิทยากร" />
-                                    </FormGroup>
-                        </Form>
-                </ModalBody>
-
-                <ModalFooter>
-                    <Button color="primary" onClick={handleSubmit(this.onSubmit)}>บันทึก</Button>{' '}
-                    <Button color="secondary" onClick={onToggle}>ยกเลิก</Button>
-                </ModalFooter>
-            </div>
-        );
+                <Container >
+                    <Row style={{paddingTop:'1rem'}}>
+                    </Row>
+                    <Row>
+                        <Col>
+                        {periodSave && periodSave.isRejected && <div className="alert alert-danger">{periodSave.data}</div>}
+                        <Form className="form-horizontal">
+                            <Field name="per_status" data={_status} label="สถานะการอบรม"  component={renderSelectObject} />
+                                <FormGroup row>
+                                    <Col md="3">
+                                        <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Field name="per_start" styles={{'flexWrap':'unset'}} component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
+                                    </Col>
+                                    <i className="fa fa-angle-right fa-lg mt-2"></i>
+                                    <Col md="3">   
+                                        <Field name="per_end" styles={{'flexWrap':'unset'}} component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
+                                    </Col>
+                                </FormGroup>
+                                <FormGroup row>
+                                    <Col md="3">
+                                        <Label htmlFor="appendedInputButton">ช่วงเวลาที่อบรม</Label>
+                                    </Col>
+                                    <Col md="auto">
+                                        <Field name="per_time_start" component={renderTimepicker} placeholder=""/>
+                                    </Col>
+                                    {' '}
+                                    <i className="fa fa-angle-right fa-lg mt-2"></i>{' '}
+                                    <Col md="auto">
+                                        <Field name="per_time_end" component={renderTimepicker}/>
+                                    </Col>
+                                </FormGroup>
+                                    <Field name="course_id" data={course.data} label="หลักสูตร"   component={renderSelect} />
+                                <FormGroup>
+                                    <Field name="per_price" component={renderField}  type="number" label="ค่าใช้จ่ายต่อหัว" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Field name="per_quota" component={renderField}  type="number" label="จำนวนที่นั่ง" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Field name="room_id" data={operation_rooms.data}  component={renderSelectRoom} label="ห้องปฏิบัติการ" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Field name="lecture"   component={renderField} label="วิทยากร" />
+                                </FormGroup>
+                            </Form>
+                        </Col>
+                    </Row>
+                    <Row style={{paddingTop:'1rem', paddingBottom:'1rem',display:'flex'}}>
+                        <Col>
+                            <Button  color="primary" onClick={handleSubmit(this.onSubmit)}>บันทึก</Button>{' '}
+                            <Button style={{marginLeft:'1rem'}} color="secondary" onClick={onToggle}>ยกเลิก</Button>
+                        </Col>
+                    </Row>        
+                </Container>
+        )
     }
 
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
 import { loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
 import {getAttendee, saveAttendee, deleteAttendee, loadAttenders} from '../../../redux/actions/AttendeeActions';
@@ -32,6 +33,7 @@ class Period extends Component {
         this.handleAttention = this.handleAttention.bind(this);
         this.attenderSubmit = this.attenderSubmit.bind(this);
         this.RemoveAttenders = this.RemoveAttenders.bind(this);
+        this.renderToRedirect  = this.renderToRedirect.bind(this);
         this.state = {
             modal:false,
             AttenModal:false,
@@ -39,6 +41,9 @@ class Period extends Component {
             periodId:null
         }
       }
+      static contextTypes = {
+        router: PropTypes.object
+           }
     componentDidMount(){
         this.props.dispatch(loadPeriods());
         this.props.dispatch(loadCourse());
@@ -151,6 +156,10 @@ class Period extends Component {
         
     }
     
+    renderToRedirect(id){
+        this.context.router.history.push(`/period/manage/${id}`);
+   }
+    
     render() {
         const {users,user, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         //period filter
@@ -179,7 +188,7 @@ class Period extends Component {
               </Modal>
          
                 <PeriodFilter onSearchChange={this.handleSearch} onSearchTermChange={Filter}/>
-                <PeriodTable attendee={this.handleAttention} data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
+                <PeriodTable Redirect={this.renderToRedirect} attendee={this.handleAttention} data={periods.data} buttonEdit={this.handleEdit} buttonDelete={this.handleDelete} />
             </div>
         );
     }

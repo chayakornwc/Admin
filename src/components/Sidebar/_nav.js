@@ -22,7 +22,7 @@ export default {
     },
     {
       name: 'จัดการการอบรม',
-      url: '/course/period',
+      url: '/period',
       icon: 'icon-calendar',
     },
     {

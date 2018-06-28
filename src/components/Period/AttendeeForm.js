@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Table,Popover ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import {Table,Container,Card ,NavItem,NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, ModalBody, ModalFooter, ModalHeader, Modal, Form, FormGroup, Col, Label, InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 
 import renderFieldsDisabled from '../Utils/renderFieldsDisabled';
 import { Field, reduxForm } from 'redux-form';
@@ -39,7 +39,7 @@ class AttendeeForm extends Component {
             this.props.initialize(definedData); 
         }
 
-        
+    
         PopoverToggle =()=>{
             this.setState({
                 popoverOpen:!this.state.popoverOpen
@@ -119,7 +119,6 @@ class AttendeeForm extends Component {
          }
 
     render() {
-        const { list, sortBy, sortDirection } = this.state
 
         // handleSubmit  properties of redux form
       
@@ -131,8 +130,7 @@ class AttendeeForm extends Component {
         const isActive = this.state.dropdownOpen ? 'is-active':'is-passive';
         return (
             <div>
-                <ModalHeader toggle={onToggle}>{modalTitle}</ModalHeader>
-                 <ModalBody>
+                 <Container style={{paddingTop:'1rem'}}>
                     {/* ตรวจสอบว่ามี err หรือไม่ */}
                     {attenderSave.isRejected && <div className="alert alert-danger">{attenderSave.data}</div>}
 
@@ -160,8 +158,8 @@ class AttendeeForm extends Component {
                                     </FormGroup>
                                     <Field component={renderFieldsDisabled} name="username" label="บัญชีผู้ใช้" holder="บัญชีผู้ใช้ / รหัสนักศึกษา" />
                                     <Field component={renderFieldsDisabled} name="fullname" label="ชื่อเต็ม" holder="ชื่อ นามสกุล" />
-                                    <Field component={renderFieldsDisabled} name="major" label="สาขาวิชา" holder="สาขาวิชา / สังกัด" />
-                                   
+                                    <Field component={renderFieldsDisabled} name="major" label="สาขาวิชา" holder="สาขาวิชา / สังกัด" />       
+                                    
                         </Form>
                                          {/* ถ้ามี data*/}
                                 {data && 
@@ -173,18 +171,18 @@ class AttendeeForm extends Component {
                                                <th>ชื่อ - นามสกุล</th>
                                                <th>สาขาวิชา</th>
                                                <th>สำนัก/คณะ</th>
-                                               <th></th>
+                                               <th className="text-right"><Button  color="primary" onClick={handleSubmit(this.onSubmit)}><i className="fa fa-plus"></i>{' '}เพิ่ม</Button>{' '}</th>
                                                </tr>
                                        </thead>
                                            <tbody>
                                             {data.map(function(e,i){
                                                     return(
-                                                        <tr key={i}>
+                                                        <tr key={'atteends_'+i}>
                                                             <td>{e.username}</td>
                                                             <td>{e.fullname}</td>
                                                             <td>{e.major}</td>
                                                             <td>{e.affiliation}</td>
-                                                            <td><i className="fa fa-times" onClick={()=>RemoveAttenders(e.order_id, e.per_id)}></i></td>
+                                                            <td className="text-right"><i  style={{paddingRight:'.5rem'}} className="fa fa-times" onClick={()=>RemoveAttenders(e.order_id, e.per_id)}></i></td>
                                                         </tr>
                                                     )
                                             })}
@@ -193,12 +191,9 @@ class AttendeeForm extends Component {
                                </div>
                                 }
                                  
-                </ModalBody>
+                </Container>
 
-                <ModalFooter>
-                    <Button color="primary" onClick={handleSubmit(this.onSubmit)}><i className="icon-paper-plane"></i>{' '}เพิ่ม</Button>{' '}
-                    <Button color="secondary" onClick={onToggle}>ยกเลิก</Button>
-                </ModalFooter>
+               
             </div>
         );
     } 
