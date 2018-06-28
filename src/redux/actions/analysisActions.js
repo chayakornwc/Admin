@@ -32,12 +32,12 @@ export const getPeriodSurvey = (id)=>{
             dispatch({
                 type:'LOAD_PERIODSURVEY_SUCCESS',
                 payload:results.data
+                })
             }).catch(err=>{
                 dispatch({
                     type:'LOAD_PERIODSURVEY_REJECTED',
                     payload:err.message
                 })
-            })
         })
     }
 }

@@ -19,6 +19,7 @@ export const loadCertification = (term='')=>{
     }
 }
 
+
 export const loadCertificationByperiodId = (id)=>{
     return(dispatch)=>{
         dispatch({type:'LOAD_CERTIFICATIONBYPERIOD_PENDING'})

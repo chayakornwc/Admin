@@ -13,10 +13,9 @@ import {connect} from 'react-redux';
 import PeriodForm from '../../../components/period/periodForm';
 import AttendeeForm from '../../../components/Period/AttendeeForm';
 import Surver from '../../../components/Period/Survey/Survey';
-import {Modal,Nav,NavBar,NavLink, NavItem,TabContent} from 'reactstrap';
+import {Nav,NavLink, NavItem,TabContent,Container, Row,Alert, Col} from 'reactstrap';
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
-import values from 'redux-form/lib/values';
-import PeriodFilter from '../../../components/Period/PeriodFilter';
+
 import classnames from 'classnames';
 import {getPeriodSurvey} from '../../../redux/actions/analysisActions';
 var alertify = require('alertify.js');
@@ -147,8 +146,9 @@ class PeriodManage extends Component {
     
     render() {
         const {activeTab} = this.state
-        const {users,user, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
+        const {users,user, periodsurvey, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         // ค้นหาผู้เข้าร่วมเพื่อเพิ่มเข้าไปใน period
+        console.log(periodsurvey)
         const attenderSearch = debounce(term =>{
             this.attenderSearch(term) 
         },500)
@@ -205,7 +205,17 @@ class PeriodManage extends Component {
                     onSubmit={this.handleSubmitAtten}
                 
                        /> }
-                    {activeTab ===3&&<Surver/>}
+                    {activeTab ===3 &&periodsurvey.data ===null && <Container style={{paddingTop:'1rem'}}>
+                        <Row>
+                            <Col>
+                                <Alert color="danger">
+                                <h4>ไม่พบข้อมูล</h4>
+                                </Alert>
+                            </Col>
+                        </Row>
+                </Container>
+                    }
+                    {activeTab ===3&& periodsurvey.data !==null && <Surver data={periodsurvey.data}/>}
                 </TabContent>
             </div>
         );

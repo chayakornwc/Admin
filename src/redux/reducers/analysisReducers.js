@@ -15,7 +15,7 @@ export default (state = initialState, action) =>{
 
         case'LOAD_PERIODSURVEY_PENDING':
         return{...state, periodsurvey:{data:null, isLoading:true, isRejected:false}}
-        case'LOAD_PERIODSURVEY_SUCCEESS':
+        case'LOAD_PERIODSURVEY_SUCCESS':
         return{...state, periodsurvey:{data:action.payload, isLoading:false, isRejected:false}}
         case'LOAD_PERIODSURVEY_REJECTED':
         return{...state, periodsurvey:{data:action.payload, isLoading:false, isRejected:true}}
