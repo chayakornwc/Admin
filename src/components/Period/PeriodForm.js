@@ -45,10 +45,14 @@ class PeriodForm extends Component {
             this.props.onSubmit(values);
             
         }
-    
+        onDelete = ()=>{
+            this.props.handleDelete();
+        }
+        
+   
     render() {
         // handleSubmit  properties of redux form
-        const { data, periodSave, onSubmit, handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
+        const { data, periodSave,  handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
         const _status = [{id:0, label:'เปิดการอบรม'},
         {id:1, label:'กำลังดำเนินการ'},
         {id:2, label:'ระงับการอบรม'},
@@ -61,6 +65,9 @@ class PeriodForm extends Component {
                     <Row>
                         <Col>
                         {periodSave && periodSave.isRejected && <div className="alert alert-danger">{periodSave.data}</div>}
+                        <div className="container" style={{display:'flow-root'}}>
+                            <Button color="danger" style={{float:'right'}} onClick={this.onDelete}><i className="fa fa-times"/>&nbsp; ยกเลิกการอบรม</Button>
+                        </div>
                         <Form className="form-horizontal">
                             <Field name="per_status" data={_status} label="สถานะการอบรม"  component={renderSelectObject} />
                                 <FormGroup row>
@@ -106,8 +113,7 @@ class PeriodForm extends Component {
                     </Row>
                     <Row style={{paddingTop:'1rem', paddingBottom:'1rem',display:'flex'}}>
                         <Col>
-                            <Button  color="primary" onClick={handleSubmit(this.onSubmit)}>บันทึก</Button>{' '}
-                            <Button style={{marginLeft:'1rem'}} color="secondary" onClick={onToggle}>ยกเลิก</Button>
+                            <Button  color="primary" onClick={handleSubmit(this.onSubmit)}><i className="fa fa-save"/> &nbsp;บันทึก</Button>
                         </Col>
                     </Row>        
                 </Container>

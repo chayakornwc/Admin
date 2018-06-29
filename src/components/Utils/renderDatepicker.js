@@ -3,7 +3,7 @@ import Datepicker from 'react-datepicker';
 //renderField จะรับ props ต่างๆ ของ Field ที่ได้จาก redux-form
 import 'react-datepicker/dist/react-datepicker.css';
 import './extends.css';
-import {InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap'
+import {InputGroup, InputGroupAddon, InputGroupText,Tooltip} from 'reactstrap'
 const moment = require('moment');
 moment.locale('th');
 moment().format('LL');
@@ -14,21 +14,25 @@ moment().format('LL');
 //} 
 
 
-const renderDatePicker = ({ input, placeholder, styles,  defaultValue, meta: { touched, error } }) => {
+const renderDatePicker = ({ input, placeholder, styles, id, defaultValue, meta: { touched, error } }) => {
    
     return (
-                <div>          
-                    <InputGroup style={styles}>
+                <div>
+                    <InputGroup style={{flexWrap:'unset'}}>
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText>
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                         </InputGroupAddon>
-                            <Datepicker {...input} style={{"width":"100%"}} placeholderText={placeholder}  className="form-control"  minDate={moment().add(543,'years')}  dateFormat='LL' selected={input.value ? moment(input.value, 'DD MMMM YYYY')  : null} />
+                            <Datepicker autoComplete="off" {...input}   id={id} placeholderText={placeholder}   className="form-control"  minDate={moment().add(543,'years')}  dateFormat='LL' selected={input.value !=='' ? moment(input.value, 'DD MMMM YYYY')  : null} />
                     </InputGroup>
-                    {/* ส่วนนี้จะแสดงข้อความ error ที่ได้จากการ validate */}
-                    {touched && error && <small className="text-danger">{error}</small>}
-                </div>
+                    {touched && error && 
+                    <Tooltip placement="bottom" isOpen={true} target={id} className="danger">
+                    <h5>{error}</h5>
+                     </Tooltip>}
+                 </div>
+                  
+              
                     )
     }
  

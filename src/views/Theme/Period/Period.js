@@ -15,7 +15,7 @@ import AttendeeForm from '../../../components/Period/AttendeeForm';
 
 import {Modal} from 'reactstrap';
 import { confirmModalDialog } from '../../../components/Utils/reactConfirmModalDialog';
-import values from 'redux-form/lib/values';
+
 import PeriodFilter from '../../../components/Period/PeriodFilter';
 
 var alertify = require('alertify.js');

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
-import { deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
+import {loadPeriods, deletePeriod, savePeriod, resetStatus, getPeriod } from '../../../redux/actions/periodActions';
 import {getAttendee, saveAttendee, deleteAttendee, loadAttenders} from '../../../redux/actions/AttendeeActions';
 import {resetUserStore, publicLoadUsers, getUser, getPublicuser,resetStatusUsers} from '../../../redux/actions/userActions';
 import { loadCourse } from '../../../redux/actions/courseActions';
@@ -45,7 +45,7 @@ class PeriodManage extends Component {
         this.props.dispatch(loadCourse());
         this.props.dispatch(loadRooms());
     }
-
+    
     toggleTab = (tab)=>{
         if(tab ===2){
             this.props.dispatch(getAttendee(this.props.match.params.period_id))
@@ -60,16 +60,18 @@ class PeriodManage extends Component {
         }
     }
     // remove period
-    handleDelete=(id)=>{
+    handleDelete=()=>{
         confirmModalDialog({
             show:true,
             title:'ยืนยันการลบ',
             confirmLabel:'ยืนยัน ลบทันที',
             message:'คุณต้องการลบข้อมูลนี้ใช่หรือไม่',
-            onConfirm: () => this.props.dispatch(deletePeriod(id)).then(() => {
-                this.props.dispatch(loadPeriods())
+            onConfirm: () =>  this.props.dispatch(deletePeriod(this.props.match.params.period_id)).then(() => {
+                
                     if(!this.props.periodDelete.isRejected){
+                        this.props.dispatch(loadPeriods())
                         { alertify.alert('ลบข้อมูลหลักสูตรเรียบร้อยแล้ว')}
+                        this.context.router.history.push(`/period}`);
                     }
               })
             })
@@ -189,6 +191,7 @@ class PeriodManage extends Component {
                         course={courses}
                         operation_rooms={operation_rooms}
                         periodSave={periodSave} onSubmit={this.handleSubmit}
+                        handleDelete={this.handleDelete}
                     />}
                     {activeTab ===2 && attenders &&  attenders.data!==null && <AttendeeForm 
                     RemoveAttenders={this.RemoveAttenders} 
@@ -202,7 +205,7 @@ class PeriodManage extends Component {
                     attenderSearch={attenderSearch} 
                     attenderSave={attenderSave}
                     onSubmit={this.handleSubmitAtten}
-                
+                   
                        /> }
                     {activeTab ===3 &&periodsurvey.data ===null && <Container style={{paddingTop:'1rem'}}>
                         <Row>

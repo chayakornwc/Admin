@@ -64,7 +64,7 @@ return (dispatch)=>{
         url:`${BASE_URL}/period/${id}`,
         headers:{authorization:localStorage.getItem('token') }
     }).then(results =>{
-        dispatch({type:'DELETE_PERIOD_SUCCESS'})
+        dispatch({type:'DELETE_PERIOD_SUCCESS', payload:results.data})
     }).catch(err=>{
         dispatch({type:'DELETE_PERIOD_REJECTED', payload:err.message})
     })

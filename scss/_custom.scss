@@ -8,6 +8,12 @@
 // #     #  #     #  #     #     #     #     #  #   #   #     #  #    #   #    ## 
 //  #####   #     #  #     #     #     #     #  #    #  #######  #     #  #     # 
                                                                                
+.danger>.tooltip-inner{
+  background-color:$danger;
+}
+.danger>.arrow::before{
+  border-bottom-color:$danger
+}
 .tr-action:hover{
   cursor: pointer;
 }

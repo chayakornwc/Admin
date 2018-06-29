@@ -19,11 +19,7 @@ const moment = require('moment');
 
 moment.locale('th');
 
-const selectStyle = {
-    marginLeft:'61px',
-    marginBottom:'1rem',
-    borderRadius:'0.2rem'
-}
+
 
 class Periodregister extends Component {
     constructor(props){
@@ -84,12 +80,6 @@ return (
                     <Card>
                         <CardHeader>
                                 <i className="fa fa-edit"></i> เปิดการอบรม
-                                <div className="card-actions">
-
-                                    <a href="#" className="btn-setting"><i className="icon-settings"></i></a>
-                                    <Button className="btn btn-minimize" data-target="#collapseExample" onClick={this.toggle}><i className="icon-arrow-up"></i></Button>
-                                    <a href="#" className="btn-close"><i className="icon-close"></i></a>
-                                </div>
                             </CardHeader>
                             <Collapse isOpen={this.state.collapse} id="collapseExample">
                             <CardBody>
@@ -99,12 +89,12 @@ return (
                                         <Col md="3">
                                             <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
                                         </Col>
-                                        <Col md="4">
-                                            <Field name="per_start" component={renderDatepicker} type="time"  placeholder="วันที่เริ่มอบรม" /> 
+                                        <Col md="auto">
+                                            <Field name="per_start" component={renderDatepicker} id="per_start" type="time"  placeholder="วันที่เริ่มอบรม" />
                                         </Col>
-                                        <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '}
-                                        <Col md="4">   
-                                            <Field name="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" />
+                                        <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '} 
+                                       <Col>
+                                            <Field name="per_end" id="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" /> 
                                         </Col>
                                     </FormGroup>
                                     <FormGroup row>
@@ -135,8 +125,7 @@ return (
                                         <Field name="lecture" component={renderField} label="วิทยากร" />
                                     </FormGroup>
                                 <div className="form-actions"> 
-                                    <Button  color="secondary">Back</Button>{ ' '}
-                                    <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     
+                                    <Button color="primary" onClick={handleSubmit(this.onSubmit)}><i className="fa fa-save"/>&nbsp;บันทึก</Button>     
                                 </div>
                             </Form>
                         </CardBody>

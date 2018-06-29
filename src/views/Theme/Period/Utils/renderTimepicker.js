@@ -20,13 +20,13 @@ const renderDatePicker = ({ input, placeholder,  defaultValue, meta: { touched, 
    
     return (
                 <div>          
-                    <InputGroup >
+                    <InputGroup>
                         <InputGroupAddon addonType="prepend">
                             <InputGroupText>
                                 <i className="fa fa-clock-o"></i>
                             </InputGroupText>
                         </InputGroupAddon>
-                        <TimePicker className="form-control" {...input} value={input.value ? moment(input.value, 'LT') : null} showSecond={false}  />
+                        <TimePicker autoComplete="off" className="form-control" {...input} value={input.value ? moment(input.value, 'LT') : null} showSecond={false}  />
                     </InputGroup>
                     {/* ส่วนนี้จะแสดงข้อความ error ที่ได้จากการ validate */}
                     {touched && error && <small className="text-danger">{error}</small>}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Badge,Row,Col,Card,CardHeader,CardBody,Table, Button } from 'reactstrap';
-
+import {Link} from 'react-router-dom'
 const moment = require('moment');
 moment.locale('th');
 
@@ -27,7 +27,7 @@ class PeriodTable extends Component {
                 <Col>
                     <Card>
                     <CardHeader>
-                        <i className="icon-note"></i> จัดการ การอบรม <a href="/#/course/period/register"><Button className="float-right" color="secondary"><i className="fa fa-calendar-plus-o"></i>{'\u00A0 เปิดการอบรม'}</Button></a>
+                        <i className="icon-note"></i> จัดการ การอบรม <Link to="period/register"><Button className="float-right" color="secondary"><i className="fa fa-calendar-plus-o"></i>{'\u00A0 เปิดการอบรม'}</Button></Link>
                     </CardHeader>
                     <CardBody>
                         <Table hover striped responsive> 
@@ -41,7 +41,6 @@ class PeriodTable extends Component {
                         <th>รับได้</th>
                         <th>ห้องประชุม</th>
                         <th>สถานะ</th>
-                        <th className="text-center"><i className="icon-settings "></i></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -56,7 +55,6 @@ class PeriodTable extends Component {
                                       <td>{value.per_quota}</td>
                                       <td>{value.room_name}</td>
                                       <td><Badge color={statusColor(value.per_status)}>{statusName(value.per_status)}</Badge></td>
-                                      <td className="text-center"><i onClick={()=>attendee(value.per_id)} className="fa fa-user-plus"></i>{' '}<i onClick={()=>buttonEdit(value.per_id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(value.per_id)} className="fa fa-times"></i></td>
                                   </tr>
                               )
                           })}
