@@ -10,7 +10,6 @@ import Footer from '../../components/Footer/';
 import Dashboard from '../../views/Dashboard/';
 
 // course
-import Colors from '../../views/Theme/Colors/';
 import Coursemanage from '../../views/Theme/Coursemanage/Coursemanage';
 import Courseregister from '../../views/Theme/Coursemanage/Courseregister';
 
@@ -36,7 +35,6 @@ import UserRegister from '../../views/Theme/users/userRegister';
 
 //Certificate module
 
-// Base
 
 import Certificate from '../../views/Theme/Cerificate/Certificate';
 import Generate from '../../views/Theme/Cerificate/Generate';

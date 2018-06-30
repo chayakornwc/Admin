@@ -33,9 +33,7 @@
     "webpack-dev-server": "2.11.1"
   },
   "dependencies": {
-    "alertify": "^0.3.0",
     "alertify.js": "^1.0.12",
-    "alertifyjs": "^1.11.0",
     "axios": "^0.17.1",
     "babel-eslint": "^8.2.2",
     "bootstrap": "4.0.0",
