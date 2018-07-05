@@ -21,7 +21,7 @@ export const signin = ({ username, password }) => {
                             })
                             browserHistory.push('/dasboard');
                      }).catch(() => {
-                             dispatch({ type: 'AUTH_ERROR', payload: "Login failed wrong username or password." })
+                             dispatch({ type: 'AUTH_ERROR', payload:"พบข้อผิดพลาด ไม่พบ Username หรือ Password นี้" })
                             })
                 }
                  
@@ -30,7 +30,7 @@ export const signout = () => {
     return (dispatch) => {
             localStorage.removeItem('token')
             dispatch({ type: 'UNAUTH_USER' })
-            Router.push('/Login')
+            browserHistory.push('/Login')
         }
     }
     

@@ -17,12 +17,6 @@ class Login extends Component {
   onSubmit = (values) =>{
     this.props.dispatch(signin(values));
   }
-  componentWillMount(){
-   
-  }
-  componentDidUpdate(){
-  console.log('didUpdate') 
-  }
   render() {
     const  {signin, handleSubmit} = this.props;
     if(this.props.Auth){

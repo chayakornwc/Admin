@@ -46,7 +46,7 @@ class PeriodTable extends Component {
                         <tbody>
                           {data && data.map(function(value, key){
                               return(
-                                  <tr className="tr-action" onClick={()=>{Redirect(value.per_id)}} key={'static-key-'+key}>
+                                  <tr className="tr-action" onClick={()=>{Redirect(value.per_id)}} key={value.per_id}>
                                       <td>{(key+1)}</td>
                                       <td>{value.course_name}{' '}{value.course_nameEng}</td>
                                       <td>{moment(value.per_start).add(543, 'years').format('ll')}{' - '}{moment(value.per_end).add(543, 'years').format('ll')}</td>
