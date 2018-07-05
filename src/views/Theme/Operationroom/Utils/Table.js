@@ -28,15 +28,17 @@ export class OPRTable extends Component {
                             <tr>
                                 <th>ลำดับ</th>
                                 <th>ชื่อห้องปัฏิบัตการ</th>
+                                <th>รหัสห้องปฏิบัติการ</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         {data.map(function(e, i){  
                         return(
-                          <tr key={i++}>
-                                <td>{i++}</td>
+                          <tr key={e.room_id}>
+                                <td>{(i+1)}</td>
                                 <td>{e.name}</td>
+                                <td>{e.code}</td>
                                 <td className="ar"><i onClick={()=>buttonEdit(e.id)} className="fa fa-edit"></i>{' '}<i onClick={()=>buttonDelete(e.id)} className="fa fa-times"></i></td>
                             </tr>
                         )  

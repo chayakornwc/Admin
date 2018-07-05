@@ -59,6 +59,7 @@ const alertify = require('alertify.js');
                                 <Form className="form-horizontal">
                                      <FormGroup>
                                         <Field name="room_name" component={renderField}  type="text" label="ชื่อห้องปฏิบัติการ" />
+                                        <Field name="room_code" component={renderField}  type="text" label="รหัสห้องปฏิบัติการ" />
                                     </FormGroup>
                                 <div className="form-actions"> 
                                     <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     

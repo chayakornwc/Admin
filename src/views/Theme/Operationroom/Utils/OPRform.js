@@ -13,7 +13,8 @@ class OPRform extends Component {
   handleInitialize = ()=> {
     let initData = {
       "room_id":parseInt(this.props.data.room_id),
-      "room_name":this.props.data.room_name
+      "room_name":this.props.data.room_name,
+      "room_code":this.props.data.room_code
     };
     this.props.initialize(initData);
   }
@@ -39,6 +40,7 @@ class OPRform extends Component {
                     <Form className="form-horizontal">
                       <FormGroup >
                         <Field name="room_name" component={renderField}  type="text" label="ห้องปฏิบัติการ" />
+                        <Field name="room_code" component={renderField}  type="text" label="รหัสห้องปฏิบัติการ" />
                       </FormGroup>
                     </Form>  
             </ModalBody>        
