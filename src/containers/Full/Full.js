@@ -38,7 +38,8 @@ import UserRegister from '../../views/Theme/users/userRegister';
 
 import Certificate from '../../views/Theme/Cerificate/Certificate';
 import Generate from '../../views/Theme/Cerificate/Generate';
-import Report from '../../views/Theme/Report/Report'
+import Report from '../../views/Theme/Report/Report';
+import Personal_attends from '../../views/Theme/Report/Personal_attends'
 class Full extends Component {
   
   render() {
@@ -52,6 +53,7 @@ class Full extends Component {
             <Container fluid>
               <Switch>
                 <Route path="/dashboard" name="Dashboard" component={Dashboard}/>
+                <Route path="/report/personal_attends/:registration_id" name="Personal attends" component={Personal_attends}/>
                 <Route path="/report" name="Report" component={Report}/>
                 <Route path="/period/manage/:period_id" name="Period" component={periodManage} />
                 <Route path="/period/register" name="PeriodRegister" component={Periodregister} />  

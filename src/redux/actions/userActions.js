@@ -1,11 +1,10 @@
 import axios from 'axios'
 import config from '../../configure'
 
-//ดึงเอา url ที่ใช้ fetch data มาเก็บไว้ใน BASE_URL
+
 const BASE_URL = config.BASE_URL
 
-//ฟังก์ชันดึงข้อมูลผู้ใช้ทุกรายการโดยจะส่ง query ชื่อ term เข้าไปด้วยเพื่อนำไป filter
-//สำหรับ es6 เราสามารถกำหนดค่า default ของ parameter ได้ด้วยครับ
+
 export const loadUsers = (term = '') => {
     return (dispatch) => {
         //ก่อนดึงข้อมูลสั่ง dispatch ให้ reducer รู้ว่าก่อนเพื่อจะแสดง loading
@@ -68,7 +67,7 @@ export const getUser = (id) => {
     return (dispatch) => {
         dispatch({ type: 'LOAD_USER_PENDING' })
         return axios.get(`${BASE_URL}/users/${id}`, {
-            //ต้องส่ง heder ชื่อ authorization โดยส่ง token เขาไป
+            //ต้องส่ง header ชื่อ authorization โดยส่ง token เขาไป
             //เพื่อบอกให้ server รู้ว่าเราได้ signin ถูกต้องแล้ว
             headers: { authorization: localStorage.getItem('token') }
         }).then(results => {
@@ -76,7 +75,7 @@ export const getUser = (id) => {
             //axios จะส่งข้อมูลกลับมากับ object ชื่อ data
             dispatch({ type: 'LOAD_USER_SUCCESS', payload: results.data })
         }).catch(err => {
-            //กรณี error
+            
             dispatch({ type: 'LOAD_USER_REJECTED', payload: err.message })
         })
     }

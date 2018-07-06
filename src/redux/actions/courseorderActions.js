@@ -17,7 +17,28 @@ export const getOrders = (id)=>{
     }
 }
 
-
+export const loadOrdersByuser = (id)=>{
+    return (dispatch)=>{
+        dispatch({
+           type: `LOAD_USERORDERS_PENDING`
+        })
+      return  axios({
+        url:`${BASE_URL}/courseorder/user/${id}`,
+        method:'get',
+        headers:{authorization:localStorage.getItem('token')}
+      }).then(results =>{
+          dispatch({
+              type:`LOAD_USERORDERS_SUCCESS`, 
+              payload:results.data
+          })
+      }).catch(err=>{
+          dispatch({
+              type:'LOAD_USERORDERS_REJECTED',
+              payload: err.message
+          })
+      })
+    }
+}
 
 export const loadOrders = (start='', end='')=>{
     return(dispatch)=>{

@@ -1,0 +1,143 @@
+$drop-distance: 300px;
+$error-animation-step: .5s;
+
+.error-banner svg{
+  height: 100%;
+  overflow: visible;
+}
+
+.error-banner {
+  overflow: visible;
+  text-align: center;
+}
+
+.error-banner {
+  padding: 60px 0 20px;
+  position: relative;
+  display: inline-block;
+  font-family: Helvetica-neue, Helvetica, Arial, sans-serif;
+  color: #788392;
+  
+  .error-banner  svg {
+    position: relative;
+    overflow: visible;
+    z-index: 2;
+    transform: translate3d(0,0,0);
+    margin: 3em;
+  }
+  .error-message {
+    margin: 1em 0;
+    position: relative;
+  }
+  
+  .error-banner  svg  h2 {
+    font-size: 50px;
+    font-weight: normal;
+    margin: 0;
+    animation: $error-animation-step*3 ease-out fade-in-slowly;
+
+  }
+  .error-banner svg   p {
+    font-size: 20px;
+    margin: 8px;
+    span { animation: $error-animation-step*4 ease-out fade-in-slowly; }
+  }
+  .error-banner svg:hover + .error-message{
+    animation: error-party .9s linear infinite;
+    h2 {
+      font-size: 0;
+      &:before {
+        font-size: 20px;
+        content: "On the bright side, you found";
+    }}
+    p {
+      font-size: 0;
+      &:after {
+        font-size: 50px;
+        line-height: 1.2em;
+        content: "THE PARTY!";
+    }}
+    p {
+      animation: zbounce .5s linear infinite;
+    }
+  }
+} 
+
+@for $i from 1 through 12 {
+  [id$=cube-#{$i}], [id$=cube-#{$i + 12}], [id$=cube-#{$i + 24}] {
+    animation: drop-cube-#{$i} .9s cubic-bezier(0.190, 1.000, 0.320, 1.000);
+    path {
+      animation: fade-cube-#{$i} .9s cubic-bezier(0.190, 1.000, 0.320, 1.000);
+    }
+  }
+}
+
+svg:hover {
+  @for $i from 1 through 12{
+    [id$=cube-#{$i}] path, [id$=cube-#{$i + 12}] path, [id$=cube-#{$i + 24}] path {
+      animation: fade-out-cube-#{$i} .7s cubic-bezier(0.190, 1.000, 0.320, 1.000) infinite;
+    }
+  }
+}
+
+@for $i from 1 through 12 {
+  @keyframes drop-cube-#{$i} {
+    0%, #{7 * $i}% {
+      transform: translateY($drop-distance);
+    } 100% {
+      transform: translateY(0);
+    }
+  }
+  @keyframes fade-cube-#{$i} {
+    0%, #{7 * $i}% {
+      opacity: 0;
+    } 
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-out-cube-#{$i} {
+    $start: 3 * $i;
+    $mid: 100 - $start;
+    0%, #{$start}% {
+      opacity: 1;
+    }
+    #{$mid}% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes error-party {
+  0% {
+    color: #8e55dd;
+  } 20% {
+    color: #967adc;
+  } 40% {
+    color: #fef0bd;
+  } 60% {
+    color: #d4eef7;
+  } 80% {
+    color: #82c1ed;
+  } 100% {
+    color: #5d9cec;
+  }
+}
+
+@keyframes fade-in-slowly {
+  0%   { opacity: 0; }
+  80%  { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes zbounce {
+  0%, 100% {
+    transform: scale(.95, .95)
+  }
+  50% {
+    transform: scale(1, 1)
+  }
+}

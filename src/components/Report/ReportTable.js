@@ -3,8 +3,12 @@ import {Row,Col, Card,CardBody,Table,Progress}from 'reactstrap'
 const moment = require('moment')
 moment.locale('th')
  class ReportTable extends Component {
+   
   render() {
       const {data} = this.props
+     const handlerRedirect = (id)=>{
+       this.props.renderToRedirect(id)
+    }
     return (
       <div>
        <Row>
@@ -25,8 +29,9 @@ moment.locale('th')
                                 </thead>
                                 <tbody>
                                     {data && data.map((e,i)=>{
+                                      
                                         return (
-                                        <tr key={i}>
+                                        <tr onClick={()=>{handlerRedirect(e.id)}} className="tr-action" key={e.id+'-'+e.per_id}>
                                             <td className="text-center">{(i+1)}</td>
                                             <td className="text-left">{e.course_name}</td>
                                             <td className="text-left">{e.username}</td>

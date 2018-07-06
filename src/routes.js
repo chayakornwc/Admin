@@ -47,6 +47,7 @@ const routes = {
   '/cert/generate':'generate',
   '/cert/generate/:id':':id',
   '/report':'Report',
+  '/report/personal_attends':'รายงานการอบรมส่วนบุคคล',
   '/theme/colors': 'Colors',
   '/theme/typography': 'Typography',
   '/widgets': 'Widgets'
