@@ -33,6 +33,8 @@ import ExamRegister from '../../views/Theme/ExamWarehouse/ExamRegister';
 import Users from '../../views/Theme/users/users';
 import UserRegister from '../../views/Theme/users/userRegister';
 
+import UserTypes from '../../views/Theme/UserTypes/UserTypes';
+
 //Certificate module
 
 
@@ -64,6 +66,7 @@ class Full extends Component {
                 <Route path="/operationRoom" name="OperationRoom" component={Operationroom} />
                 <Route path="/examination/add" name="" component={ExamRegister} />
                 <Route path="/examination" name="examinationwarehouse" component={ExamWarehouse} />
+                <Route path="/userTypes" name="userTypes" component={UserTypes} />
                 <Route path="/users/register" name="userRegister" component={UserRegister} />
                 <Route path="/users" name="usermangement" component={Users} />
                 <Route path="/cert/generate/:period_id" name="Certifiation generate" component={Generate} />

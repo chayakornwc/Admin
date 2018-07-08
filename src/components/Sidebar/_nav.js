@@ -31,17 +31,13 @@ export default {
       icon: 'icon-calendar',
     },
     {
-      title: true,
-      name: 'CONFIGURATION',
-      wrapper: {
-        element: '',
-        attributes: {}
-      },
-    },
-    {
       name: 'ห้องมูลห้องปฏิบัติการ',
       url: '/operationRoom',
       icon: 'fa fa-building',
+    },{
+      name:'ประเภทผู้ใช้งาน',
+      url:'/userTypes',
+      icon:'fa fa-tags'
     },
     {
       name: 'ข้อมูลผู้ใช้งาน',
