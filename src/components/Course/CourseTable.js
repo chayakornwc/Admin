@@ -36,7 +36,7 @@ class CourseTable extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="icon-note"></i> จัดการ หลักสูตร <a href="/#/course/register"><i className="icon-plus float-right"></i></a>
+                <i className="icon-note"></i> จัดการ หลักสูตร <a href="/#/course/register"className="btn btn-info float-right"><i className="fa fa-plus"></i>{' '}ลงทะเบียนข้อมูลหลักสูตร</a>
               </CardHeader>
               <CardBody>
                 <Table hover striped responsive> 

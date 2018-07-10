@@ -8,14 +8,7 @@ import renderSelect from './renderSelect'
 import renderSelectprefix from './renderSelectprefix'
 
 
-const userGroup = [
-    {id:1, label:"ผู้บริหาร"},
-    {id:2, label:"ผู้ดูแลระบบ"},
-    {id:4, label:"บุคคลากรสายวิชาการ"},
-    {id:5, label:"บุคลากรสายสนับสนุน"},
-    {id:6, label:"นักศึกษา"},
-    {id:7, label:"บุคคลากร"},
-];
+
 const _province = ['กรุงเทพฯ',
 'กระบี่',
 'กาญจนบุรี',
@@ -157,12 +150,12 @@ class Userform extends Component {
    
   render() {
 
-      const {data, submitting, userSave, modalTitle, onToggle, onSubmit,handleSubmit} = this.props
+      const {data, submitting, userSave, modalTitle, onToggle, onSubmit,handleSubmit,userGroup} = this.props
      
     
     return (
       <div>
-          <ModalHeader  onToggle={onToggle}>{modalTitle}</ModalHeader>
+          <ModalHeader toggle={onToggle}>{modalTitle}</ModalHeader>
           <ModalBody>
             <Form 
                 className="form-horizontal"
@@ -212,7 +205,7 @@ class Userform extends Component {
                                             <Field name="company" component={renderField}  type="text" label="สังกัด" />
                                         </FormGroup>
                                     <div className="form-actions"> 
-                                        <Button  color="secondary" disabled={submitting}>Back</Button>{ ' '}
+                                        <Button type="button" onClick={onToggle} color="danger" disabled={submitting}>ปิด</Button>{ ' '}
                                         <Button color="primary" disabled={submitting} onClick={()=>{handleSubmit()}}>Save changes</Button>     
                                     </div>
 

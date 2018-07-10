@@ -61,12 +61,7 @@ class Courseregister extends Component {
                     <Card>
                     <CardHeader>
                         <i className="fa fa-edit"></i> ลงทะเบียนข้อมูลหลักสูตร
-                        <div className="card-actions">
-                        <a href="#" className="btn-setting"><i className="icon-settings"></i></a>
-                        <Button className="btn btn-minimize" data-target="#collapseExample" onClick={this.toggle}><i className="icon-arrow-up"></i></Button>
-                        <a href="#" className="btn-close"><i className="icon-close"></i></a>
-                        </div>
-                    
+            
                     </CardHeader>
                     <Collapse isOpen={this.state.collapse} id="collapseExample">
                         <CardBody>
@@ -96,7 +91,6 @@ class Courseregister extends Component {
                             </div>
                             </FormGroup>
                             <div className="form-actions"> 
-                            <Button  color="secondary">Back</Button>{ ' '}
                             <Button  onClick={handleSubmit(this.onSubmit)} color="primary">Save changes</Button>     
                             </div>
                         </Form>

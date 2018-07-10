@@ -67,6 +67,7 @@ class Coursemanage extends Component {
       show:true,
       title:'ยืนยันการลบ',
       confirmLabel:'ยืนยัน ลบทันที',
+      type:'danger',
       message:'คุณต้องการลบข้อมูลนี้ใช่หรือไม่',
       onConfirm: () => this.props.dispatch(deleteCourse(id)).then(() => {
         this.props.dispatch(loadCourse())

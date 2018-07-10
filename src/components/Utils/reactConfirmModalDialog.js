@@ -69,6 +69,10 @@ export default class ReactConfirmModalDialog extends Component {
                 buttonColor = "info";
                 modalColor = "modal-info";
                 break;
+            case 'danger':
+            buttonColor = "danger";
+            modalColor = "modal-danger";
+            break;
             default:
                 buttonColor = "warning";
                 modalColor = "modal-warning";

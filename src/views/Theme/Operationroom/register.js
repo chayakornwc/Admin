@@ -47,18 +47,16 @@ const alertify = require('alertify.js');
                     <Card>
                         <CardHeader>
                                 <i className="fa fa-edit"></i> เพิ่มข้อมูล
-                                <div className="card-actions">
-
-                                    <a href="#" className="btn-setting"><i className="icon-settings"></i></a>
-                                 {' '}
-                                    <a href="#" className="btn-close"><i className="icon-close"></i></a>
-                                </div>
+                
                             </CardHeader>
                             <CardBody>
                                 {operation_roomSave.isRejected && <Alert isOpen={this.state.visible} color="danger" toggle={this.onDismiss}>{operation_roomSave.data}</Alert>}
                                 <Form className="form-horizontal">
                                      <FormGroup>
                                         <Field name="room_name" component={renderField}  type="text" label="ชื่อห้องปฏิบัติการ" />
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Field name="room_code" component={renderField}  type="text" label="รหัสห้องปฏิบัติการ" />
                                     </FormGroup>
                                 <div className="form-actions"> 
                                     <Button color="primary" onClick={handleSubmit(this.onSubmit)}>Save changes</Button>     

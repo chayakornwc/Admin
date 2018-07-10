@@ -6,6 +6,7 @@ import { Modal, Badge,Row,Col,Card,CardHeader,CardBody,Pagination,PaginationItem
 import {confirmModalDialog} from '../../../components/Utils/reactConfirmModalDialog';
 import Userform from './Utils/Userform';
 import Passwordform from './Utils/Passwordform';
+import {loadTypes} from '../../../redux/actions/UserTypesActions';
 const moment = require('moment');
 import UserTable from './Utils/Table';
 const alertify = require('alertify.js');
@@ -28,8 +29,9 @@ import Loader from '../../../components/Utils/Loader';
             
      }
      componentDidMount(){
-        return this.props.dispatch(loadUsers()).then()
-     }
+         this.props.dispatch(loadUsers())
+            this.props.dispatch(loadTypes())
+        }
 
     
     handleSubmit = (values) => {
@@ -91,7 +93,14 @@ import Loader from '../../../components/Utils/Loader';
     
     
   render() {
-      const {users, user, userSave} = this.props  
+      const {users, user, userSave, UserTypes} = this.props  
+      var userGroup = [];
+      {UserTypes.data && UserTypes.data.map(function(e,i){
+        userGroup.push({
+            id:e.user_group,
+            label:e.type_name
+        })
+    })}
     return (
         <div>
             {users.isLoading &&  <Loader />}
@@ -116,6 +125,7 @@ import Loader from '../../../components/Utils/Loader';
                         modalTitle={this.state.modalTitle}
                         userSave={userSave}
                         onSubmit={this.handleSubmit}
+                        userGroup={userGroup}
                     />
             </Modal>
             <Modal className="modal-primary modal-lg" isOpen={this.state._Modalpassword} toggle={this.modalpasswordToggle}>
@@ -138,7 +148,8 @@ function mapStateToProps(state){
     return {
         users:state.userReducers.users,
         userSave:state.userReducers.userSave,
-        user:state.userReducers.user
+        user:state.userReducers.user,
+        UserTypes:state.UserTypesReducers.UserTypes,
     }
 }
 export default connect(mapStateToProps)(Users)

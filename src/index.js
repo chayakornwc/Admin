@@ -48,8 +48,6 @@ const token = localStorage.getItem('token');
         }  else {
           <Redirect push to={{  pathname: "/login"}}
           />
-          
-          
         }
       
 

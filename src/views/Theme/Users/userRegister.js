@@ -1,96 +1,98 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import { Alert, Row, Col, Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
+import { Alert, Row, Col, Button,  Card, CardHeader, CardFooter, CardBody, Collapse, Form, FormGroup, FormText, Label, Input, InputGroup, InputGroupAddon, InputGroupText} from 'reactstrap';
 
 import { saveUser} from '../../../redux/actions/userActions';
 
 import renderField from '../../../components/Utils/renderFields';
 
 import { Field, reduxForm } from 'redux-form';
-
+import {loadTypes} from '../../../redux/actions/UserTypesActions';
 import { connect } from 'react-redux';
 import renderSelectprefix from './Utils/renderSelectPrefix';
 import renderSelect from './Utils/renderSelect';
 import renderSelectObject from './Utils/renderSelectObject';
 const alertify = require('alertify.js');
 
-const _province = ['กรุงเทพฯ',
-'กระบี่',
-'กาญจนบุรี',
-'กาฬสินธุ์',
-'กำแพงเพชร',
-'ขอนแก่น',
-'จันทบุรี',
-'ฉะเชิงเทรา',
-'ชลบุรี',
-'ชัยนาท',
-'ชัยภูมิ',
-'ชุมพร',
-'เชียงใหม่',
-'เชียงราย',
-'ตรัง',
-'ตราด',
-'ตาก',
-'นครนายก',
-'นครปฐม',
-'นครพนม',
-'นครราชสีมา',
-'นครศรีธรรมราช',
-'นครสวรรค์',
-'นนทบุรี',
-'นราธิวาส',
-'น่าน',
-'บึงกาฬ',
-'บุรีรัมย์',
-'ปทุมธานี',
-'ประจวบคีรีขันธ์',
-'ปราจีนบุรี',
-'ปัตตานี',
-'พระนครศรีอยุธยา',
-'พะเยา',
-'พังงา',
-'พัทลุง',
-'พิจิตร',
-'พิษณุโลก',
-'เพชรบุรี',
-'เพชรบูรณ์',
-'แพร่',
-'ภูเก็ต',
-'มหาสารคาม',
-'มุกดาหาร',
-'แม่ฮ่องสอน',
-'ยโสธร',
-'ยะลา',
-'ร้อยเอ็ด',
-'ระนอง',
-'ระยอง',
-'ราชบุรี',
-'ลพบุรี',
-'ลำปาง',
-'ลำพูน',
-'เลย',
-'ศรีสะเกษ',
-'สกลนคร',
-'สงขลา',
-'สตูล',
-'สมุทรปราการ',
-'สมุทรสงคราม',
-'สมุทรสาคร',
-'สระแก้ว',
-'สระบุรี',
-'สิงห์บุรี',
-'สุโขทัย',
-'สุพรรณบุรี',
-'สุราษฎร์ธานี',
-'สุรินทร์',
-'หนองคาย',
-'หนองบัวลำภู',
-'อ่างทอง',
-'อำนาจเจริญ',
-'อุดรธานี',
-'อุตรดิตถ์',
-'อุทัยธานี',
-'อุบลราชธานี'];
+const _province = [
+    'กรุงเทพฯ',
+    'กระบี่',
+    'กาญจนบุรี',
+    'กาฬสินธุ์',
+    'กำแพงเพชร',
+    'ขอนแก่น',
+    'จันทบุรี',
+    'ฉะเชิงเทรา',
+    'ชลบุรี',
+    'ชัยนาท',
+    'ชัยภูมิ',
+    'ชุมพร',
+    'เชียงใหม่',
+    'เชียงราย',
+    'ตรัง',
+    'ตราด',
+    'ตาก',
+    'นครนายก',
+    'นครปฐม',
+    'นครพนม',
+    'นครราชสีมา',
+    'นครศรีธรรมราช',
+    'นครสวรรค์',
+    'นนทบุรี',
+    'นราธิวาส',
+    'น่าน',
+    'บึงกาฬ',
+    'บุรีรัมย์',
+    'ปทุมธานี',
+    'ประจวบคีรีขันธ์',
+    'ปราจีนบุรี',
+    'ปัตตานี',
+    'พระนครศรีอยุธยา',
+    'พะเยา',
+    'พังงา',
+    'พัทลุง',
+    'พิจิตร',
+    'พิษณุโลก',
+    'เพชรบุรี',
+    'เพชรบูรณ์',
+    'แพร่',
+    'ภูเก็ต',
+    'มหาสารคาม',
+    'มุกดาหาร',
+    'แม่ฮ่องสอน',
+    'ยโสธร',
+    'ยะลา',
+    'ร้อยเอ็ด',
+    'ระนอง',
+    'ระยอง',
+    'ราชบุรี',
+    'ลพบุรี',
+    'ลำปาง',
+    'ลำพูน',
+    'เลย',
+    'ศรีสะเกษ',
+    'สกลนคร',
+    'สงขลา',
+    'สตูล',
+    'สมุทรปราการ',
+    'สมุทรสงคราม',
+    'สมุทรสาคร',
+    'สระแก้ว',
+    'สระบุรี',
+    'สิงห์บุรี',
+    'สุโขทัย',
+    'สุพรรณบุรี',
+    'สุราษฎร์ธานี',
+    'สุรินทร์',
+    'หนองคาย',
+    'หนองบัวลำภู',
+    'อ่างทอง',
+    'อำนาจเจริญ',
+    'อุดรธานี',
+    'อุตรดิตถ์',
+    'อุทัยธานี',
+    'อุบลราชธานี'
+    ];
 const affiliation = [
   {id:1000, label:"มหาวิทยาลัยราชภัฏลำปาง"},
   {id:1001, label:"สำนักงานอธิการบดี"},                             
@@ -123,20 +125,14 @@ const affiliation = [
   {id:2000, label:"บุคคลภายนอก"}         
 ];
 const gender = ['ชาย', 'หญิง'];
-const userGroup = [
-    {id:1, label:"ผู้บริหาร"},
-    {id:2, label:"ผู้ดูแลระบบ"},
-    {id:4, label:"บุคคลากรสายวิชาการ"},
-    {id:5, label:"บุคลากรสายสนับสนุน"},
-    {id:6, label:"นักศึกษา"},
-    {id:7, label:"บุคคลากร"},
-];
+
 
 
      class UserRegister extends Component {
          constructor(props){
              super(props)
          }
+         
         onSubmit = (values)=>{
             return this.props.dispatch(saveUser(values)).then(()=>{
                 if(!this.props.userSave.isRejected){
@@ -170,9 +166,18 @@ const userGroup = [
         }
         componentDidMount(){
             this.handleInitailize();
+              this.props.dispatch(loadTypes())
+              
         }
       render() {     
-        const {handleSubmit, submitting} = this.props     
+        const {handleSubmit, submitting,UserTypes} = this.props    
+        var userGroup = []; 
+        {UserTypes.data && UserTypes.data.map(function(e,i){
+            userGroup.push({
+                id:e.user_group,
+                label:e.type_name
+            })
+        })}
         return (
           <div className="animated fadeIn">
                  <Row>
@@ -251,7 +256,8 @@ const userGroup = [
 
 function mapStateToProps(state){
     return {
-        userSave:state.userReducers.userSave
+        userSave:state.userReducers.userSave,
+        UserTypes:state.UserTypesReducers.UserTypes,
     }
 }
 function validate(values){

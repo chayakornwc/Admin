@@ -10,16 +10,17 @@ export default function (ComposedComponent) {
                 }
             componentWillMount() {
                     if (this.props.data) {
-                    if (this.props.data.user_group > 2) {
+                    if (!this.props.data.permission.includes(1)) {
                         this.context.router.history.push('/404');
                                 }
                             }
                     }
                 componentWillUpdate(nextProps) {
                     if (nextProps.data) {
-                            if (nextProps.data.user_group >2) {
+                            if (!nextProps.data.permission.includes(1)) {
                                 this.context.router.history.push('/404');
-                                            }
+                                
+                                        }
                                     }
                                 }
 
