@@ -92,7 +92,18 @@ module.exports = (env = {}) => {
     plugins: [
       new CleanWebpackPlugin(['build']),
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.optimize.UglifyJsPlugin({sourceMap: true}),
+      new webpack.optimize.UglifyJsPlugin({
+        include: /\.min\.js$/,
+        sourceMap: true,
+        uglifyOptions: {
+          compress: {
+            drop_console: true
+          },
+          mangle: {
+            reserved: ['HeadTable', 'NameTable', 'CmapTable', 'HheaTable', 'MaxpTable', 'HmtxTable', 'PostTable', 'OS2Table', 'LocaTable', 'GlyfTable']
+          }
+        }
+      }),
       new webpack.NamedModulesPlugin(),
       extractCSS,
       extractSCSS,
