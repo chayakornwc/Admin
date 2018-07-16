@@ -52,7 +52,7 @@ var alertify = require('alertify.js');
             <Col xs="12">
                     <Card>
                     <CardHeader>
-                        <i className="fa fa-edit"></i> ลงทะเบียนข้อมูลหลักสูตร <small className="float-right color-red">การลงทะเบียนสำหรับหลักสูตรที่ยังไม่มีข้อสอบ</small>
+                        <i className="fa fa-edit"></i> ลงทะเบียนชุดข้อสอบ <small className="float-right color-red">การลงทะเบียนสำหรับหลักสูตรที่ยังไม่มีข้อสอบ</small>
                     </CardHeader>
      
                         <CardBody>

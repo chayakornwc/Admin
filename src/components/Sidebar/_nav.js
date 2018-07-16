@@ -31,7 +31,7 @@ export default {
       icon: 'icon-calendar',
     },
     {
-      name: 'ห้องมูลห้องปฏิบัติการ',
+      name: 'ข้อมูลห้องปฏิบัติการ',
       url: '/operationRoom',
       icon: 'fa fa-building',
     },{
