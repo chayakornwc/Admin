@@ -116,7 +116,14 @@ render() {
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                     </InputGroupAddon>
-                        <Datepicker  onChange={this.handleChang('startDate')}  className="form-control" dateFormat='LL' selected={moment(this.state.startDate, 'DD MMMM YYYY').isValid() ? moment(this.state.startDate, 'DD MMMM YYYY') : null} minDate={moment().add(541, 'years')}     />
+                        <Datepicker 
+                         onChange={this.handleChang('startDate')}  
+                         className="form-control" 
+                         dateFormat='LL' 
+                         selected={moment(this.state.startDate, 'DD MMMM YYYY').isValid() ? moment(this.state.startDate, 'DD MMMM YYYY') : null} 
+                          openToDate={moment().add(543, 'years')}   
+                          withPortal 
+                          />
                     </InputGroup>        
                 </Col>
                 <i className="fa fa-angle-right fa-lg mt-2"></i>
@@ -127,7 +134,14 @@ render() {
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                     </InputGroupAddon>
-                        <Datepicker onChange={this.handleChang('endDate')}  className="form-control" dateFormat='LL' selected={moment(this.state.endDate, 'DD MMMM YYYY').isValid() ? moment(this.state.endDate,  'DD MMMM YYYY') : null }    minDate={ this.state.startDate ? moment(this.state.startDate, 'LL') : moment().add(543, 'years')} />
+                        <Datepicker
+                         onChange={this.handleChang('endDate')}
+                           className="form-control"
+                            dateFormat='LL'
+                             selected={moment(this.state.endDate, 'DD MMMM YYYY').isValid() ? moment(this.state.endDate,  'DD MMMM YYYY') : null }   
+                             openToDate={this.state.startDate ? moment(this.state.startDate, 'LL') : moment().add(543, 'years')}   
+                            withPortal
+                             />
                     </InputGroup>
                 </Col>
                 </Row>
