@@ -116,7 +116,7 @@ render() {
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                     </InputGroupAddon>
-                        <Datepicker  onChange={this.handleChang('startDate')}  className="form-control" dateFormat='LL' selected={moment(this.state.startDate, 'DD MMMM YYYY').isValid() ? moment(this.state.startDate, 'DD MMMM YYYY') : null}    minDate={moment().add(543, "years")} />
+                        <Datepicker  onChange={this.handleChang('startDate')}  className="form-control" dateFormat='LL' selected={moment(this.state.startDate, 'DD MMMM YYYY').isValid() ? moment(this.state.startDate, 'DD MMMM YYYY') : null} minDate={moment().add(541, 'years')}     />
                     </InputGroup>        
                 </Col>
                 <i className="fa fa-angle-right fa-lg mt-2"></i>
