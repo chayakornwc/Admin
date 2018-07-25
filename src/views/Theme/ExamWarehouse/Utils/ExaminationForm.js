@@ -63,7 +63,7 @@ const validate = values => {
       errors.course_id = 'กรุณาเลือก'
     }
     if (!values.members || values.members.length <5) {
-      errors.members = { _error: 'ต้องการข้อสอบอย่างน้อย 5ข้อ ในการลงทะเบียน' }
+      
     } else {
       const membersArrayErrors = []
       values.members.forEach((member, memberIndex) => {

@@ -7,7 +7,7 @@ import { savePeriod} from '../../../redux/actions/periodActions';
 import {loadRooms} from '../../../redux/actions/operationRoomActions';
 import renderField from '../../../components/Utils/renderFields';
 import renderDatepicker from '../../../components/Utils/renderDatepicker';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import renderSelect from './Utils/renderSelect';
 import renderSelectRoom from './Utils/renderSelectRoom';
 import renderTimepicker from './Utils/renderTimepicker';
@@ -29,6 +29,8 @@ class Periodregister extends Component {
         this.onDismiss = this.onDismiss.bind(this);
         this.state = { collapse: true, visible:true};
         this.post = null
+       
+    
     }
     onSubmit(e){ 
      this.props.dispatch(savePeriod(e)).then(()=>{
@@ -59,6 +61,7 @@ class Periodregister extends Component {
     toggle(){
 
     }
+   
     onDismiss() {
         this.setState({ visible: false });
       }
@@ -71,8 +74,8 @@ class Periodregister extends Component {
    
 render() {
 const {periodSave, courses, operation_rooms, handleSubmit} = this.props;
-        
-
+   
+    
 return (
          <div className="animated fadeIn">
             <Row>
@@ -90,11 +93,20 @@ return (
                                             <Label htmlFor="appendedInputButton">วันที่อบรม</Label>
                                         </Col>
                                         <Col md="auto">
-                                            <Field name="per_start" component={renderDatepicker} id="per_start" type="time"  placeholder="วันที่เริ่มอบรม" />
+                                            <Field name="per_start" 
+                                            component={renderDatepicker}    
+                                            id="per_start" type="time" 
+                                            placeholder="วันที่เริ่มอบรม" />
                                         </Col>
                                         <i className="fa fa-angle-right fa-lg mt-2"></i>{'  '} 
                                        <Col>
-                                            <Field name="per_end" id="per_end" component={renderDatepicker}  placeholder="สิ้นสุดการอบรม" /> 
+                                            <Field 
+                                              name="per_end"
+                                              id="per_end" 
+                                              component={renderDatepicker}
+                                              placeholder="สิ้นสุดการอบรม"          
+                                              minDate={this.props.value}
+                                              /> 
                                         </Col>
                                     </FormGroup>
                                     <FormGroup row>

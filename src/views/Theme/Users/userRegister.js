@@ -136,9 +136,9 @@ const gender = ['ชาย', 'หญิง'];
         onSubmit = (values)=>{
             return this.props.dispatch(saveUser(values)).then(()=>{
                 if(!this.props.userSave.isRejected){
-                    this.props.handleInitailize();
+                    this.handleInitailize();
                     console.log(this.props.userSave);
-                    alertify.success("เพิ่มข้อมูลเรียบร้อยแล้ว"); 
+                    alertify.alert("เพิ่มข้อมูลเรียบร้อยแล้ว"); 
                 }else{
                     alertify.error(this.props.userSave.data);
                 }

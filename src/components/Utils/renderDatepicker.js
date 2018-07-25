@@ -24,7 +24,8 @@ const renderDatePicker = ({ input, placeholder, styles, id, defaultValue, meta: 
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                         </InputGroupAddon>
-                            <Datepicker autoComplete="off" {...input}   id={id} placeholderText={placeholder}   className="form-control"  minDate={moment().add(543,'years')}  dateFormat='LL' selected={input.value !=='' ? moment(input.value, 'DD MMMM YYYY')  : null} />
+                            <Datepicker autoComplete="off" {...input}   id={id} placeholderText={placeholder}   className="form-control"  minDate={moment().add(543, 'years')}   
+                            dateFormat='LL' selected={input.value !=='' ? moment(input.value, 'DD MMMM YYYY')  : null} />
                     </InputGroup>
                     {touched && error && 
                     <Tooltip placement="bottom" isOpen={true} target={id} className="danger">
