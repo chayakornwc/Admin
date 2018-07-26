@@ -265,6 +265,7 @@ function validate(values){
     if (!values.username){
         errors.username = "ต้องการฟิลด์นี้";
     }
+    if(!values.username && !)
     if(!values.password){
         errors.password = "ต้องการฟิลด์นี้";
     }
