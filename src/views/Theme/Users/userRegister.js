@@ -193,10 +193,17 @@ const gender = ['ชาย', 'หญิง'];
                                     {/* {periodSave.isRejected && <Alert isOpen={this.state.visible} color="danger" toggle={this.onDismiss}>{periodSave.data}</Alert>} */}
                                     <Form className="form-horizontal">
                                         <FormGroup>
-                                            <Field name="username" component={renderField}  type="text" label="รหัสนักศึกษา / ชื่อบัญชีผู้ใช้"/>
+                                            <Field name="username"
+                                             component={renderField}  
+                                             type="text" label="รหัสนักศึกษา / ชื่อบัญชีผู้ใช้"
+                                             />
                                         </FormGroup>
                                         <FormGroup>
-                                            <Field name="password" component={renderField}  type="password" label="Password"/>
+                                            <Field 
+                                            name="password" 
+                                            component={renderField}  
+                                            type="password"
+                                            label="Password"/>
                                         </FormGroup> 
                                         <FormGroup>
                                             <Field name="user_group" data={userGroup}component={renderSelectObject}  type="text" label="ประเภทผู้ใช้งาน"/>
@@ -265,9 +272,14 @@ function validate(values){
     if (!values.username){
         errors.username = "ต้องการฟิลด์นี้";
     }
-    if(!values.username && !)
+    if(values.username && !/^[A-Za-z@0-9._%#?]+$/g.test(values.username)){
+        errors.username = "อนุญาติเฉพาะตัวอักษรภาษาอังกฤษ ตัวเลข และ เครื่องหมายพิเศษ ._%#?@ เท่านั้น";
+    }
     if(!values.password){
         errors.password = "ต้องการฟิลด์นี้";
+    }
+    if(values.password && !/^[A-Za-z@0-9._%#?]+$/g.test(values.password)){
+        errors.password = "อนุญาติเฉพาะตัวอักษรภาษาอังกฤษ ตัวเลข และ เครื่องหมายพิเศษ ._%#?@ เท่านั้น"
     }
     if(!values.email){
         errors.email ="ต้องการฟิลด์นี้";
@@ -284,14 +296,26 @@ function validate(values){
     if(!values.company){
         errors.company = "ต้องการฟิลด์นี้"
     }
+    if(values.company && !/^[A-Za-zก-๙0-9]+$/g.test(values.company)){
+        errors.company  = 'ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท'
+    }
     if(!values.first_name){
         errors.first_name = "ต้องการฟิลด์นี้";
+    }
+    if(values.first_name && !/^[A-Za-zก-๙0-9]+$/g.test(values.first_name)){
+        errors.first_name = 'ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท'
     }
     if(!values.last_name){
         errors.last_name = "ต้องการฟิลด์นี้";
     }
+    if(values.last_name && !/^[A-Za-zก-๙0-9]+$/g.test(values.last_name)){
+        errors.last_name = "ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท";
+    }
     if(!values.affiliation){
         errors.affiliation="ต้องการฟิลด์นี้";
+    }
+    if(values.affiliation && !/^[A-Za-zก-๙0-9]+$/g.test(values.affiliation)){
+        errors.affiliation="ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท";
     }
     return errors;
 
