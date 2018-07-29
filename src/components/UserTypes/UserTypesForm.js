@@ -124,6 +124,9 @@ function validate(values) {
     if (!values.type_name) {
         errors.type_name = 'จำเป็นต้องกรอก ฟิลด์นี้!';
     }
+    if(values.type_name && !/^[A-Za-z0-9ก-๙]+$/g.test(values.type_name)){
+        errors.type_name = 'ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท'
+    }
     return errors;
 }
 

@@ -37,13 +37,25 @@ class Passwordform extends Component {
                 >
                 {userSave.isRejected && <Alert color="danger"><i className="fa fa-warning"></i>{' '}{userSave.data}</Alert>}
                     <FormGroup>
-                         <Field name="password" component={renderField}  type="password" label="รหัสผ่านใหม่" />
+                         <Field
+                          name="password" 
+                          component={renderField}  
+                          type="password" 
+                          label="รหัสผ่านใหม่" />
                      </FormGroup>
                      <FormGroup>
-                        <Field name="confirmpassword" component={renderField}  type="password" label="ยืนยันรหัสผ่านอีกครั้ง" />
+                        <Field name="confirmpassword" 
+                        component={renderField}  
+                        type="password" 
+                        label="ยืนยันรหัสผ่านอีกครั้ง"/>
                     </FormGroup>       
                  <div className="form-actions"> 
-                     <Button onClick={onToggle} type="button" color="danger" disabled={submitting}>Close</Button>{ ' '}
+                     <Button 
+                     onClick={onToggle} 
+                     type="button" 
+                     color="danger" 
+                     disabled={submitting}>
+                     Close</Button>{ ' '}
                      <Button color="primary" disabled={submitting} onClick={()=>{handleSubmit(this.onSubmit)}}>Save changes</Button>     
                  </div>
 
@@ -59,6 +71,9 @@ function validate(values){
     let errors = {};
     if(!values.password){
         errors.password = "The field is required";
+    }
+    if(values.password && !/^[A-Za-z@0-9._%#?]+$/g.test(values.password)){
+        errors.password = "อนุญาติเฉพาะตัวอักษรภาษาอังกฤษ ตัวเลข และ เครื่องหมายพิเศษ ._%#?@ เท่านั้น";
     }
     if(!values.confirmpassword){
         errors.confirmpassword = "The field is required";

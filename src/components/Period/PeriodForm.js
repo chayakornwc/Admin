@@ -55,9 +55,10 @@ class PeriodForm extends Component {
         const { data, periodSave,  handleSubmit , modalTitle, onToggle, course, operation_rooms} = this.props
         const _status = [{id:0, label:'เปิดการอบรม'},
         {id:1, label:'กำลังดำเนินการ'},
-        {id:2, label:'ระงับการอบรม'},
+        {id:4, label:'เปิดสอบ'},
         {id:3, label:'การอบรมเสร็จสิ้น'},
-        {id:4, label:'เปิดสอบ'}];
+        {id:2, label:'ระงับการอบรม'},
+        ];
         return (
                 <Container >
                     <Row style={{paddingTop:'1rem'}}>

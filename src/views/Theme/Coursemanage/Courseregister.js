@@ -110,8 +110,14 @@ function validate(values) {
     if (!values.course_name) {
         errors.course_name = 'จำเป็นต้องกรอกฟิลด์นี้';
     }
+    if (values.course_name &&  !/^[ก-๙()0-9]+$/g.test(values.course_name)) {
+        errors.course_name = 'อนุญาติเฉพาะภาษาไทย และ ( ) เท่านั้น';
+    }
     if(!values.course_nameEng){
         errors.course_nameEng = 'จำเป็นต้องกรอกฟิลด์นี้'
+    }
+    if(values.course_nameEng && !/^[A-Za-z0-9()]+$/g.test(values.course_nameEng)){
+        errors.course_nameEng = 'อนุญาติเฉพาะภาษาอังกฤษและ ( ) เท่านั้น'
     }
     
 

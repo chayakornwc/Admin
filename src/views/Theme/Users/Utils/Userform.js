@@ -161,6 +161,7 @@ class Userform extends Component {
                 className="form-horizontal"
                 onSubmit={()=>{handleSubmit(this.onSubmit)}}
                 >
+                
                 {userSave.isRejected && <Alert color="danger"><i className="fa fa-warning"></i>{' '}{userSave.data}</Alert>}
                     <FormGroup>
                                 <Field name="username" component={renderField}  type="text" label="รหัสนักศึกษา / ชื่อบัญชีผู้ใช้"/>
@@ -218,7 +219,50 @@ class Userform extends Component {
   }
 }
 function validate(values){
-    let errors = {};
+    let errors ={} ;
+    if (!values.username){
+        errors.username = "ต้องการฟิลด์นี้";
+    }
+    if(values.username && !/^[A-Za-z@0-9._%#?]+$/g.test(values.username)){
+        errors.username = "อนุญาติเฉพาะตัวอักษรภาษาอังกฤษ ตัวเลข และ เครื่องหมายพิเศษ ._%#?@ เท่านั้น";
+    }
+  
+    if(!values.email){
+        errors.email ="ต้องการฟิลด์นี้";
+    }
+    if(values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)){
+        errors.email ="คุณป้อนอีเมลไม่ถูกรูปแบบ";
+    }
+    if(!values.prefix){
+        errors.prefix = "ต้องการฟิลด์นี้";
+    }
+    if(!values.gender){
+        errors.gender = "ต้องการฟิลด์นี้"
+    }
+    if(!values.company){
+        errors.company = "ต้องการฟิลด์นี้"
+    }
+    if(values.company && !/^[A-Za-zก-๙0-9]+$/g.test(values.company)){
+        errors.company  = 'ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท'
+    }
+    if(!values.first_name){
+        errors.first_name = "ต้องการฟิลด์นี้";
+    }
+    if(values.first_name && !/^[A-Za-zก-๙0-9]+$/g.test(values.first_name)){
+        errors.first_name = 'ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท'
+    }
+    if(!values.last_name){
+        errors.last_name = "ต้องการฟิลด์นี้";
+    }
+    if(values.last_name && !/^[A-Za-zก-๙0-9]+$/g.test(values.last_name)){
+        errors.last_name = "ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท";
+    }
+    if(!values.affiliation){
+        errors.affiliation="ต้องการฟิลด์นี้";
+    }
+    if(values.affiliation && !/^[A-Za-zก-๙0-9]+$/g.test(values.affiliation)){
+        errors.affiliation="ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท";
+    }
 }
 const form = reduxForm({
     form:'Userform',

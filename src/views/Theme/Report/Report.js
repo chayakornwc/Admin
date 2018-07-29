@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReportFilter from '../../../components/Report/ReportFilter';
 import ReportTable from '../../../components/Report/ReportTable';
 import {loadOrders} from '../../../redux/actions/courseorderActions';
+import {loadCourse} from '../../../redux/actions/courseActions'
 import Loader from '../../../components/Utils/loader';
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
@@ -24,14 +25,15 @@ import PropTypes from 'prop-types';
     }
     componentDidMount(){
       this.props.dispatch(loadOrders())
+      this.props.dispatch(loadCourse())
     }
 
   render() {
-    const {courseOrders} = this.props
+    const {courseOrders, courses} = this.props
   
     return (
       <div>
-        <ReportFilter onSearchTermChange={this.handleRage}/>
+        <ReportFilter course={courses.data} onSearchTermChange={this.handleRage}/>
         {courseOrders.isLoading && <div style={{display:'flex', justifyContent:'center'}}><Loader/></div>}
         <ReportTable renderToRedirect={this.renderToRedirect} data={courseOrders.data} />
       </div>
@@ -40,7 +42,8 @@ import PropTypes from 'prop-types';
 }
 function mapStateToProps(state){
     return{
-      courseOrders:state.courseOrderReducers.courseOrders
+      courseOrders:state.courseOrderReducers.courseOrders,
+      courses:state.courseReducer.courses,
     }
 }
 export default connect(mapStateToProps)(Report);
