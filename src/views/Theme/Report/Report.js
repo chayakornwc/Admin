@@ -4,17 +4,19 @@ import ReportTable from '../../../components/Report/ReportTable';
 import {loadOrders} from '../../../redux/actions/courseorderActions';
 import {loadCourse} from '../../../redux/actions/courseActions'
 import Loader from '../../../components/Utils/loader';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
  class Report extends Component {
     constructor(props){
       super(props)
       this.handleRage = this.handleRage.bind(this)
       this.renderToRedirect = this.renderToRedirect.bind(this)
+      this.handleSearchtermChange = this.handleSearchtermChange.bind(this)
     }
     static contextTypes = {
-      router: PropTypes.object
+        router: PropTypes.object
          }
+
          renderToRedirect(id){
           this.context.router.history.push(`/report/personal_attends/${id}`);
      }
@@ -22,6 +24,10 @@ import PropTypes from 'prop-types';
           if(start && end){
             this.props.dispatch(loadOrders(start,end))
           }
+    }
+    handleSearchtermChange(start, end, affiliation, course){
+   
+      this.props.dispatch(loadOrders(start,end,affiliation,course));
     }
     componentDidMount(){
       this.props.dispatch(loadOrders())
@@ -33,7 +39,9 @@ import PropTypes from 'prop-types';
   
     return (
       <div>
-        <ReportFilter course={courses.data} onSearchTermChange={this.handleRage}/>
+        <ReportFilter 
+          course={courses.data} 
+          onSearchTermChange={this.handleSearchtermChange}/>
         {courseOrders.isLoading && <div style={{display:'flex', justifyContent:'center'}}><Loader/></div>}
         <ReportTable renderToRedirect={this.renderToRedirect} data={courseOrders.data} />
       </div>

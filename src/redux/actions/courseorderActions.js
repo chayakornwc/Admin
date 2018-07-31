@@ -40,12 +40,12 @@ export const loadOrdersByuser = (id)=>{
     }
 }
 
-export const loadOrders = (start='', end='')=>{
+export const loadOrders = (start='', end='', affiliation='', course='')=>{
     return(dispatch)=>{
         dispatch({
             type:'LOAD_ORDERS_PENDING'
         })
-        return axios({url:`${BASE_URL}/orders?start=${start}&end=${end}`,
+        return axios({url:`${BASE_URL}/orders?start=${start}&end=${end}&affiliation=${affiliation}&course=${course}`,
             method:'get',
             headers:{authorization:localStorage.getItem('token')}
         }).then(results =>{

@@ -80,14 +80,43 @@ class ReportFilter extends Component {
     }
 
     onSelectChange = name=> event=>{
-        this.setState({
-            [name]:event.target.value
-        })
+        if(name ==='startDate' || name ==='endDate'){
+            this.setState({
+                [name]: moment(event).isValid()  ? moment(event).format('LL') : ''
+               })
+        }
+        if(name==='affiliation'|| name==='course'){
+            this.setState({
+                [name]:event.target.value
+            })
+        }
+        
+        var startDate = this.state.startDate? this.state.startDate: '';
+        var endDate = this.state.endDate? this.state.endDate: '';
+        var affiliation = this.state.affiliation ? this.state.affiliation : '';
+        var course = this.state.course ? this.state.course : '';
+        if(name == 'startDate'){
+            startDate = moment(event).isValid() ? moment(event).format('LL') : '';
+          
+        }
+        if(name=='endDate'){
+           endDate = moment(event).isValid() ?  moment(event).format('LL'): '';
+        }
+        if(name==='affiliation'){
+            affiliation = event.target.value
+        }
+        if(name==='course'){
+          course =  event.target.value
+        }
+        // this.props.onSearchTermChange(startDate, endDate, affiliation,course);
+        
+        this.props.onSearchTermChange(startDate, endDate, affiliation,course)
     }
+  
   
 render() {
     const {course} = this.props
-    console.log(this.state)
+   
     return (
            <div>
             <Row>
@@ -131,8 +160,8 @@ render() {
                      <Col md="2">
                          <Label style={{'marginTop':'3px'}} htmlFor="appendedInputButton">คณะ</Label>
                     </Col>
-                    <Row>
-                    <Col xs="5">
+                    
+                    <Col md="5">
                     <Input onChange={this.onSelectChange('affiliation')} type="select" name="course">
                     <option value=""></option>
                     {affiliation && affiliation.map(function(e,i){
@@ -140,19 +169,21 @@ render() {
                     })}
                 </Input>
                 </Col>
-                <Col md="2">
-                         <Label style={{'marginTop':'3px'}} htmlFor="appendedInputButton">หลักสูตร</Label>
-                </Col>
-                <Col xs="5">
-                <Input onChange={this.onSelectChange('course')} type="select" name="course">
-                    <option value=""></option>
-                    {course && course.map(function(e,i){
-                        return <option  key={e.course_id} value={e.course_id}>{`${e.course_name} (${e.course_nameEng})`}</option>
-                    })}
-                </Input>
-                </Col>
-                </Row>
+               
                 </FormGroup >
+                <FormGroup row>
+                    <Col md="2">
+                            <Label style={{'marginTop':'3px'}} htmlFor="appendedInputButton">หลักสูตร</Label>
+                    </Col>
+                    <Col xs="5">
+                    <Input onChange={this.onSelectChange('course')} type="select" name="course">
+                        <option value=""></option>
+                        {course && course.map(function(e,i){
+                            return <option  key={e.course_id} value={e.course_id}>{`${e.course_name} (${e.course_nameEng})`}</option>
+                        })}
+                    </Input>
+                    </Col>
+                </FormGroup>
                 </Form>
               </CardBody>
             </Card>
