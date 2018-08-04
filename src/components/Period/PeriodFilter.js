@@ -137,10 +137,11 @@ render() {
                         <Datepicker
                          onChange={this.handleChang('endDate')}
                            className="form-control"
-                            dateFormat='LL'
+                            minDate={this.state.startDate ? moment(this.state.startDate, 'LL') : moment().add(543, 'years') }
+                             dateFormat='LL'
                              selected={moment(this.state.endDate, 'DD MMMM YYYY').isValid() ? moment(this.state.endDate,  'DD MMMM YYYY') : null }   
                              openToDate={this.state.startDate ? moment(this.state.startDate, 'LL') : moment().add(543, 'years')}   
-                            withPortal
+                             withPortal
                              />
                     </InputGroup>
                 </Col>

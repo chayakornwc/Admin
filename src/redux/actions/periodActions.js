@@ -51,7 +51,12 @@ let _method ='post';
         }).then(results =>{
             dispatch({type:'SAVE_PERIOD_SUCCESS', payload:results.data})
         }).catch(err =>{
-            dispatch({type:'SAVE_PERIOD_REJECTED', payload:err.message})
+            let message = err.message;
+            if(err.response.data.response){
+                message = err.response.data.response
+            }
+            console.log()
+            dispatch({type:'SAVE_PERIOD_REJECTED', payload:message})
         })
     }
 }

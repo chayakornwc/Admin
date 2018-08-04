@@ -73,7 +73,7 @@ class Periodregister extends Component {
 
    
 render() {
-const {periodSave, courses, operation_rooms, handleSubmit} = this.props;
+const {periodSave, courses, operation_rooms, handleSubmit,startPeriodValue} = this.props;
    
     
 return (
@@ -105,7 +105,7 @@ return (
                                               id="per_end" 
                                               component={renderDatepicker}
                                               placeholder="สิ้นสุดการอบรม"          
-                                              minDate={this.props.value}
+                                              startPeriodValue={startPeriodValue}
                                               /> 
                                         </Col>
                                     </FormGroup>
@@ -157,7 +157,12 @@ Periodregister.propTypes = {
 const  mapStateToProps = (state)=>({
  courses: state.courseReducer.courses, 
  periodSave: state.periodReducers.periodSave,
- operation_rooms: state.operationRoomReducers.operation_rooms
+ operation_rooms: state.operationRoomReducers.operation_rooms,
+ startPeriodValue : selector(state, 'per_start')
+})
+
+const selectValue = (state)=>({
+    startPeriodValue : selector(state, 'per_start')
 })
 function validate(values){
     const errors ={};
@@ -193,8 +198,9 @@ function validate(values){
 const form = reduxForm({
    form: 'Periodregister',
    validate
+   
 })
-
+const selector =formValueSelector('Periodregister')
 
 Periodregister = connect(mapStateToProps)(Periodregister)
 

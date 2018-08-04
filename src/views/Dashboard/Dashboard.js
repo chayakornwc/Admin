@@ -237,41 +237,70 @@ class Dashboard extends Component {
                   <Line data={Point} options={mainChartOpts} height={300}/>
                 </div>
               </CardBody>
-              <CardFooter>
-                <ul>
-                  <li>
-                    <div className="text-muted">เทคโนโลยีอุตสาหกรรม</div>
-                    <Progress className="progress-xs mt-2" color="red" value="100"/>
-                  </li>
-                  <li className="d-none d-md-table-cell">
-                    <div className="text-muted">วิทยาศาสตร์</div>
-                    <Progress className="progress-xs mt-2" color="warning" value="100"/>
-                  </li>
-                  <li>
-                    <div className="text-muted">ครุศาสตร์</div>
-                    <Progress className="progress-xs mt-2" color="purple" value="100"/>
-                  </li>
-                  <li className="d-none d-md-table-cell">
-                    <div className="text-muted">เทคโนโลยีการเษตร</div>
-                    <Progress className="progress-xs mt-2" color="success" value="100"/>
-                  </li>
-                  <li className="d-none d-md-table-cell">
-                    <div className="text-muted">คณะวิทยาการจัดการ</div>
-                    <Progress className="progress-xs mt-2" color="primary" value="100"/>
-                  </li>
-                  <li className="d-none d-md-table-cell">
-                    <div className="text-muted">คณะมนุษยศาสตร์และสังคมศาสตร์</div>
-                    <Progress className="progress-xs mt-2" color="orange" value="100"/>
-                  </li>
-                  <li className="d-none d-md-table-cell">
-                    <div className="text-muted">บุคลากรภายนอก/ภายใน</div>
-                    <Progress className="progress-xs mt-2" color="gray-900" value="100"/>
-                  </li>
-                </ul>
-              </CardFooter>
+             
             </Card>
           </Col>
         </Row>
+        <Row >
+          <Col>
+          <Card>
+          <CardHeader>
+            อธิบายเส้นกราฟ
+          </CardHeader>
+          <CardBody>
+                <ul >
+                <li className="shift-bot chart-desc">
+                    <Progress className="progress-xl mt-2" color="red" value="100"/>
+                    <div className="text-muted">เทคโนโลยีอุตสาหกรรม</div>
+                  </li>
+                  <li className="shift-bot chart-desc">
+                    <Progress className="progress-xl mt-2" color="warning" value="100"/>
+                    <div className="text-muted">วิทยาศาสตร์</div>
+                  </li>
+             
+                  <li className="shift-bot chart-desc">
+                    <Progress className="progress-xl mt-2" color="purple" value="100"/>
+                    <div className="text-muted">ครุศาสตร์</div>
+                  </li>
+                  <li className="shift-bot chart-desc">
+                    <Progress className="progress-xl mt-2" color="success" value="100"/>
+                    <div className="text-muted">เทคโนโลยีการเษตร</div>
+                  </li>
+                  <li className="shift-bot chart-desc">
+                    <Progress className="progress-xl mt-2" color="primary" value="100"/>
+                    <div className="text-muted">คณะวิทยาการจัดการ</div>
+                  </li>
+                  <li className="shift-bot chart-desc">
+                    <Progress className="progress-xl mt-2" color="orange" value="100"/>
+                    <div className="text-muted">คณะมนุษยศาสตร์และสังคมศาสตร์</div>
+                  </li>
+                  <li className="shift-bot chart-desc">
+                    <Progress className="progress-xl mt-2" color="gray-900" value="100"/>
+                    <div className="text-muted">บุคลากรภายนอก/ภายใน</div>
+                  </li>
+                </ul>
+
+                {/* <li className="shift-bot d-none d-md-table-cell">
+                    <div className="text-muted">เทคโนโลยีการเษตร</div>
+                    <Progress className="progress-xs mt-2" color="success" value="100"/>
+                  </li>
+                  <li className="shift-bot d-none d-md-table-cell">
+                    <div className="text-muted">คณะวิทยาการจัดการ</div>
+                    <Progress className="progress-xs mt-2" color="primary" value="100"/>
+                  </li>
+                  <li className="shift-bot d-none d-md-table-cell">
+                    <div className="text-muted">คณะมนุษยศาสตร์และสังคมศาสตร์</div>
+                    <Progress className="progress-xs mt-2" color="orange" value="100"/>
+                  </li>
+                  <li className="shift-bot d-none d-md-table-cell">
+                    <div className="text-muted">บุคลากรภายนอก/ภายใน</div>
+                    <Progress className="progress-xs mt-2" color="gray-900" value="100"/>
+                  </li> */}
+              </CardBody>
+              </Card>
+          </Col>
+          </Row>
+
         <Row>
           <Col>
             <Card>

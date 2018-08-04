@@ -14,8 +14,26 @@ moment().format('LL');
 //} 
 
 
-const renderDatePicker = ({ input, placeholder, styles, id, defaultValue, meta: { touched, error } }) => {
-   
+const renderDatePicker = ({ input, placeholder, styles, id, defaultValue,startPeriodValue, meta: { touched, error } }) => {
+  
+  const defaultType =  <Datepicker 
+                            autoComplete="off" 
+                                {...input} 
+                                id={id} placeholderText={placeholder}   
+                                className="form-control"  
+                                minDate={moment().add(543, 'years')}   
+                                dateFormat='LL' 
+                                selected={input.value !=='' ? moment(input.value, 'DD MMMM YYYY')  : null}
+                        /> 
+                        const fixedType = <Datepicker 
+                        autoComplete="off" 
+                            {...input} 
+                            id={id} placeholderText={placeholder}   
+                            className="form-control"  
+                            minDate={moment(startPeriodValue, 'DD MMMM YYYY')}   
+                            dateFormat='LL' 
+                            selected={input.value !=='' ? moment(input.value, 'DD MMMM YYYY')  : null}
+                    />
     return (
                 <div>
                     <InputGroup style={{flexWrap:'unset'}}>
@@ -24,8 +42,7 @@ const renderDatePicker = ({ input, placeholder, styles, id, defaultValue, meta: 
                                 <i className="fa fa-calendar"></i>
                             </InputGroupText>
                         </InputGroupAddon>
-                            <Datepicker autoComplete="off" {...input}   id={id} placeholderText={placeholder}   className="form-control"  minDate={moment().add(543, 'years')}   
-                            dateFormat='LL' selected={input.value !=='' ? moment(input.value, 'DD MMMM YYYY')  : null} />
+                        {startPeriodValue ? fixedType : defaultType}
                     </InputGroup>
                     {touched && error && 
                     <Tooltip placement="bottom" isOpen={true} target={id} className="danger">

@@ -7,7 +7,28 @@
 // #        #     #  #######     #     #######  #  #    #     #  #   #    #   # # 
 // #     #  #     #  #     #     #     #     #  #   #   #     #  #    #   #    ## 
 //  #####   #     #  #     #     #     #     #  #    #  #######  #     #  #     # 
-                                                                               
+
+.chart-desc {
+  display: flex!important;
+  ;
+}
+.chart-desc > .progress{
+ width: 2cm;
+margin-right: .5rem;
+}
+.chart-desc > .text-muted{
+  font-size: 16px;
+}
+.shift-bot{
+  bottom: 0;
+  // height: 54px;
+  
+  // margin:0px auto;
+  padding: unset!important;
+}
+.shift-bot > .text-muted{
+ height: 100%;
+}
 .danger>.tooltip-inner{
   background-color:$danger;
 }

@@ -161,6 +161,7 @@ class Period extends Component {
    }
     
     render() {
+        
         const {users,user, periods, period, periodSave, courses, operation_rooms, attenders, attenderDelete, attenderSave} = this.props;
         //period filter
         const Filter = debounce((term, startDate, endDate, options) => {

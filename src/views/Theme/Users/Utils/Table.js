@@ -27,12 +27,12 @@ class UserTable extends Component {
                           {data && data.map(function(e, i){
                               return(
                                   <tr key={i}>
-                                      <td>{(i+1)}</td>
+                                    <td>{(i+1)}</td>
                                      <td>{e.prefix}{' '}{e.first_name}{' '}{e.last_name}</td>
                                      <td>{Affiliation(e.affiliation)}</td>
                                      <td>{e.major}</td>
                                      <td className="ar"><i onClick={()=>{buttonChangePassword(e.id)}} className="fa fa-key fa-wow"/>{' '}<i className="fa fa-pencil fa-wow " onClick={()=>{buttonEdit(e.id)}}></i>{' '}<i onClick={()=>{buttonDelete(e.id)}} className="fa-danger fa fa-times" /></td>
-                                    
+
                                   </tr>
                               )
                           })}
@@ -108,7 +108,7 @@ const Affiliation = (data) =>{
         break;                           
         case 1032:return	'โรงเรียนสาธิตมหาวิทยาลัยราชภัฏลำปาง'
         break;
-        default : return 'ไม่ระบุ';
+        default : return 'บุคคลากรภายนอก';
     }
   }
  

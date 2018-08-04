@@ -74,8 +74,31 @@ const alertify = require('alertify.js');
 const  mapStateToProps = (state)=>({
       operation_roomSave:state.operationRoomReducers.operation_roomSave
  })
+ function validate(values){
+    const errors ={};
+    if(!values.room_name){
+        errors.room_name = 'ต้องการฟิลด์นี้'
+    }
+    if(values.room_name && !/^[A-Za-zก-๙0-9]+$/g.test(values.room_name)){
+        errors.room_name = 'ไม่อนุญาติให้ป้อนอักษรพิเศษทุกประเภท'
+    }
+  
+    if(!values.room_code ){
+        errors.room_code='ต้องการฟิลด์นี้'
+    }
+    
+    if(values.room_code && values.room_code.length > 5){
+        errors.room_code='อนุญาติความยาวจำนวนไม่เกิน 5 ตัวอักษร'
+    }
+   
+    return errors;
+}
+
+
  const form = reduxForm({
-  form: 'OPRregister'
+  form: 'OPRregister',
+  validate
+  
 })
 OPRregister = connect(mapStateToProps)(OPRregister)
 
